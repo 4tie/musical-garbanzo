@@ -1,0 +1,485 @@
+You are working on the HER repository.
+
+Your task is to create a complete project knowledge base and AI onboarding index.
+
+This is not a feature implementation task.
+
+Do not change backend behavior.
+Do not change frontend behavior unless fixing broken docs links.
+Do not invent APIs.
+Do not add fake workflows.
+Do not remove safety rules.
+
+The goal is to make the project understandable for any future AI assistant, developer, or coding agent without forcing them to inspect the whole codebase from scratch.
+
+---
+
+# HER Core Identity
+
+HER is a profitable-strategy discovery and validation system.
+
+It tries to find profitable trading strategies, but it never claims profitability without evidence.
+
+Core rule:
+
+AI suggests.
+Backend validates.
+Freqtrade tests.
+HER decides.
+
+HER is not a casino-style profit promise app.
+
+HER is an evidence-driven local trading strategy lab.
+
+---
+
+# Main Documentation Goal
+
+Create a structured project knowledge layer that separates:
+
+* **Reference Docs (docs/)** → stable definitions, rules, glossary, UX, safety
+* **Project Knowledge Base (knowledge_base/)** → system index, APIs, workflows, code map, runbook
+* **Project Planning (project_plan/)** → roadmap, steps, execution direction
+
+This separation ensures that:
+
+* docs/ remains clean and stable
+* knowledge_base/ becomes the AI navigation layer
+* project_plan/ becomes the evolving execution plan
+
+---
+
+# Required Files
+
+Create or update these files:
+
+## Root Files
+
+### `README.md`
+
+Must include:
+
+* project summary
+* HER goal
+* core rule
+* tech stack
+* backend start command
+* frontend start command
+* common test commands
+* repo hygiene rules
+* high-level workflow
+* safety disclaimer
+
+### `AGENTS.md`
+
+This is the most important file for future AI assistants.
+
+Must include:
+
+* project identity
+* AI behavior rules
+* backend source-of-truth rule
+* frontend source-of-truth rule
+* safety rules
+* no fake data rule
+* no profit guarantee rule
+* no live trading rule
+* confirmation-before-run rule
+* runtime files forbidden list
+* expected workflow before editing
+* required tests before commit
+* how to report work completed
+* how to avoid scope creep
+
+---
+
+## Reference Docs (docs/)
+
+These are stable reference documents.
+
+### `docs/PROJECT_CHARTER.md`
+
+Explain:
+
+* what HER is
+* why it exists
+* what problem it solves
+* corrected product definition:
+
+“HER is a profitable-strategy discovery and validation system. It tries to find profitable strategies, but it never claims profitability without evidence.”
+
+* core workflow:
+  Strategy → Baseline → Optimization → Validation → Candidate Decision
+* what “profitable” means
+* what “candidate”, “validated”, “rejected”, and “elite” mean
+* what HER must never claim
+
+---
+
+### `docs/SAFETY_RULES.md`
+
+Include:
+
+* no live trading
+* no exchange orders
+* no approval/export unless gates pass
+* no fake evidence
+* no mock results in production UI
+* no hidden execution
+* confirmation required for any run
+* secrets redaction
+* stdout/stderr handling
+* runtime files not committed
+* Freqtrade command safety rules
+
+---
+
+### `docs/GLOSSARY.md`
+
+Define:
+
+* HER
+* strategy
+* sidecar JSON
+* readiness gate
+* baseline
+* optimization
+* trial
+* best trial
+* optimized run
+* validation
+* OOS
+* WFO
+* robustness
+* sensitivity
+* candidate
+* promising
+* validated
+* rejected
+* elite
+* positive expectancy
+* profit factor
+* drawdown
+* trade count
+* controlled failure
+* artifact
+* runtime file
+
+---
+
+### `docs/FRONTEND_UX_GUIDE.md`
+
+Document UI/UX rules.
+
+Include:
+
+* design direction
+* dark dashboard style
+* workflow-first layout
+* charts must use real data
+* no fake states
+* no fake progress
+* live polling rules
+* run confirmation rules
+* error/empty/loading states
+* status badge meanings
+* decision banner wording
+* validation disclaimer
+* next action panel rules
+
+---
+
+## Project Knowledge Base (knowledge_base/)
+
+This is the AI navigation layer.
+
+### `knowledge_base/API_INDEX.md`
+
+Create a full API index.
+
+For each backend endpoint, document:
+
+* method
+* path
+* source file
+* purpose
+* request body if any
+* important response fields
+* whether it starts execution
+* whether it requires user confirmation
+* frontend client function if available
+* frontend page/component using it
+* notes / safety behavior
+
+Group APIs by domain:
+
+* system
+* strategies
+* strategy workspace
+* runs
+* run stages
+* baseline
+* optimization
+* validation
+* metrics
+* results
+* decisions
+* artifacts
+* logs
+* retry history
+* audit logs
+* freqtrade
+
+Do not invent endpoints.
+
+Inspect FastAPI routers and frontend API clients.
+
+If an endpoint exists in backend but has no frontend client, mark:
+
+`Frontend integration: missing`
+
+If a frontend client calls an endpoint that does not exist, mark:
+
+`Potential mismatch`
+
+---
+
+### `knowledge_base/WORKFLOW_INDEX.md`
+
+Document all major workflows.
+
+Each workflow must include:
+
+* user starting point
+* frontend page/component
+* API calls used
+* backend services used
+* database/repository involved
+* artifacts created
+* status states
+* failure states
+* next action
+
+Required workflows:
+
+1. Strategy readiness workflow
+2. Baseline run workflow
+3. Optimization workflow
+4. Validation workflow
+5. OOS validation workflow
+6. WFO validation workflow
+7. Robustness workflow
+8. Result parsing workflow
+9. Decision workflow
+10. Future AI strategy discovery workflow
+11. Future repair/retry loop workflow
+12. Future candidate promotion workflow
+
+For future workflows, clearly mark:
+
+`Planned / not implemented yet`
+
+---
+
+### `knowledge_base/CODE_MAP.md`
+
+Create a code map.
+
+Include:
+
+## Backend
+
+* app entrypoint
+* routers
+* schemas
+* repositories
+* services
+* tests
+* Freqtrade integration
+* validation layer
+* optimization layer
+* baseline layer
+* readiness gate
+
+For each important file:
+
+* path
+* responsibility
+* used by
+* do not break notes
+
+## Frontend
+
+* app routes
+* API client files
+* shared components
+* workflow pages
+* chart components
+* confirmation dialogs
+* evidence cards
+* layout/navigation
+
+For each important file:
+
+* path
+* responsibility
+* API dependencies
+* safety notes
+
+---
+
+### `knowledge_base/RUNBOOK.md`
+
+Document how to run and test HER.
+
+Include:
+
+* install assumptions
+* backend command
+* frontend command
+* backend test commands
+* frontend lint/build commands
+* repo hygiene commands
+* manual smoke workflow
+* common failures and what they mean
+* how to reset local runtime files safely
+* what not to delete
+
+---
+
+## Project Planning (project_plan/)
+
+This is the execution and evolution layer.
+
+### `project_plan/ROADMAP.md`
+
+Create a future roadmap.
+
+Must include:
+
+## Current Completed Foundation
+
+* strategy workspace
+* readiness gate
+* baseline
+* optimization
+* validation evidence layer
+* validation start flow fix
+
+## Immediate Next
+
+* frontend workflow redesign
+* Strategy Journey page
+* live run workflow panel
+* optimization charts
+* validation evidence redesign
+* manual full workflow smoke test
+
+## Next Product Direction
+
+* AI Strategy Designer
+* deterministic StrategySpec
+* strategy template writer
+* strategy variant generation
+* AI Repair Agent
+* controlled retry loop
+* candidate promotion
+* discovery loop
+* export only after validation gates
+
+## Later
+
+* deeper robustness
+* Monte Carlo
+* pair universe discovery
+* portfolio-level validation
+* dry-run prep only after export safety gates
+
+---
+
+# Important Indexing Requirements
+
+The documentation must act like an index for future AI agents.
+
+Do not write vague docs.
+
+Use tables where helpful.
+
+For API index, include exact file paths.
+
+For workflow index, include exact frontend and backend files.
+
+For code map, include exact responsibilities.
+
+Add “do not break” notes where needed.
+
+Examples:
+
+* `ValidationExecutionService` must not approve/export/live trade.
+* `OptimizationRepository` must be used for `optimization_run` source resolution.
+* `optimized_run_id` is the candidate for optimization validation, not `baseline_run_id`.
+* Any run action must require user confirmation.
+* Frontend must not show fake charts.
+
+---
+
+# Acceptance Criteria
+
+The task is accepted only if:
+
+* All required files exist in their correct directories.
+* README explains the project clearly.
+* AGENTS.md gives strict instructions to future AI assistants.
+* API_INDEX.md lists real endpoints only.
+* WORKFLOW_INDEX.md explains real implemented workflows and marks planned workflows clearly.
+* CODE_MAP.md points to actual files.
+* RUNBOOK.md gives real commands.
+* SAFETY_RULES.md preserves all safety constraints.
+* ROADMAP.md reflects the corrected product direction.
+* No backend behavior changed.
+* No frontend behavior changed unless only docs links were adjusted.
+* No runtime files committed.
+* No fake claims added.
+
+---
+
+# Validation Commands
+
+Run if possible:
+
+```bash
+git status --short
+git ls-files | grep -E '(__pycache__|\.pyc|\.venv|node_modules|\.next)'
+```
+
+If only documentation changed, backend/frontend tests are optional.
+
+If any source code changed, run:
+
+```bash
+cd backend && ../.venv/bin/python -m pytest -q
+cd frontend && npm run lint && npm run build
+```
+
+---
+
+# Completion Report
+
+Create:
+
+`knowledge_base/PROJECT_KNOWLEDGE_BASE_REPORT.md`
+
+Include:
+
+* files created/updated
+* what each file contains
+* any API/frontend/backend mismatches discovered
+* whether any source code changed
+* tests or commands run
+* repo hygiene result
+* remaining gaps
+* next recommended step
+
+Commit message:
+
+`Docs: add HER project knowledge base and AI onboarding index`

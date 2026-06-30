@@ -1,0 +1,676 @@
+You are working on the HER repository.
+
+Before doing any implementation, read these project identity and indexing files first:
+
+* `README.md`
+* `AGENTS.md`
+* `docs/PROJECT_CHARTER.md`
+* `docs/SAFETY_RULES.md`
+* `docs/GLOSSARY.md`
+* `docs/FRONTEND_UX_GUIDE.md`
+* `knowledge_base/API_INDEX.md`
+* `knowledge_base/WORKFLOW_INDEX.md`
+* `knowledge_base/CODE_MAP.md`
+* `knowledge_base/RUNBOOK.md`
+* `project_plan/ROADMAP.md`
+* `knowledge_base/PROJECT_KNOWLEDGE_BASE_REPORT.md`
+
+These files define what HER is, how it works, what APIs exist, what workflows exist, what must not be broken, and how future AI assistants should work inside this project.
+
+Follow them as the source of truth.
+
+---
+
+# HER Identity
+
+HER is a profitable-strategy discovery and validation system.
+
+It tries to find profitable trading strategies, but it never claims profitability without evidence.
+
+Core rule:
+
+AI suggests.
+Backend validates.
+Freqtrade tests.
+HER decides.
+
+HER must remain honest, evidence-driven, and safe.
+
+---
+
+# Your Task
+
+Improve the frontend UI/UX and fix the frontend-to-backend connection problem.
+
+The backend and frontend both run, but the frontend is not correctly reading data from the backend.
+
+Your job is to:
+
+1. Diagnose why the frontend cannot read the backend.
+2. Fix the real integration issue.
+3. Improve the UI so the user can actually use HER smoothly.
+4. Reduce clutter, repeated sections, and confusing duplicated content.
+5. Make the workflow clearer and more beautiful.
+6. Add live workflow/status panels and real charts where real backend data exists.
+7. Preserve all safety rules.
+
+Do not create mockups.
+Do not add mock data.
+Do not add fake data.
+Do not add fake API responses.
+Do not add placeholder charts pretending to be real.
+Do not invent backend endpoints.
+Do not fake successful runs.
+Do not fake metrics.
+Do not weaken validation rules.
+
+---
+
+# First Priority: Fix Frontend ↔ Backend Connection
+
+Before redesigning visuals, fix the frontend/backend integration.
+
+Investigate:
+
+* frontend API base URL
+* environment variables
+* Vite/Next config
+* API client paths
+* backend FastAPI route prefixes
+* `/api` vs `/api/v1` mismatch
+* CORS settings
+* proxy settings
+* request/response shape mismatch
+* failing network calls in browser console
+* backend logs
+* frontend error handling
+* whether frontend expects fields that backend does not return
+* whether backend returns data but frontend silently ignores it
+
+Use `knowledge_base/API_INDEX.md` and actual backend routers as the source of truth.
+
+If a frontend client calls a missing endpoint, fix the frontend client or document the mismatch.
+
+If the backend endpoint exists but frontend uses the wrong path, fix the frontend.
+
+If CORS or backend route mounting is truly the issue, make the smallest safe backend config fix and document it.
+
+Do not rewrite backend behavior.
+
+---
+
+# Required Integration Report
+
+Create or update:
+
+`docs/FRONTEND_BACKEND_INTEGRATION_FIX_REPORT.md`
+
+Include:
+
+* root cause of frontend not reading backend
+* files changed
+* API paths fixed
+* environment/proxy/CORS changes if any
+* before/after behavior
+* how you verified the fix
+* remaining issues if any
+
+---
+
+# UI/UX Goal
+
+Make HER feel like a real strategy discovery cockpit.
+
+The user should clearly understand:
+
+* where they are
+* what strategy is selected
+* what has run
+* what is currently running
+* what failed
+* why it failed
+* what evidence exists
+* what next action is safe
+
+Do not make the UI bigger just for beauty.
+
+Make it simpler, clearer, and more useful.
+
+---
+
+# Main Workflow HER Must Support
+
+The frontend must guide this journey:
+
+Strategy Workspace
+→ Readiness Check
+→ Baseline Run
+→ Baseline Evidence
+→ Optimization Run
+→ Trial Progress
+→ Best Trial / Optimized Candidate
+→ Baseline vs Optimized Comparison
+→ Validation Run
+→ OOS / WFO / Robustness Evidence
+→ Final Evidence Summary
+→ Next Safe Action
+
+The UI must be workflow-first, not just a collection of disconnected pages.
+
+---
+
+# Required Main Page: Strategy Journey
+
+Create or improve a main guided workflow page.
+
+Suggested route:
+
+`/journey`
+
+This page should show one selected strategy and the full lifecycle.
+
+Required sections:
+
+## 1. Strategy Header
+
+Show:
+
+* strategy name
+* readiness status
+* sidecar JSON status
+* selected pairs
+* timeframe
+* risk profile
+* latest run status
+* latest decision/classification if available
+
+Actions:
+
+* Open Strategy Workspace
+* Run Baseline if allowed
+* Run Optimization if baseline candidate/promising exists
+* Run Validation if baseline or optimized candidate exists
+
+Every run action must require confirmation.
+
+---
+
+## 2. Journey Timeline
+
+Show these steps:
+
+1. Strategy selected
+2. Readiness checked
+3. Baseline completed
+4. Optimization completed
+5. Validation completed
+6. Candidate decision
+
+Each step must show:
+
+* status: not started / running / passed / failed / blocked
+* short explanation
+* timestamp if available
+* link to detail page if available
+* next safe action if available
+
+Do not fake completed states.
+
+If no backend data exists, show:
+
+`Not started`
+
+---
+
+## 3. Live Run Workflow Panel
+
+When a run is active, show a live workflow panel.
+
+It should show:
+
+* current stage
+* completed stages
+* running stage
+* failed stage
+* elapsed time if available
+* last updated time
+* controlled failure message if failed
+* stage-based progress if available
+
+Use real backend data only.
+
+If progress percentage cannot be safely derived, do not show a fake percentage.
+
+Use polling if WebSocket is not available:
+
+* poll every 2 seconds while running
+* stop polling when completed / failed / blocked
+* show retry button if polling fails
+
+---
+
+# UI Cleanup Requirements
+
+Reduce unnecessary complexity.
+
+Find pages with:
+
+* repeated banners
+* repeated disclaimers
+* too many cards saying the same thing
+* raw JSON shown too early
+* long noisy sections
+* unclear empty states
+* duplicated metric cards
+* confusing button placement
+* scattered workflow actions
+
+Improve them by:
+
+* grouping related evidence
+* using collapsible advanced sections
+* showing summary first, details second
+* moving raw JSON/artifacts into expandable sections
+* keeping safety disclaimers visible but not spammy
+* using one clear Next Action panel per page
+* keeping IDs copyable but visually secondary
+
+Do not remove important evidence.
+
+Do not remove safety language.
+
+Do not hide critical failures.
+
+---
+
+# Design Style
+
+Use a premium dark dashboard style.
+
+Visual direction:
+
+* clean trading lab interface
+* dark navy / charcoal background
+* soft cards
+* subtle borders
+* modern sidebar
+* compact metric cards
+* clear status badges
+* step timeline
+* live progress panels
+* real charts only
+* good spacing
+* readable typography
+* calm professional look
+
+Do not use casino-style visuals.
+
+Do not use hype language.
+
+Do not make the UI look like a gambling app.
+
+---
+
+# Charts and Visuals
+
+Use charts only with real backend data.
+
+No mock charts.
+No placeholder charts with invented numbers.
+No static fake demo datasets.
+
+If data is unavailable, show a clean empty state:
+
+`No real data available yet.`
+
+## Optimization Charts
+
+On optimization detail and journey page, show charts if trial data exists:
+
+1. Profit Factor by Trial
+2. Expectancy by Trial
+3. Max Drawdown by Trial
+4. Trial Status Distribution
+
+Use existing trial fields only.
+
+Show best trial clearly if backend provides it.
+
+## Baseline Evidence Visuals
+
+Show:
+
+* profit factor
+* expectancy
+* max drawdown
+* trade count
+* win rate
+* net profit
+* pair performance table
+* pair performance chart only if pair results exist
+* trade summary
+
+Explain weak baseline clearly:
+
+* negative expectancy
+* low trade count
+* high drawdown
+* insufficient evidence
+* candidate only / needs validation
+
+## Validation Evidence Visuals
+
+Show:
+
+* OOS card
+* WFO card
+* robustness card
+* final validation banner
+* warnings
+* blocking failures
+* evidence tables
+* charts only if real evidence data exists
+
+Always include:
+
+“Validation is evidence only. It is not strategy approval, export, live-trading authorization, or a guarantee of future performance.”
+
+---
+
+# Existing Pages to Improve
+
+Improve these pages without breaking behavior:
+
+* Strategy Workspace
+* Strategy Journey
+* Baseline detail
+* Optimization detail
+* Validation list
+* Validation detail
+* Runs page
+* Sidebar/navigation
+* Dashboard if present
+
+Do not remove existing functionality.
+
+Do not remove controlled failure banners.
+
+Do not remove confirmation dialogs.
+
+Do not remove copy buttons.
+
+---
+
+# Navigation
+
+Create or improve a simple sidebar:
+
+## Discover
+
+* Dashboard
+* Strategy Journey
+* Strategy Workspace
+
+## Test
+
+* Runs
+* Baseline
+* Optimization
+* Validation
+
+## Evidence
+
+* Results
+* Metrics
+* Artifacts
+* Decisions
+
+## System
+
+* Settings
+* Health
+
+Do not over-nest.
+
+---
+
+# Components
+
+Create reusable components only where useful.
+
+Suggested components:
+
+* `WorkflowStepper`
+* `LiveRunPanel`
+* `MetricTrendCard`
+* `EvidenceStatusBanner`
+* `RunActionButton`
+* `RunConfirmationDialog`
+* `TrialMetricChart`
+* `PairPerformanceChart`
+* `WFOWindowChart`
+* `DecisionSummaryCard`
+* `NextActionPanel`
+* `ControlledFailurePanel`
+* `EvidenceEmptyState`
+
+Use existing components when possible.
+
+Do not duplicate components unnecessarily.
+
+---
+
+# Run Confirmation Rules
+
+Every run-starting action must require confirmation.
+
+Confirmation dialog must show:
+
+* what will run
+* strategy name
+* pairs
+* timeframe
+* risk profile
+* source run ID if relevant
+* evidence-only disclaimer
+
+No hidden execution.
+
+No automatic backend run without user confirmation.
+
+---
+
+# Safety Rules
+
+The frontend must never include:
+
+* guaranteed profit language
+* approved for live trading
+* one-click live trading
+* exchange order controls
+* fake metrics
+* fake charts
+* fake run IDs
+* fake completed states
+* mock results
+* hidden execution
+* auto-run without confirmation
+
+HER may say:
+
+* candidate
+* promising
+* rejected
+* needs validation
+* validated by evidence
+
+HER must not say:
+
+* guaranteed profitable
+* live ready
+* approved for trading
+* will make money
+
+---
+
+# Required User Flow After Fix
+
+This must work from the UI:
+
+1. User opens Strategy Workspace.
+2. User sees real strategies from backend.
+3. User selects a ready strategy.
+4. User starts baseline with confirmation.
+5. User sees baseline progress/status.
+6. User opens baseline detail.
+7. User sees real metrics, decision, pair results, and next action.
+8. User can start optimization if allowed.
+9. User sees optimization progress and real trial charts.
+10. User opens optimization detail.
+11. User sees best trial and baseline-vs-optimized comparison.
+12. User can start validation from baseline or optimization detail.
+13. User confirms validation.
+14. User is redirected to validation detail.
+15. User sees OOS, WFO, robustness, final decision, warnings, and next safe action.
+
+If a step cannot be completed because backend support is missing, document the exact missing endpoint or missing field.
+
+Do not fake it.
+
+---
+
+# Backend Change Policy
+
+Default rule:
+
+Do not change backend behavior.
+
+Allowed backend changes only if required to fix frontend/backend connection:
+
+* CORS config
+* API prefix mismatch
+* route mounting mismatch
+* response serialization bug
+* obvious endpoint/client mismatch
+
+If backend is changed:
+
+* keep the change minimal
+* add/update tests if needed
+* document exactly why it was necessary
+* do not change trading logic
+* do not change validation thresholds
+* do not change Freqtrade execution behavior
+* do not add live/export/approval behavior
+
+---
+
+# Documentation Required
+
+Create or update:
+
+* `docs/FRONTEND_WORKFLOW_REDESIGN_PLAN.md`
+* `docs/UI_WORKFLOW_ACCEPTANCE_CHECKLIST.md`
+* `docs/FRONTEND_BACKEND_INTEGRATION_FIX_REPORT.md`
+* `docs/PART_14_GUIDED_STRATEGY_WORKFLOW_REPORT.md`
+
+The final report must include:
+
+* root cause of frontend/backend issue
+* what pages changed
+* what components were added
+* what APIs are used
+* what polling does
+* what charts were added
+* what data is real
+* what remains unavailable
+* what remains deferred
+* tests run
+* build result
+* repo hygiene result
+
+---
+
+# Testing
+
+Run backend if backend was touched:
+
+```bash
+cd backend && ../.venv/bin/python -m pytest -q
+```
+
+Run frontend:
+
+```bash
+cd frontend && npm run lint && npm run build
+```
+
+Also run repo hygiene:
+
+```bash
+git status --short
+git ls-files | grep -E '(__pycache__|\.pyc|\.venv|node_modules|\.next)'
+```
+
+Expected:
+
+* frontend lint passes
+* frontend build passes
+* backend tests pass if backend touched
+* no runtime files tracked
+* no fake/mock data committed
+* no backend behavior changed unless documented
+
+---
+
+# Manual Smoke Test
+
+Perform or document this checklist:
+
+1. Start backend.
+2. Start frontend.
+3. Open frontend in browser.
+4. Confirm frontend can read backend health/system data.
+5. Confirm Strategy Workspace loads real backend data.
+6. Confirm Runs page loads real backend data.
+7. Confirm Baseline detail loads real backend data.
+8. Confirm Optimization detail loads real backend data.
+9. Confirm Validation list/detail loads real backend data.
+10. Confirm Run Validation button still works from baseline detail.
+11. Confirm Run Validation button still works from optimization detail.
+12. Confirm no page uses fake/mock data.
+13. Confirm empty states appear only when backend has no real data.
+
+If manual browser testing is not possible, document that clearly and provide exact commands/results used instead.
+
+---
+
+# Acceptance Criteria
+
+This task is accepted only if:
+
+* frontend can actually read backend data
+* frontend API base path/config issue is fixed
+* no mock data added
+* no fake charts added
+* no fake run states added
+* UI is cleaner and less repetitive
+* user workflow is easier to follow
+* Strategy Journey page exists or dashboard has equivalent journey flow
+* live run panel exists for active runs
+* optimization charts use real trial data only
+* validation evidence is visually clearer
+* every run action requires confirmation
+* safety disclaimers remain visible
+* backend behavior is preserved
+* lint passes
+* build passes
+* repo hygiene is clean
+
+---
+
+# Commit Message
+
+Use this commit message:
+
+`Frontend: fix backend integration and redesign workflow UI`
