@@ -1,15 +1,24 @@
 import SectionCard from './SectionCard';
+import StatusBadge from './StatusBadge';
 import type { ValidationEvidence } from '@/lib/api/types';
 
 interface OOSValidationCardProps {
   evidence?: ValidationEvidence;
 }
 
+function fmt(val: unknown, percent = false): string {
+  if (val === undefined || val === null) return 'N/A';
+  const n = Number(val);
+  if (!isFinite(n)) return String(val);
+  if (percent) return `${n.toFixed(1)}%`;
+  return n.toFixed(3);
+}
+
 export default function OOSValidationCard({ evidence }: OOSValidationCardProps) {
   if (!evidence) {
     return (
       <SectionCard title="Out-of-Sample Validation">
-        <div className="text-sm text-gray-500">No OOS evidence available</div>
+        <p className="text-sm text-[var(--app-text-subtle)]">No OOS evidence available from the backend for this run.</p>
       </SectionCard>
     );
   }
@@ -18,54 +27,42 @@ export default function OOSValidationCard({ evidence }: OOSValidationCardProps) 
   const isPassed = evidence.status === 'oos_passed';
 
   return (
-    <SectionCard title="Out-of-Sample Validation">
+    <SectionCard
+      title="Out-of-Sample Validation"
+      description="OOS tests strategy performance on unseen historical data withheld from training."
+      actions={<StatusBadge status={isPassed ? 'passed' : 'failed'} tone={isPassed ? 'success' : 'danger'} label={isPassed ? 'Passed' : 'Failed'} />}
+    >
       <div className="space-y-4">
-        <div className={`inline-flex items-center rounded-full px-3 py-1 text-sm font-medium ${
-          isPassed ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
-        }`}>
-          {isPassed ? 'Passed' : 'Failed'}
-        </div>
-
-        <div className="grid grid-cols-2 gap-4">
-          <div>
-            <div className="text-sm text-gray-500">Profit Factor</div>
-            <div className="text-lg font-semibold">
-              {metrics.profit_factor !== undefined ? String(metrics.profit_factor) : 'N/A'}
-            </div>
-          </div>
-          <div>
-            <div className="text-sm text-gray-500">Trades</div>
-            <div className="text-lg font-semibold">
-              {metrics.trade_count !== undefined ? String(metrics.trade_count) : 'N/A'}
-            </div>
-          </div>
-          <div>
-            <div className="text-sm text-gray-500">Expectancy</div>
-            <div className="text-lg font-semibold">
-              {metrics.expectancy !== undefined ? String(metrics.expectancy) : 'N/A'}
-            </div>
-          </div>
-          <div>
-            <div className="text-sm text-gray-500">Drawdown</div>
-            <div className="text-lg font-semibold">
-              {metrics.max_drawdown_pct !== undefined ? `${String(metrics.max_drawdown_pct)}%` : 'N/A'}
-            </div>
-          </div>
-        </div>
-
         {evidence.timerange && (
           <div>
-            <div className="text-sm text-gray-500">Timerange</div>
-            <div className="text-sm font-medium">{evidence.timerange}</div>
+            <p className="text-xs text-[var(--app-text-subtle)]">OOS timerange</p>
+            <p className="mt-0.5 font-mono text-sm text-[var(--app-text)]">{evidence.timerange}</p>
           </div>
         )}
 
+        <div className="grid grid-cols-2 gap-3">
+          {[
+            { label: 'Profit factor', key: 'profit_factor' },
+            { label: 'Expectancy', key: 'expectancy' },
+            { label: 'Max drawdown', key: 'max_drawdown_pct', percent: true },
+            { label: 'Trades', key: 'trade_count' },
+          ].map(({ label, key, percent }) => (
+            <div key={key} className="rounded-[var(--app-radius)] border border-[var(--app-border)] bg-[var(--app-surface-muted)] p-3">
+              <p className="text-xs text-[var(--app-text-subtle)]">{label}</p>
+              <p className="mt-1 text-lg font-semibold text-[var(--app-text)]">{fmt(metrics[key], percent)}</p>
+            </div>
+          ))}
+        </div>
+
         {evidence.issues && evidence.issues.length > 0 && (
           <div>
-            <div className="text-sm font-medium text-gray-700">Issues</div>
-            <ul className="mt-1 list-disc list-inside space-y-1 text-sm text-gray-600">
+            <p className="text-xs font-semibold text-[var(--app-danger)] mb-1">Issues</p>
+            <ul className="space-y-1">
               {evidence.issues.map((issue, idx) => (
-                <li key={idx}>{issue.message}</li>
+                <li key={idx} className="text-xs text-[var(--app-text-muted)] flex gap-2">
+                  <span className="text-[var(--app-danger)] shrink-0">•</span>
+                  {issue.message}
+                </li>
               ))}
             </ul>
           </div>
@@ -73,10 +70,13 @@ export default function OOSValidationCard({ evidence }: OOSValidationCardProps) 
 
         {evidence.warnings && evidence.warnings.length > 0 && (
           <div>
-            <div className="text-sm font-medium text-gray-700">Warnings</div>
-            <ul className="mt-1 list-disc list-inside space-y-1 text-sm text-gray-600">
+            <p className="text-xs font-semibold text-[var(--app-warning)] mb-1">Warnings</p>
+            <ul className="space-y-1">
               {evidence.warnings.map((warning, idx) => (
-                <li key={idx}>{warning}</li>
+                <li key={idx} className="text-xs text-[var(--app-text-muted)] flex gap-2">
+                  <span className="text-[var(--app-warning)] shrink-0">•</span>
+                  {warning}
+                </li>
               ))}
             </ul>
           </div>

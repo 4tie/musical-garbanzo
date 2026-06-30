@@ -12,11 +12,11 @@
   --app-text: #f3f7fb;
   --app-text-muted: #9aa8b8;
   --app-text-subtle: #687789;
-  --app-accent: #10b981;
-  --app-accent-strong: #059669;
+  --app-accent: #06b6d4;
+  --app-accent-strong: #0891b2;
   --app-accent-text: #ffffff;
-  --app-accent-soft: rgb(16 185 129 / 0.14);
-  --app-accent-border: rgb(16 185 129 / 0.32);
+  --app-accent-soft: rgb(6 182 212 / 0.14);
+  --app-accent-border: rgb(6 182 212 / 0.32);
   --app-success: #22c55e;
   --app-info: #38bdf8;
   --app-warning: #f59e0b;
