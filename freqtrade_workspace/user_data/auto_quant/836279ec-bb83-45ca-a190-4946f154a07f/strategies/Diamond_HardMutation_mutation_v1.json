@@ -1,0 +1,37 @@
+{
+  "strategy_name": "Diamond_HardMutation",
+  "params": {
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.011,
+      "trailing_stop_positive_offset": 0.054,
+      "trailing_only_offset_is_reached": false
+    },
+    "max_open_trades": {
+      "max_open_trades": 3
+    },
+    "sell": {
+      "sell_fast_key": "high",
+      "sell_horizontal_push": 10,
+      "sell_slow_key": "low",
+      "sell_vertical_push": 1.184
+    },
+    "buy": {
+      "buy_fast_key": "high",
+      "buy_horizontal_push": 1,
+      "buy_slow_key": "high",
+      "buy_vertical_push": 0.841
+    },
+    "roi": {
+      "0": 0.267,
+      "33": 0.072,
+      "66": 0.033,
+      "170": 0
+    },
+    "stoploss": {
+      "stoploss": -0.283
+    }
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2026-06-26 00:20:48.968058+00:00"
+}

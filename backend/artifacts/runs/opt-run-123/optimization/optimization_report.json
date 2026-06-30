@@ -1,0 +1,89 @@
+{
+  "optimization_run_id": "opt-run-123",
+  "request": {
+    "strategy_name": "MyStrategy",
+    "pairs": [
+      "BTC/USDT"
+    ],
+    "timeframe": "1h",
+    "exchange": "binance",
+    "days": 30,
+    "timerange": null,
+    "risk_profile": "balanced",
+    "baseline_run_id": null,
+    "run_baseline_first": true,
+    "download_missing_data": false,
+    "user_confirmed": true,
+    "epochs": 50,
+    "spaces": [
+      "buy",
+      "sell"
+    ],
+    "max_open_trades": 3,
+    "stake_currency": "USDT",
+    "stake_amount": "unlimited",
+    "apply_decision_to_run": true,
+    "notes": null
+  },
+  "baseline_run_id": "baseline-456",
+  "best_trial_id": "trial-123",
+  "best_trial": {
+    "id": "trial-123",
+    "optimization_run_id": "opt-run-123",
+    "trial_number": 42,
+    "status": "best",
+    "is_best": true,
+    "is_selected_for_validation": true,
+    "buy_params": {
+      "buy_rsi": 30
+    },
+    "sell_params": {
+      "sell_rsi": 70
+    },
+    "roi_params": {},
+    "stoploss_params": {},
+    "trailing_params": {},
+    "params": {},
+    "metrics": {
+      "profit_total": 0.15
+    },
+    "created_at": "2026-06-30T02:32:48.080719Z"
+  },
+  "optimized_run_id": "optimized-789",
+  "optimized_classification": "candidate",
+  "optimized_metrics": {
+    "profit_factor": 1.5,
+    "expectancy": 0.02
+  },
+  "comparison": {
+    "optimization_run_id": "opt-run-123",
+    "baseline_run_id": "baseline-456",
+    "optimized_run_id": "optimized-789",
+    "best_trial_id": "trial-123",
+    "baseline_metrics": {},
+    "optimized_metrics": {
+      "profit_factor": 1.5,
+      "expectancy": 0.02
+    },
+    "delta_profit_factor": 1.5,
+    "delta_expectancy": 0.02,
+    "delta_drawdown": 0,
+    "delta_trade_count": 0,
+    "baseline_classification": null,
+    "optimized_classification": "candidate",
+    "result_status": "improved",
+    "improvement_summary": "Improved: Profit factor +1.50, Expectancy +0.02",
+    "warnings": [],
+    "overfit_suspected": false,
+    "created_at": "2026-06-30T02:32:48.085316Z"
+  },
+  "artifact_paths": [],
+  "warnings": [],
+  "errors": [],
+  "frontend_display_hints": {
+    "show_comparison": true,
+    "show_trial_history": true,
+    "show_optimized_backtest": true
+  },
+  "created_at": "2026-06-30T02:32:48.085447Z"
+}

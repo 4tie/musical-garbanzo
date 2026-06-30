@@ -1,0 +1,103 @@
+# Environment and Secrets
+.env
+.env.local
+.env.*.local
+*.key
+*.pem
+*.secret
+
+# Database
+data/her.db
+data/*.db
+data/*.sqlite
+data/*.sqlite3
+.pytest_runtime/
+
+# Freqtrade Workspace
+freqtrade_workspace/config/runs/
+freqtrade_workspace/user_data/data/
+freqtrade_workspace/user_data/backtest_results/
+freqtrade_workspace/user_data/hyperopt_results/
+freqtrade_workspace/user_data/plot/
+freqtrade_workspace/user_data/logs/
+freqtrade_workspace/user_data/.cache/
+
+# Artifacts and Exports
+artifacts/runs/
+artifacts/*.json
+artifacts/*.csv
+artifacts/*.html
+exports/
+exports/*
+
+# Backups
+backups/
+backups/*
+
+# Logs
+logs/
+logs/*.log
+*.log
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+ENV/
+env/
+build/,
+develop-eggs/,
+dist/,
+downloads/,
+eggs/,
+.eggs/,
+lib/,
+lib64/,
+parts/,
+sdist/,
+var/,
+wheels/,
+*.egg-info/,
+.installed.cfg,
+*.egg
+
+# Node / Frontend
+node_modules/
+.next/
+out/
+.next/cache/
+*.tsbuildinfo
+.DS_Store
+*.pem
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.qodo/
+
+# OS
+.DS_Store
+Thumbs.db
+
+
+
+# Python cache files
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Python local environment/cache
+.venv/
+backend/.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/

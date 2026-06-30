@@ -1,0 +1,136 @@
+{
+  "schema_version": "run_config_snapshot_v1",
+  "policy_versions": {
+    "timeframes": "timeframes_v1",
+    "risk_profiles": "risk_profiles_v1",
+    "pair_universe": "pair_universe_v1",
+    "score_weights": "robustness_score_v1",
+    "readiness_labels": "readiness_labels_v2",
+    "thresholds": "intraday:legacy,position:legacy,scalping:legacy,swing:legacy"
+  },
+  "strategy": "Diamond",
+  "strategy_source": "existing",
+  "uploaded_strategy_id": null,
+  "generated_by": null,
+  "trading_style": "swing",
+  "risk_profile": "conservative",
+  "analysis_depth": "deep",
+  "timeframe": "5m",
+  "configured_timeframes": [
+    "1h",
+    "4h",
+    "1d"
+  ],
+  "unsupported_timeframes": [],
+  "selected_pairs": [
+    "BTC/USDT",
+    "ETH/USDT",
+    "BNB/USDT",
+    "SOL/USDT",
+    "XRP/USDT",
+    "ADA/USDT",
+    "DOGE/USDT",
+    "AVAX/USDT",
+    "DOT/USDT",
+    "MATIC/USDT",
+    "LINK/USDT",
+    "UNI/USDT",
+    "ATOM/USDT",
+    "LTC/USDT",
+    "ETC/USDT",
+    "FIL/USDT",
+    "NEAR/USDT",
+    "ALGO/USDT",
+    "VET/USDT",
+    "ICP/USDT",
+    "OP/USDT",
+    "ARB/USDT",
+    "PEPE/USDT",
+    "SHIB/USDT",
+    "RNDR/USDT",
+    "INJ/USDT",
+    "APT/USDT",
+    "QNT/USDT",
+    "AAVE/USDT",
+    "MKR/USDT",
+    "CRV/USDT",
+    "COMP/USDT",
+    "YFI/USDT",
+    "SNX/USDT",
+    "KAVA/USDT",
+    "ROSE/USDT",
+    "FTM/USDT",
+    "GLM/USDT",
+    "GRT/USDT",
+    "LDO/USDT",
+    "FXS/USDT",
+    "PENDLE/USDT",
+    "GMX/USDT",
+    "GALA/USDT",
+    "SAND/USDT",
+    "MANA/USDT",
+    "AXS/USDT",
+    "ENJ/USDT",
+    "IMX/USDT",
+    "SUI/USDT"
+  ],
+  "date_ranges": {
+    "in_sample": "20220625-20250625",
+    "out_of_sample": "20250625-20260625"
+  },
+  "optimization": {
+    "hyperopt_loss": "SortinoHyperOptLoss",
+    "hyperopt_spaces": [
+      "buy",
+      "sell",
+      "roi",
+      "stoploss",
+      "trailing"
+    ],
+    "hyperopt_epochs": 200,
+    "wfo_enabled": true,
+    "wfo_is_months": 6,
+    "wfo_oos_months": 2,
+    "wfo_recency_weight": 1.5,
+    "planned_wfo_windows": [
+      {
+        "train": "20220625-20230625",
+        "test": "20230625-20231225"
+      },
+      {
+        "train": "20221225-20231225",
+        "test": "20231225-20240625"
+      },
+      {
+        "train": "20230625-20240625",
+        "test": "20240625-20241225"
+      },
+      {
+        "train": "20231225-20241225",
+        "test": "20241225-20250625"
+      },
+      {
+        "train": "20240625-20250625",
+        "test": "20250625-20251225"
+      },
+      {
+        "train": "20241225-20251225",
+        "test": "20251225-20260625"
+      }
+    ]
+  },
+  "thresholds": {
+    "min_profit_factor": 1.2,
+    "max_drawdown": 0.4,
+    "min_trades": 100,
+    "min_expectancy": 0.0008,
+    "min_win_rate": 0.45,
+    "min_pair_pass_rate": 0.6,
+    "min_oos_retention": 0.5,
+    "min_sharpe": 0.5,
+    "min_oos_profit": 0.0,
+    "monte_carlo_threshold": 0.35
+  },
+  "exchange": "binance",
+  "advanced_overrides": {}
+}

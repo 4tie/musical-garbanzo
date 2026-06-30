@@ -1,0 +1,12 @@
+{
+  "original_strategy": "AIStrategy",
+  "original_strategy_hash": "6d50183bbaf1aaac10228a283ef36479ea696d90ae8bc25f5a787696820ba878",
+  "variants": [
+    {
+      "role": "working",
+      "strategy_name": "AIStrategy",
+      "path": "/home/runner/workspace/user_data/auto_quant/6c67d23a-039c-486f-b93b-8995c2af0887/strategies/AIStrategy.py",
+      "source": "/home/runner/workspace/user_data/strategies/AIStrategy.py"
+    }
+  ]
+}

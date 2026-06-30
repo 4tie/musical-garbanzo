@@ -1,0 +1,53 @@
+{
+  "blocked": false,
+  "command_args": [
+    "/home/mohs/Desktop/her/.venv/bin/freqtrade",
+    "hyperopt",
+    "--config",
+    "/home/mohs/Desktop/her/freqtrade_workspace/config/runs/ed788124-9912-4328-8991-4d3ef828fbfd.backtest.json",
+    "--strategy",
+    "HERHyperoptSmokeStrategy",
+    "--spaces",
+    "buy",
+    "sell",
+    "--epochs",
+    "20",
+    "--hyperopt-loss",
+    "SharpeHyperOptLossDaily",
+    "--disable-param-export"
+  ],
+  "config_path": "/home/mohs/Desktop/her/freqtrade_workspace/config/runs/ed788124-9912-4328-8991-4d3ef828fbfd.backtest.json",
+  "duration_seconds": 72.431299,
+  "epochs": 20,
+  "error": null,
+  "executable": "/home/mohs/Desktop/her/.venv/bin/freqtrade",
+  "exit_code": 0,
+  "full_args": [
+    "/home/mohs/Desktop/her/.venv/bin/freqtrade",
+    "hyperopt",
+    "--config",
+    "/home/mohs/Desktop/her/freqtrade_workspace/config/runs/ed788124-9912-4328-8991-4d3ef828fbfd.backtest.json",
+    "--strategy",
+    "HERHyperoptSmokeStrategy",
+    "--spaces",
+    "buy",
+    "sell",
+    "--epochs",
+    "20",
+    "--hyperopt-loss",
+    "SharpeHyperOptLossDaily",
+    "--disable-param-export"
+  ],
+  "hyperopt_loss": "SharpeHyperOptLossDaily",
+  "run_id": "ed788124-9912-4328-8991-4d3ef828fbfd",
+  "spaces": [
+    "buy",
+    "sell"
+  ],
+  "stderr_path": "/home/mohs/Desktop/her/backend/artifacts/runs/ed788124-9912-4328-8991-4d3ef828fbfd/hyperopt/stderr.log",
+  "stdout_path": "/home/mohs/Desktop/her/backend/artifacts/runs/ed788124-9912-4328-8991-4d3ef828fbfd/hyperopt/stdout.log",
+  "strategy": "HERHyperoptSmokeStrategy",
+  "success": true,
+  "timed_out": false,
+  "working_directory": null
+}

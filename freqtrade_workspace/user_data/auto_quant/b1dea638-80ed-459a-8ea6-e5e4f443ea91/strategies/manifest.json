@@ -1,0 +1,12 @@
+{
+  "original_strategy": "Diamond",
+  "original_strategy_hash": "23758b310b74130636019c06ff1e529b7f3b98f70d6b52c20d2c4766a38f2762",
+  "variants": [
+    {
+      "role": "working",
+      "strategy_name": "Diamond",
+      "path": "/home/mohs/Desktop/jj/user_data/auto_quant/b1dea638-80ed-459a-8ea6-e5e4f443ea91/strategies/Diamond.py",
+      "source": "/home/mohs/Desktop/jj/user_data/strategies/Diamond.py"
+    }
+  ]
+}

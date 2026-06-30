@@ -1,0 +1,1411 @@
+{
+  "run_id": "836279ec-bb83-45ca-a190-4946f154a07f",
+  "strategy": "Diamond",
+  "original_strategy": "Diamond",
+  "original_strategy_hash": "23758b310b74130636019c06ff1e529b7f3b98f70d6b52c20d2c4766a38f2762",
+  "timeframe": "5m",
+  "in_sample_range": "20240625-20251225",
+  "out_sample_range": "20251225-20260625",
+  "exchange": "binance",
+  "config_file": "/home/mohs/Desktop/jj/user_data/config.json",
+  "freqtrade_path": "freqtrade",
+  "user_data_dir": "/home/mohs/Desktop/jj/user_data",
+  "status": "failed",
+  "current_stage": 3,
+  "stages": [
+    {
+      "index": 1,
+      "name": "Pre-Flight Filtering",
+      "status": "passed",
+      "message": "Pre-flight filtering complete \u2014 3 pairs approved.",
+      "data": {
+        "profit_total": -0.3497031466,
+        "profit_total_abs": -34.97031466,
+        "profit_mean_pct": -0.10549003443011927,
+        "max_drawdown_account": 0.3901941386960564,
+        "total_trades": 893,
+        "wins": 618,
+        "losses": 274,
+        "draws": 1,
+        "win_rate": 0.0,
+        "profit_factor": 0.7205969355670739,
+        "sharpe_ratio": 0.0,
+        "calmar_ratio": 0.0,
+        "sortino_ratio": 0.0,
+        "stake_currency": "USDT",
+        "per_pair": [
+          {
+            "key": "ETC/USDT",
+            "profit_total": 0.024161781999999993,
+            "profit_mean_pct": 0.05327202176295508,
+            "trades": 124,
+            "wins": 76,
+            "losses": 47,
+            "profit_factor": 1.4986747293010967
+          },
+          {
+            "key": "LTC/USDT",
+            "profit_total": 0.0151602098,
+            "profit_mean_pct": 0.13896524280385866,
+            "trades": 37,
+            "wins": 25,
+            "losses": 12,
+            "profit_factor": 185.1829582095137
+          },
+          {
+            "key": "BTC/USDT",
+            "profit_total": 0.0,
+            "profit_mean_pct": 0.0,
+            "trades": 0,
+            "wins": 0,
+            "losses": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "SOL/USDT",
+            "profit_total": 0.0,
+            "profit_mean_pct": 0.0,
+            "trades": 0,
+            "wins": 0,
+            "losses": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "XRP/USDT",
+            "profit_total": 0.0,
+            "profit_mean_pct": 0.0,
+            "trades": 0,
+            "wins": 0,
+            "losses": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "ADA/USDT",
+            "profit_total": 0.0,
+            "profit_mean_pct": 0.0,
+            "trades": 0,
+            "wins": 0,
+            "losses": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "DOGE/USDT",
+            "profit_total": 0.0,
+            "profit_mean_pct": 0.0,
+            "trades": 0,
+            "wins": 0,
+            "losses": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "AVAX/USDT",
+            "profit_total": 0.0,
+            "profit_mean_pct": 0.0,
+            "trades": 0,
+            "wins": 0,
+            "losses": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "DOT/USDT",
+            "profit_total": 0.0,
+            "profit_mean_pct": 0.0,
+            "trades": 0,
+            "wins": 0,
+            "losses": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "LINK/USDT",
+            "profit_total": 0.0,
+            "profit_mean_pct": 0.0,
+            "trades": 0,
+            "wins": 0,
+            "losses": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "UNI/USDT",
+            "profit_total": 0.0,
+            "profit_mean_pct": 0.0,
+            "trades": 0,
+            "wins": 0,
+            "losses": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "ATOM/USDT",
+            "profit_total": 0.0,
+            "profit_mean_pct": 0.0,
+            "trades": 0,
+            "wins": 0,
+            "losses": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "FIL/USDT",
+            "profit_total": 0.0,
+            "profit_mean_pct": 0.0,
+            "trades": 0,
+            "wins": 0,
+            "losses": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "NEAR/USDT",
+            "profit_total": 0.0,
+            "profit_mean_pct": 0.0,
+            "trades": 0,
+            "wins": 0,
+            "losses": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "ALGO/USDT",
+            "profit_total": 0.0,
+            "profit_mean_pct": 0.0,
+            "trades": 0,
+            "wins": 0,
+            "losses": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "VET/USDT",
+            "profit_total": 0.0,
+            "profit_mean_pct": 0.0,
+            "trades": 0,
+            "wins": 0,
+            "losses": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "ICP/USDT",
+            "profit_total": 0.0,
+            "profit_mean_pct": 0.0,
+            "trades": 0,
+            "wins": 0,
+            "losses": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "OP/USDT",
+            "profit_total": 0.0,
+            "profit_mean_pct": 0.0,
+            "trades": 0,
+            "wins": 0,
+            "losses": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "BNB/USDT",
+            "profit_total": -0.09477256640000001,
+            "profit_mean_pct": -0.058350109183350006,
+            "trades": 331,
+            "wins": 245,
+            "losses": 86,
+            "profit_factor": 0.7771386079829878
+          },
+          {
+            "key": "ETH/USDT",
+            "profit_total": -0.294252572,
+            "profit_mean_pct": -0.21605027254054077,
+            "trades": 401,
+            "wins": 272,
+            "losses": 129,
+            "profit_factor": 0.6216960064767896
+          }
+        ],
+        "passing_pairs": [
+          "LTC/USDT",
+          "ETC/USDT",
+          "BNB/USDT"
+        ],
+        "filtered_pairs": [
+          {
+            "key": "ETC/USDT",
+            "reason": "insufficient_trades",
+            "total_trades": 124,
+            "profit_factor": 1.4986747293010967
+          },
+          {
+            "key": "LTC/USDT",
+            "reason": "insufficient_trades",
+            "total_trades": 37,
+            "profit_factor": 185.1829582095137
+          },
+          {
+            "key": "BTC/USDT",
+            "reason": "insufficient_trades",
+            "total_trades": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "SOL/USDT",
+            "reason": "insufficient_trades",
+            "total_trades": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "XRP/USDT",
+            "reason": "insufficient_trades",
+            "total_trades": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "ADA/USDT",
+            "reason": "insufficient_trades",
+            "total_trades": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "DOGE/USDT",
+            "reason": "insufficient_trades",
+            "total_trades": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "AVAX/USDT",
+            "reason": "insufficient_trades",
+            "total_trades": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "DOT/USDT",
+            "reason": "insufficient_trades",
+            "total_trades": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "LINK/USDT",
+            "reason": "insufficient_trades",
+            "total_trades": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "UNI/USDT",
+            "reason": "insufficient_trades",
+            "total_trades": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "ATOM/USDT",
+            "reason": "insufficient_trades",
+            "total_trades": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "FIL/USDT",
+            "reason": "insufficient_trades",
+            "total_trades": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "NEAR/USDT",
+            "reason": "insufficient_trades",
+            "total_trades": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "ALGO/USDT",
+            "reason": "insufficient_trades",
+            "total_trades": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "VET/USDT",
+            "reason": "insufficient_trades",
+            "total_trades": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "ICP/USDT",
+            "reason": "insufficient_trades",
+            "total_trades": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "OP/USDT",
+            "reason": "insufficient_trades",
+            "total_trades": 0,
+            "profit_factor": 0.0
+          },
+          {
+            "key": "BNB/USDT",
+            "reason": "insufficient_trades",
+            "total_trades": 331,
+            "profit_factor": 0.7771386079829878
+          },
+          {
+            "key": "ETH/USDT",
+            "reason": "insufficient_trades",
+            "total_trades": 401,
+            "profit_factor": 0.6216960064767896
+          }
+        ],
+        "baseline_attempts": 1,
+        "discovery_gates": {
+          "min_profit_factor": 1.1500000000000001,
+          "max_drawdown": 0.4,
+          "min_trades": 500,
+          "min_expectancy": 0.0001,
+          "min_win_rate": 0.4
+        },
+        "validation_notes": [
+          "Discovery found 0 liquid pairs, below the target of 25. Validation will continue with available pairs.",
+          "validation: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+          "Discovery found 3 candidate pair(s), below the 3 pair target; validation will continue with notes.",
+          "wfo: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+          "Walk-Forward Optimization skipped: only 0 valid window(s) found, minimum 3 required. Pipeline will continue with standard hyperopt results.",
+          "hyperopt: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+          "wfo: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+          "Walk-Forward Optimization skipped: only 0 valid window(s) found, minimum 3 required. Pipeline will continue with standard hyperopt results.",
+          "hyperopt: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+          "wfo: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+          "Walk-Forward Optimization skipped: only 0 valid window(s) found, minimum 3 required. Pipeline will continue with standard hyperopt results.",
+          "hyperopt: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+          "wfo: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+          "Walk-Forward Optimization skipped: only 0 valid window(s) found, minimum 3 required. Pipeline will continue with standard hyperopt results.",
+          "hyperopt: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution."
+        ],
+        "schema_version": "stage_payload_v1",
+        "status_kind": "passed",
+        "input_summary": {
+          "strategy": "Diamond",
+          "strategy_source": "existing",
+          "timeframe": "1m",
+          "in_sample_range": "20240625-20251225",
+          "pair_universe_count": 5,
+          "trading_style": "scalping",
+          "risk_profile": "conservative"
+        },
+        "output_summary": {
+          "pairs_tested": 20,
+          "pairs_passed": 3,
+          "pairs_filtered": 20,
+          "baseline_attempts": 1,
+          "selected_pairs": [
+            "LTC/USDT",
+            "ETC/USDT",
+            "BNB/USDT"
+          ],
+          "validation_notes": [
+            "Discovery found 0 liquid pairs, below the target of 25. Validation will continue with available pairs.",
+            "validation: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+            "Discovery found 3 candidate pair(s), below the 3 pair target; validation will continue with notes.",
+            "wfo: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+            "Walk-Forward Optimization skipped: only 0 valid window(s) found, minimum 3 required. Pipeline will continue with standard hyperopt results.",
+            "hyperopt: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+            "wfo: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+            "Walk-Forward Optimization skipped: only 0 valid window(s) found, minimum 3 required. Pipeline will continue with standard hyperopt results.",
+            "hyperopt: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+            "wfo: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+            "Walk-Forward Optimization skipped: only 0 valid window(s) found, minimum 3 required. Pipeline will continue with standard hyperopt results.",
+            "hyperopt: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+            "wfo: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+            "Walk-Forward Optimization skipped: only 0 valid window(s) found, minimum 3 required. Pipeline will continue with standard hyperopt results.",
+            "hyperopt: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution."
+          ]
+        },
+        "metrics": {
+          "profit_total": -0.3497031466,
+          "profit_total_abs": -34.97031466,
+          "profit_mean_pct": -0.10549003443011927,
+          "max_drawdown_account": 0.3901941386960564,
+          "total_trades": 893,
+          "wins": 618,
+          "losses": 274,
+          "draws": 1,
+          "win_rate": 0.0,
+          "profit_factor": 0.7205969355670739,
+          "sharpe_ratio": 0.0,
+          "calmar_ratio": 0.0,
+          "sortino_ratio": 0.0,
+          "baseline_attempts": 1
+        },
+        "warnings": [
+          "Discovery found 0 liquid pairs, below the target of 25. Validation will continue with available pairs.",
+          "validation: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+          "Discovery found 3 candidate pair(s), below the 3 pair target; validation will continue with notes.",
+          "20 pair(s) were filtered out before validation."
+        ],
+        "errors": [],
+        "retry_attempts": [
+          {
+            "attempt": 1,
+            "stage": 1,
+            "type": "baseline_auto_fix",
+            "status": "latest"
+          }
+        ],
+        "suggestions": [],
+        "auto_fix": {
+          "hooks": [
+            {
+              "name": "baseline_hard_mutation",
+              "enabled": true,
+              "attempts": 0,
+              "description": "Force available Boolean indicator switches and rerun pair filtering."
+            }
+          ],
+          "last_action": null
+        },
+        "stage_progress": {
+          "percent": 100,
+          "global_percent": 0,
+          "is_current": false,
+          "current_stage": 2
+        }
+      },
+      "started_at": "2026-06-25T23:13:45.732103+00:00",
+      "duration_s": 1149.1
+    },
+    {
+      "index": 2,
+      "name": "Portfolio Baseline Backtest",
+      "status": "pending",
+      "message": "",
+      "data": {},
+      "started_at": "2026-06-25T23:24:49.361203+00:00",
+      "duration_s": null
+    },
+    {
+      "index": 3,
+      "name": "WFA Hyperopt",
+      "status": "failed",
+      "message": "\u274c Strategy failed robustness check after 3 self-healing attempts (Negative Baseline detected). See retry history and suggestions below.",
+      "data": {
+        "thresholds": {
+          "min_oos_profit": 0.05,
+          "max_drawdown_threshold": 0.2
+        },
+        "attempts": [
+          {
+            "attempt": 0,
+            "label": "Initial attempt",
+            "loss": "SortinoHyperOptLoss",
+            "spaces": [
+              "buy",
+              "sell",
+              "roi",
+              "stoploss",
+              "trailing"
+            ],
+            "epochs": 200,
+            "profit": -0.6827100726,
+            "drawdown": null,
+            "trades": null,
+            "reason": "FAIL_NEGATIVE_BASELINE",
+            "passed": false
+          },
+          {
+            "attempt": 1,
+            "label": "Retry 1",
+            "loss": "SortinoHyperOptLoss",
+            "spaces": [
+              "buy",
+              "stoploss",
+              "roi"
+            ],
+            "epochs": 400,
+            "profit": -0.12556126199999995,
+            "drawdown": null,
+            "trades": null,
+            "reason": "FAIL_NEGATIVE_BASELINE",
+            "passed": false
+          },
+          {
+            "attempt": 2,
+            "label": "Retry 2",
+            "loss": "SortinoHyperOptLoss",
+            "spaces": [
+              "buy",
+              "stoploss",
+              "roi"
+            ],
+            "epochs": 800,
+            "profit": -0.12556126199999995,
+            "drawdown": null,
+            "trades": null,
+            "reason": "FAIL_NEGATIVE_BASELINE",
+            "passed": false
+          },
+          {
+            "attempt": 3,
+            "label": "Retry 3",
+            "loss": "SortinoHyperOptLoss",
+            "spaces": [
+              "buy",
+              "stoploss",
+              "roi"
+            ],
+            "epochs": 1600,
+            "profit": -0.12556126199999995,
+            "drawdown": null,
+            "trades": null,
+            "reason": "FAIL_NEGATIVE_BASELINE",
+            "passed": false
+          }
+        ],
+        "best_attempt": {
+          "attempt": 1,
+          "label": "Retry 1",
+          "loss": "SortinoHyperOptLoss",
+          "spaces": [
+            "buy",
+            "stoploss",
+            "roi"
+          ],
+          "epochs": 400,
+          "profit": -0.12556126199999995,
+          "drawdown": null,
+          "trades": null,
+          "reason": "FAIL_NEGATIVE_BASELINE",
+          "passed": false
+        },
+        "best_attempt_file": null,
+        "best_attempt_strategy_name": null,
+        "suggestions": [
+          "Strategy is unprofitable with current configuration (Negative Baseline). Consider: 1) Different timeframe or pairs, 2) Enabling trend/volatility filters, 3) Switching to OnlyProfitHyperOptLoss, 4) Strategy redesign.",
+          "Enable WFO or increase in-sample coverage to reduce overfit parameter peaks.",
+          "Review the base strategy logic before optimizing; hyperopt cannot repair a structurally losing signal.",
+          "Stop retrying this configuration and test a different strategy/timeframe/pair universe."
+        ],
+        "errors": [
+          {
+            "schema_version": "auto_quant_error_v1",
+            "code": "strategy_failed_robustness_check_after_3_self_healing_attempts_negative_baseline",
+            "kind": "controlled_validation",
+            "severity": "error",
+            "controlled": true,
+            "recoverable": true,
+            "message": "\u274c Strategy failed robustness check after 3 self-healing attempts (Negative Baseline detected). See retry history and suggestions below.",
+            "stage": {
+              "index": 3,
+              "name": "WFA Hyperopt"
+            },
+            "details": {
+              "thresholds": {
+                "min_oos_profit": 0.05,
+                "max_drawdown_threshold": 0.2
+              }
+            },
+            "suggestions": [
+              "Enable WFO or increase in-sample coverage to reduce overfit parameter peaks.",
+              "Review the base strategy logic before optimizing; hyperopt cannot repair a structurally losing signal."
+            ],
+            "ts": "2026-06-26T02:55:42.002790+00:00"
+          }
+        ],
+        "failure_type": "controlled_validation",
+        "controlled_failure": true,
+        "schema_version": "stage_payload_v1",
+        "status_kind": "controlled_validation",
+        "input_summary": {
+          "strategy": "Diamond",
+          "selected_pairs_count": 3,
+          "hyperopt_loss": "SortinoHyperOptLoss",
+          "hyperopt_spaces": [
+            "buy",
+            "stoploss",
+            "roi"
+          ],
+          "hyperopt_epochs": 1600,
+          "wfo_enabled": true
+        },
+        "output_summary": {
+          "pairs_tested": 0,
+          "pairs_passed": 0,
+          "pairs_filtered": 0,
+          "artifacts": {
+            "best_attempt_file": null
+          }
+        },
+        "metrics": {},
+        "warnings": [],
+        "retry_attempts": [
+          {
+            "attempt": 0,
+            "label": "Initial attempt",
+            "loss": "SortinoHyperOptLoss",
+            "spaces": [
+              "buy",
+              "sell",
+              "roi",
+              "stoploss",
+              "trailing"
+            ],
+            "epochs": 200,
+            "profit": -0.6827100726,
+            "drawdown": null,
+            "trades": null,
+            "reason": "FAIL_NEGATIVE_BASELINE",
+            "passed": false
+          },
+          {
+            "attempt": 1,
+            "label": "Retry 1",
+            "loss": "SortinoHyperOptLoss",
+            "spaces": [
+              "buy",
+              "stoploss",
+              "roi"
+            ],
+            "epochs": 400,
+            "profit": -0.12556126199999995,
+            "drawdown": null,
+            "trades": null,
+            "reason": "FAIL_NEGATIVE_BASELINE",
+            "passed": false
+          },
+          {
+            "attempt": 2,
+            "label": "Retry 2",
+            "loss": "SortinoHyperOptLoss",
+            "spaces": [
+              "buy",
+              "stoploss",
+              "roi"
+            ],
+            "epochs": 800,
+            "profit": -0.12556126199999995,
+            "drawdown": null,
+            "trades": null,
+            "reason": "FAIL_NEGATIVE_BASELINE",
+            "passed": false
+          },
+          {
+            "attempt": 3,
+            "label": "Retry 3",
+            "loss": "SortinoHyperOptLoss",
+            "spaces": [
+              "buy",
+              "stoploss",
+              "roi"
+            ],
+            "epochs": 1600,
+            "profit": -0.12556126199999995,
+            "drawdown": null,
+            "trades": null,
+            "reason": "FAIL_NEGATIVE_BASELINE",
+            "passed": false
+          }
+        ],
+        "auto_fix": {
+          "hooks": [
+            {
+              "name": "sensitivity_self_heal",
+              "enabled": true,
+              "attempts": 4,
+              "max_attempts": 3,
+              "description": "Adjust hyperopt loss, spaces, epochs, or AI-proposed overrides after robustness failure."
+            },
+            {
+              "name": "ollama_sensitivity_fix",
+              "enabled": true,
+              "description": "Optional AI suggestion hook; backend still validates every proposed change."
+            }
+          ],
+          "last_action": null
+        },
+        "stage_progress": {
+          "percent": 100,
+          "global_percent": 50,
+          "is_current": true,
+          "current_stage": 3
+        }
+      },
+      "started_at": "2026-06-26T01:13:57.885209+00:00",
+      "duration_s": 6104.1
+    },
+    {
+      "index": 4,
+      "name": "Robustness & Feature Injection",
+      "status": "pending",
+      "message": "",
+      "data": {},
+      "started_at": null,
+      "duration_s": null
+    },
+    {
+      "index": 5,
+      "name": "Portfolio Competition",
+      "status": "pending",
+      "message": "",
+      "data": {},
+      "started_at": null,
+      "duration_s": null
+    },
+    {
+      "index": 6,
+      "name": "Delivery",
+      "status": "pending",
+      "message": "",
+      "data": {},
+      "started_at": null,
+      "duration_s": null
+    }
+  ],
+  "error": "\u274c Strategy failed robustness check after 3 self-healing attempts (Negative Baseline detected). See retry history and suggestions below.",
+  "created_at": "2026-06-25T23:10:56.092101+00:00",
+  "completed_at": "2026-06-26T02:55:42.002895+00:00",
+  "report": null,
+  "max_drawdown_threshold": 0.2,
+  "min_win_rate": 0.55,
+  "min_profit_factor": 1.5,
+  "min_sharpe": 1.0,
+  "monte_carlo_threshold": 0.35,
+  "hyperopt_loss": "SortinoHyperOptLoss",
+  "hyperopt_spaces": [
+    "buy",
+    "stoploss",
+    "roi"
+  ],
+  "hyperopt_epochs": 1600,
+  "hyperopt_workers": 2,
+  "min_oos_profit": 0.05,
+  "retry_count": 4,
+  "max_retries": 3,
+  "retry_history": [
+    {
+      "attempt": 0,
+      "label": "Initial attempt",
+      "loss": "SortinoHyperOptLoss",
+      "spaces": [
+        "buy",
+        "sell",
+        "roi",
+        "stoploss",
+        "trailing"
+      ],
+      "epochs": 200,
+      "profit": -0.6827100726,
+      "drawdown": null,
+      "trades": null,
+      "reason": "FAIL_NEGATIVE_BASELINE",
+      "passed": false
+    },
+    {
+      "attempt": 1,
+      "label": "Retry 1",
+      "loss": "SortinoHyperOptLoss",
+      "spaces": [
+        "buy",
+        "stoploss",
+        "roi"
+      ],
+      "epochs": 400,
+      "profit": -0.12556126199999995,
+      "drawdown": null,
+      "trades": null,
+      "reason": "FAIL_NEGATIVE_BASELINE",
+      "passed": false
+    },
+    {
+      "attempt": 2,
+      "label": "Retry 2",
+      "loss": "SortinoHyperOptLoss",
+      "spaces": [
+        "buy",
+        "stoploss",
+        "roi"
+      ],
+      "epochs": 800,
+      "profit": -0.12556126199999995,
+      "drawdown": null,
+      "trades": null,
+      "reason": "FAIL_NEGATIVE_BASELINE",
+      "passed": false
+    },
+    {
+      "attempt": 3,
+      "label": "Retry 3",
+      "loss": "SortinoHyperOptLoss",
+      "spaces": [
+        "buy",
+        "stoploss",
+        "roi"
+      ],
+      "epochs": 1600,
+      "profit": -0.12556126199999995,
+      "drawdown": null,
+      "trades": null,
+      "reason": "FAIL_NEGATIVE_BASELINE",
+      "passed": false
+    }
+  ],
+  "generalization_failure": {
+    "thresholds": {
+      "min_oos_profit": 0.05,
+      "max_drawdown_threshold": 0.2
+    },
+    "attempts": [
+      {
+        "attempt": 0,
+        "label": "Initial attempt",
+        "loss": "SortinoHyperOptLoss",
+        "spaces": [
+          "buy",
+          "sell",
+          "roi",
+          "stoploss",
+          "trailing"
+        ],
+        "epochs": 200,
+        "profit": -0.6827100726,
+        "drawdown": null,
+        "trades": null,
+        "reason": "FAIL_NEGATIVE_BASELINE",
+        "passed": false
+      },
+      {
+        "attempt": 1,
+        "label": "Retry 1",
+        "loss": "SortinoHyperOptLoss",
+        "spaces": [
+          "buy",
+          "stoploss",
+          "roi"
+        ],
+        "epochs": 400,
+        "profit": -0.12556126199999995,
+        "drawdown": null,
+        "trades": null,
+        "reason": "FAIL_NEGATIVE_BASELINE",
+        "passed": false
+      },
+      {
+        "attempt": 2,
+        "label": "Retry 2",
+        "loss": "SortinoHyperOptLoss",
+        "spaces": [
+          "buy",
+          "stoploss",
+          "roi"
+        ],
+        "epochs": 800,
+        "profit": -0.12556126199999995,
+        "drawdown": null,
+        "trades": null,
+        "reason": "FAIL_NEGATIVE_BASELINE",
+        "passed": false
+      },
+      {
+        "attempt": 3,
+        "label": "Retry 3",
+        "loss": "SortinoHyperOptLoss",
+        "spaces": [
+          "buy",
+          "stoploss",
+          "roi"
+        ],
+        "epochs": 1600,
+        "profit": -0.12556126199999995,
+        "drawdown": null,
+        "trades": null,
+        "reason": "FAIL_NEGATIVE_BASELINE",
+        "passed": false
+      }
+    ],
+    "best_attempt": {
+      "attempt": 1,
+      "label": "Retry 1",
+      "loss": "SortinoHyperOptLoss",
+      "spaces": [
+        "buy",
+        "stoploss",
+        "roi"
+      ],
+      "epochs": 400,
+      "profit": -0.12556126199999995,
+      "drawdown": null,
+      "trades": null,
+      "reason": "FAIL_NEGATIVE_BASELINE",
+      "passed": false
+    },
+    "best_attempt_file": null,
+    "best_attempt_strategy_name": null,
+    "suggestions": [
+      "Strategy is unprofitable with current configuration (Negative Baseline). Consider: 1) Different timeframe or pairs, 2) Enabling trend/volatility filters, 3) Switching to OnlyProfitHyperOptLoss, 4) Strategy redesign."
+    ]
+  },
+  "sensitivity": {
+    "passed": false,
+    "score": "Low",
+    "label": "Negative Baseline",
+    "p_best": -0.12556126199999995,
+    "p_minus": -0.11129274880000004,
+    "p_plus": -0.14143388439999996,
+    "param": "stoploss",
+    "failure_reason": "FAIL_NEGATIVE_BASELINE"
+  },
+  "wfo_enabled": true,
+  "wfo_is_months": 6,
+  "wfo_oos_months": 2,
+  "wfo_recency_weight": 1.5,
+  "wfo_windows": [],
+  "wfo_skip_reason": null,
+  "ensemble_enabled": true,
+  "pair_universe": [
+    "BTC/USDT",
+    "ETH/USDT",
+    "BNB/USDT",
+    "SOL/USDT",
+    "XRP/USDT",
+    "ADA/USDT",
+    "DOGE/USDT",
+    "AVAX/USDT",
+    "DOT/USDT",
+    "LINK/USDT",
+    "UNI/USDT",
+    "ATOM/USDT",
+    "LTC/USDT",
+    "ETC/USDT",
+    "FIL/USDT",
+    "NEAR/USDT",
+    "ALGO/USDT",
+    "VET/USDT",
+    "ICP/USDT",
+    "OP/USDT",
+    "ARB/USDT",
+    "PEPE/USDT",
+    "SHIB/USDT",
+    "INJ/USDT",
+    "APT/USDT",
+    "QNT/USDT",
+    "AAVE/USDT",
+    "CRV/USDT",
+    "COMP/USDT",
+    "YFI/USDT",
+    "SNX/USDT",
+    "KAVA/USDT",
+    "ROSE/USDT",
+    "GLM/USDT",
+    "GRT/USDT",
+    "LDO/USDT",
+    "PENDLE/USDT",
+    "GMX/USDT",
+    "GALA/USDT",
+    "SAND/USDT",
+    "MANA/USDT",
+    "AXS/USDT",
+    "ENJ/USDT",
+    "IMX/USDT",
+    "SUI/USDT"
+  ],
+  "winning_pairs": [],
+  "selected_pairs": [
+    {
+      "key": "LTC/USDT"
+    },
+    {
+      "key": "ETC/USDT"
+    },
+    {
+      "key": "BNB/USDT"
+    }
+  ],
+  "excluded_time_windows": {},
+  "ai_enabled": true,
+  "ai_suggestions": {},
+  "ai_interactions": [],
+  "ollama_available": false,
+  "data_healing_warmup_candles": 200,
+  "data_healing_timeout": 300,
+  "phase1_heal_attempts": 0,
+  "stability_scores": {},
+  "portfolio_weights": {},
+  "baseline_trade_counts": {
+    "BNB/USDT": 3,
+    "LTC/USDT": 3,
+    "ETC/USDT": 3
+  },
+  "max_open_trades": 5,
+  "strategy_source": "existing",
+  "trading_style": "scalping",
+  "risk_profile": "conservative",
+  "analysis_depth": "quick",
+  "uploaded_strategy_id": null,
+  "advanced_overrides": {},
+  "auto_discovery_enabled": true,
+  "discovery_results": {
+    "candidate_timeframes": [
+      "1m",
+      "3m",
+      "5m",
+      "15m"
+    ],
+    "unsupported_timeframes": [],
+    "strongest_timeframe": "1m",
+    "most_stable_timeframe": "1m",
+    "most_robust_timeframe": "1m",
+    "selected_timeframe": "1m",
+    "selected_pairs": [
+      "MATIC/USDT",
+      "RNDR/USDT",
+      "MKR/USDT",
+      "FTM/USDT",
+      "FXS/USDT"
+    ],
+    "pair_errors": {
+      "COMP/USDT": "Insufficient trades: 159 < 500",
+      "GLM/USDT": "Insufficient trades: 15 < 500",
+      "ENJ/USDT": "Insufficient trades: 4 < 500",
+      "SNX/USDT": "Insufficient trades: 2 < 500",
+      "ETC/USDT": "Insufficient trades: 7 < 500",
+      "BTC/USDT": "Insufficient trades: 0 < 500",
+      "SOL/USDT": "Insufficient trades: 0 < 500",
+      "XRP/USDT": "Insufficient trades: 0 < 500",
+      "ADA/USDT": "Insufficient trades: 0 < 500",
+      "DOGE/USDT": "Insufficient trades: 0 < 500",
+      "AVAX/USDT": "Insufficient trades: 0 < 500",
+      "DOT/USDT": "Insufficient trades: 0 < 500",
+      "LINK/USDT": "Insufficient trades: 0 < 500",
+      "UNI/USDT": "Insufficient trades: 0 < 500",
+      "ATOM/USDT": "Insufficient trades: 0 < 500",
+      "LTC/USDT": "Insufficient trades: 0 < 500",
+      "FIL/USDT": "Insufficient trades: 0 < 500",
+      "NEAR/USDT": "Insufficient trades: 0 < 500",
+      "ALGO/USDT": "Insufficient trades: 0 < 500",
+      "VET/USDT": "Insufficient trades: 0 < 500",
+      "ICP/USDT": "Insufficient trades: 0 < 500",
+      "OP/USDT": "Insufficient trades: 0 < 500",
+      "ARB/USDT": "Insufficient trades: 0 < 500",
+      "PEPE/USDT": "Insufficient trades: 0 < 500",
+      "SHIB/USDT": "Insufficient trades: 0 < 500",
+      "INJ/USDT": "Insufficient trades: 0 < 500",
+      "APT/USDT": "Insufficient trades: 0 < 500",
+      "CRV/USDT": "Insufficient trades: 0 < 500",
+      "YFI/USDT": "Insufficient trades: 0 < 500",
+      "ROSE/USDT": "Insufficient trades: 0 < 500",
+      "GRT/USDT": "Insufficient trades: 0 < 500",
+      "LDO/USDT": "Insufficient trades: 0 < 500",
+      "PENDLE/USDT": "Insufficient trades: 0 < 500",
+      "GALA/USDT": "Insufficient trades: 0 < 500",
+      "SAND/USDT": "Insufficient trades: 0 < 500",
+      "AXS/USDT": "Insufficient trades: 0 < 500",
+      "SUI/USDT": "Insufficient trades: 0 < 500",
+      "KAVA/USDT": "Insufficient trades: 1 < 500",
+      "MANA/USDT": "Insufficient trades: 2 < 500",
+      "GMX/USDT": "Insufficient trades: 116 < 500",
+      "IMX/USDT": "Insufficient trades: 3 < 500",
+      "AAVE/USDT": "Insufficient trades: 182 < 500",
+      "BNB/USDT": "Insufficient trades: 175 < 500",
+      "ETH/USDT": "Insufficient trades: 257 < 500",
+      "QNT/USDT": "Insufficient trades: 316 < 500"
+    },
+    "notes": [
+      "Discovery found 0 liquid pairs, below the target of 25. Validation will continue with available pairs."
+    ]
+  },
+  "validation_notes": [
+    "Discovery found 0 liquid pairs, below the target of 25. Validation will continue with available pairs.",
+    "validation: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+    "Discovery found 3 candidate pair(s), below the 3 pair target; validation will continue with notes.",
+    "wfo: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+    "Walk-Forward Optimization skipped: only 0 valid window(s) found, minimum 3 required. Pipeline will continue with standard hyperopt results.",
+    "hyperopt: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+    "wfo: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+    "Walk-Forward Optimization skipped: only 0 valid window(s) found, minimum 3 required. Pipeline will continue with standard hyperopt results.",
+    "hyperopt: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+    "wfo: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+    "Walk-Forward Optimization skipped: only 0 valid window(s) found, minimum 3 required. Pipeline will continue with standard hyperopt results.",
+    "hyperopt: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+    "wfo: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+    "Walk-Forward Optimization skipped: only 0 valid window(s) found, minimum 3 required. Pipeline will continue with standard hyperopt results.",
+    "hyperopt: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20240625-20251225, OOS=20251225-20260625. This may lead to overfitting. Results should be interpreted with caution."
+  ],
+  "run_config_snapshot": {
+    "schema_version": "run_config_snapshot_v1",
+    "policy_versions": {
+      "timeframes": "timeframes_v1",
+      "risk_profiles": "risk_profiles_v1",
+      "pair_universe": "pair_universe_v1",
+      "score_weights": "robustness_score_v1",
+      "readiness_labels": "readiness_labels_v2",
+      "thresholds": "intraday:legacy,position:legacy,scalping:legacy,swing:legacy"
+    },
+    "strategy": "Diamond",
+    "strategy_source": "existing",
+    "uploaded_strategy_id": null,
+    "generated_by": null,
+    "trading_style": "scalping",
+    "risk_profile": "conservative",
+    "analysis_depth": "quick",
+    "timeframe": "5m",
+    "configured_timeframes": [
+      "1m",
+      "3m",
+      "5m",
+      "15m"
+    ],
+    "unsupported_timeframes": [],
+    "selected_pairs": [
+      "BTC/USDT",
+      "ETH/USDT",
+      "BNB/USDT",
+      "SOL/USDT",
+      "XRP/USDT",
+      "ADA/USDT",
+      "DOGE/USDT",
+      "AVAX/USDT",
+      "DOT/USDT",
+      "MATIC/USDT",
+      "LINK/USDT",
+      "UNI/USDT",
+      "ATOM/USDT",
+      "LTC/USDT",
+      "ETC/USDT",
+      "FIL/USDT",
+      "NEAR/USDT",
+      "ALGO/USDT",
+      "VET/USDT",
+      "ICP/USDT",
+      "OP/USDT",
+      "ARB/USDT",
+      "PEPE/USDT",
+      "SHIB/USDT",
+      "RNDR/USDT",
+      "INJ/USDT",
+      "APT/USDT",
+      "QNT/USDT",
+      "AAVE/USDT",
+      "MKR/USDT",
+      "CRV/USDT",
+      "COMP/USDT",
+      "YFI/USDT",
+      "SNX/USDT",
+      "KAVA/USDT",
+      "ROSE/USDT",
+      "FTM/USDT",
+      "GLM/USDT",
+      "GRT/USDT",
+      "LDO/USDT",
+      "FXS/USDT",
+      "PENDLE/USDT",
+      "GMX/USDT",
+      "GALA/USDT",
+      "SAND/USDT",
+      "MANA/USDT",
+      "AXS/USDT",
+      "ENJ/USDT",
+      "IMX/USDT",
+      "SUI/USDT"
+    ],
+    "date_ranges": {
+      "in_sample": "20240625-20251225",
+      "out_of_sample": "20251225-20260625"
+    },
+    "optimization": {
+      "hyperopt_loss": "SortinoHyperOptLoss",
+      "hyperopt_spaces": [
+        "buy",
+        "sell",
+        "roi",
+        "stoploss",
+        "trailing"
+      ],
+      "hyperopt_epochs": 200,
+      "wfo_enabled": true,
+      "wfo_is_months": 6,
+      "wfo_oos_months": 2,
+      "wfo_recency_weight": 1.5,
+      "planned_wfo_windows": []
+    },
+    "thresholds": {
+      "min_profit_factor": 1.5,
+      "max_drawdown": 0.2,
+      "min_trades": 500,
+      "min_expectancy": 0.0002,
+      "min_win_rate": 0.55,
+      "min_pair_pass_rate": 0.6,
+      "min_oos_retention": 0.5,
+      "min_sharpe": 1.0,
+      "min_oos_profit": 0.05,
+      "monte_carlo_threshold": 0.35
+    },
+    "exchange": "binance",
+    "advanced_overrides": {}
+  },
+  "policy_versions": {
+    "timeframes": "timeframes_v1",
+    "risk_profiles": "risk_profiles_v1",
+    "pair_universe": "pair_universe_v1",
+    "score_weights": "robustness_score_v1",
+    "readiness_labels": "readiness_labels_v2",
+    "thresholds": "intraday:legacy,position:legacy,scalping:legacy,swing:legacy"
+  },
+  "selected_timeframe": "1m",
+  "selected_pair_universe": [
+    "MATIC/USDT",
+    "RNDR/USDT",
+    "MKR/USDT",
+    "FTM/USDT",
+    "FXS/USDT"
+  ],
+  "score": {},
+  "validation_status": "Rejected",
+  "readiness_label": "Rejected",
+  "score_explanation": [],
+  "progress_percent": 33,
+  "eta_seconds": null,
+  "progress_counters": {
+    "strategies_generated": 0,
+    "strategies_tested": 0,
+    "strategies_rejected": 0,
+    "strategies_surviving": 0
+  },
+  "strategy_runtime_dir": "/home/mohs/Desktop/jj/user_data/auto_quant/836279ec-bb83-45ca-a190-4946f154a07f/strategies",
+  "strategy_variants": [
+    {
+      "role": "working",
+      "strategy_name": "Diamond",
+      "path": "/home/mohs/Desktop/jj/user_data/auto_quant/836279ec-bb83-45ca-a190-4946f154a07f/strategies/Diamond.py",
+      "source": "/home/mohs/Desktop/jj/user_data/strategies/Diamond.py"
+    },
+    {
+      "role": "sensitivity",
+      "strategy_name": "Diamond_SensBest",
+      "path": "/home/mohs/Desktop/jj/user_data/auto_quant/836279ec-bb83-45ca-a190-4946f154a07f/strategies/Diamond_SensBest_sensitivity_v1.py"
+    },
+    {
+      "role": "sensitivity",
+      "strategy_name": "Diamond_SensBest",
+      "path": "/home/mohs/Desktop/jj/user_data/auto_quant/836279ec-bb83-45ca-a190-4946f154a07f/strategies/Diamond_SensBest.py"
+    },
+    {
+      "role": "sensitivity",
+      "strategy_name": "Diamond_SensPlus",
+      "path": "/home/mohs/Desktop/jj/user_data/auto_quant/836279ec-bb83-45ca-a190-4946f154a07f/strategies/Diamond_SensPlus_sensitivity_v1.py"
+    },
+    {
+      "role": "sensitivity",
+      "strategy_name": "Diamond_SensPlus",
+      "path": "/home/mohs/Desktop/jj/user_data/auto_quant/836279ec-bb83-45ca-a190-4946f154a07f/strategies/Diamond_SensPlus.py"
+    },
+    {
+      "role": "sensitivity",
+      "strategy_name": "Diamond_SensMinus",
+      "path": "/home/mohs/Desktop/jj/user_data/auto_quant/836279ec-bb83-45ca-a190-4946f154a07f/strategies/Diamond_SensMinus_sensitivity_v1.py"
+    },
+    {
+      "role": "sensitivity",
+      "strategy_name": "Diamond_SensMinus",
+      "path": "/home/mohs/Desktop/jj/user_data/auto_quant/836279ec-bb83-45ca-a190-4946f154a07f/strategies/Diamond_SensMinus.py"
+    },
+    {
+      "role": "mutation",
+      "strategy_name": "Diamond_HardMutation",
+      "path": "/home/mohs/Desktop/jj/user_data/auto_quant/836279ec-bb83-45ca-a190-4946f154a07f/strategies/Diamond_HardMutation_mutation_v1.py"
+    },
+    {
+      "role": "mutation",
+      "strategy_name": "Diamond_HardMutation",
+      "path": "/home/mohs/Desktop/jj/user_data/auto_quant/836279ec-bb83-45ca-a190-4946f154a07f/strategies/Diamond_HardMutation.py"
+    },
+    {
+      "role": "sensitivity",
+      "strategy_name": "Diamond_SensBest",
+      "path": "/home/mohs/Desktop/jj/user_data/auto_quant/836279ec-bb83-45ca-a190-4946f154a07f/strategies/Diamond_SensBest_sensitivity_v2.py"
+    },
+    {
+      "role": "sensitivity",
+      "strategy_name": "Diamond_SensPlus",
+      "path": "/home/mohs/Desktop/jj/user_data/auto_quant/836279ec-bb83-45ca-a190-4946f154a07f/strategies/Diamond_SensPlus_sensitivity_v2.py"
+    },
+    {
+      "role": "sensitivity",
+      "strategy_name": "Diamond_SensMinus",
+      "path": "/home/mohs/Desktop/jj/user_data/auto_quant/836279ec-bb83-45ca-a190-4946f154a07f/strategies/Diamond_SensMinus_sensitivity_v2.py"
+    },
+    {
+      "role": "mutation",
+      "strategy_name": "Diamond_HardMutation",
+      "path": "/home/mohs/Desktop/jj/user_data/auto_quant/836279ec-bb83-45ca-a190-4946f154a07f/strategies/Diamond_HardMutation_mutation_v2.py"
+    },
+    {
+      "role": "sensitivity",
+      "strategy_name": "Diamond_SensBest",
+      "path": "/home/mohs/Desktop/jj/user_data/auto_quant/836279ec-bb83-45ca-a190-4946f154a07f/strategies/Diamond_SensBest_sensitivity_v3.py"
+    },
+    {
+      "role": "sensitivity",
+      "strategy_name": "Diamond_SensPlus",
+      "path": "/home/mohs/Desktop/jj/user_data/auto_quant/836279ec-bb83-45ca-a190-4946f154a07f/strategies/Diamond_SensPlus_sensitivity_v3.py"
+    },
+    {
+      "role": "sensitivity",
+      "strategy_name": "Diamond_SensMinus",
+      "path": "/home/mohs/Desktop/jj/user_data/auto_quant/836279ec-bb83-45ca-a190-4946f154a07f/strategies/Diamond_SensMinus_sensitivity_v3.py"
+    },
+    {
+      "role": "mutation",
+      "strategy_name": "Diamond_HardMutation",
+      "path": "/home/mohs/Desktop/jj/user_data/auto_quant/836279ec-bb83-45ca-a190-4946f154a07f/strategies/Diamond_HardMutation_mutation_v3.py"
+    },
+    {
+      "role": "sensitivity",
+      "strategy_name": "Diamond_SensBest",
+      "path": "/home/mohs/Desktop/jj/user_data/auto_quant/836279ec-bb83-45ca-a190-4946f154a07f/strategies/Diamond_SensBest_sensitivity_v4.py"
+    },
+    {
+      "role": "sensitivity",
+      "strategy_name": "Diamond_SensPlus",
+      "path": "/home/mohs/Desktop/jj/user_data/auto_quant/836279ec-bb83-45ca-a190-4946f154a07f/strategies/Diamond_SensPlus_sensitivity_v4.py"
+    },
+    {
+      "role": "sensitivity",
+      "strategy_name": "Diamond_SensMinus",
+      "path": "/home/mohs/Desktop/jj/user_data/auto_quant/836279ec-bb83-45ca-a190-4946f154a07f/strategies/Diamond_SensMinus_sensitivity_v4.py"
+    }
+  ],
+  "artifact_versions": {
+    "run_config_snapshot_v1": "run_config_snapshot_v1.json",
+    "run_config_snapshot_latest": "run_config_snapshot_latest.json",
+    "run_config_snapshot": "run_config_snapshot.json",
+    "state_v1": "state_v1.json",
+    "state_latest": "state_latest.json",
+    "state": "state.json"
+  },
+  "user_approved_pairs": [],
+  "portfolio_baseline_result": {
+    "portfolio_summary": {
+      "profit_total": 0.012532818700000002,
+      "profit_total_abs": 1.2532818700000001,
+      "profit_mean_pct": 0.03842117406143242,
+      "max_drawdown_account": 0.051313155780854186,
+      "total_trades": 184,
+      "wins": 111,
+      "losses": 72,
+      "draws": 1,
+      "win_rate": 0.0,
+      "profit_factor": 1.2219386628844167,
+      "sharpe_ratio": 0.0,
+      "calmar_ratio": 0.0,
+      "sortino_ratio": 0.0,
+      "stake_currency": "USDT"
+    },
+    "per_pair": [
+      {
+        "key": "ETC/USDT",
+        "profit_total": 0.014341451999999998,
+        "profit_mean_pct": 0.05822545518173797,
+        "trades": 132,
+        "wins": 80,
+        "losses": 51,
+        "profit_factor": 1.363819809515218
+      },
+      {
+        "key": "LTC/USDT",
+        "profit_total": -0.0018086333,
+        "profit_mean_pct": -0.011851231859343246,
+        "trades": 52,
+        "wins": 31,
+        "losses": 21,
+        "profit_factor": 0.8939257418206776
+      }
+    ],
+    "portfolio_profit": 1.2532818700000001,
+    "portfolio_max_dd": 0.051313155780854186,
+    "portfolio_trades": 184
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "strategy_name": "HERSmokeStrategy",
+  "timeframe": "5m",
+  "description": "Smoke test strategy for HER Freqtrade integration validation",
+  "warning": "This is a smoke-test only strategy. NOT profitable. NOT production. NOT financial advice.",
+  "trading_mode": "spot",
+  "long_only": true,
+  "dry_run_only": true,
+  "risk_level": "high",
+  "indicators": [
+    "sma_fast",
+    "sma_slow",
+    "volume_gt_0"
+  ],
+  "logic": "Simple moving average crossover for integration testing only",
+  "created_for": "HER Freqtrade integration smoke tests",
+  "do_not_use_for_trading": true
+}

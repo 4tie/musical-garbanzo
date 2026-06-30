@@ -1,0 +1,53 @@
+{
+  "blocked": false,
+  "command_args": [
+    "/home/mohs/Desktop/her/.venv/bin/freqtrade",
+    "hyperopt",
+    "--config",
+    "/home/mohs/Desktop/her/freqtrade_workspace/config/runs/3a84fc78-5a39-4e7d-babc-8c037f9201ad.backtest.json",
+    "--strategy",
+    "HERHyperoptSmokeStrategy",
+    "--spaces",
+    "buy",
+    "sell",
+    "--epochs",
+    "20",
+    "--hyperopt-loss",
+    "SharpeHyperOptLossDaily",
+    "--disable-param-export"
+  ],
+  "config_path": "/home/mohs/Desktop/her/freqtrade_workspace/config/runs/3a84fc78-5a39-4e7d-babc-8c037f9201ad.backtest.json",
+  "duration_seconds": 0.000299,
+  "epochs": 20,
+  "error": "Unable to run Freqtrade command: [Errno 2] No such file or directory: '/home/mohs/Desktop/her/backend/freqtrade_workspace/user_data'",
+  "executable": "/home/mohs/Desktop/her/.venv/bin/freqtrade",
+  "exit_code": null,
+  "full_args": [
+    "/home/mohs/Desktop/her/.venv/bin/freqtrade",
+    "hyperopt",
+    "--config",
+    "/home/mohs/Desktop/her/freqtrade_workspace/config/runs/3a84fc78-5a39-4e7d-babc-8c037f9201ad.backtest.json",
+    "--strategy",
+    "HERHyperoptSmokeStrategy",
+    "--spaces",
+    "buy",
+    "sell",
+    "--epochs",
+    "20",
+    "--hyperopt-loss",
+    "SharpeHyperOptLossDaily",
+    "--disable-param-export"
+  ],
+  "hyperopt_loss": "SharpeHyperOptLossDaily",
+  "run_id": "3a84fc78-5a39-4e7d-babc-8c037f9201ad",
+  "spaces": [
+    "buy",
+    "sell"
+  ],
+  "stderr_path": "/home/mohs/Desktop/her/backend/artifacts/runs/3a84fc78-5a39-4e7d-babc-8c037f9201ad/hyperopt/stderr.log",
+  "stdout_path": "/home/mohs/Desktop/her/backend/artifacts/runs/3a84fc78-5a39-4e7d-babc-8c037f9201ad/hyperopt/stdout.log",
+  "strategy": "HERHyperoptSmokeStrategy",
+  "success": false,
+  "timed_out": false,
+  "working_directory": "/home/mohs/Desktop/her/backend/freqtrade_workspace/user_data"
+}

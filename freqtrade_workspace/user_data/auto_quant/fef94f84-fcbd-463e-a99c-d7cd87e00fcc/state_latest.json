@@ -1,0 +1,694 @@
+{
+  "run_id": "fef94f84-fcbd-463e-a99c-d7cd87e00fcc",
+  "strategy": "CatFactory",
+  "original_strategy": "CatFactory",
+  "original_strategy_hash": "933d9ee1162fa30f16db061146852a0a73eede1e613f32469003e8507f478b71",
+  "timeframe": "5m",
+  "in_sample_range": "20230625-20250625",
+  "out_sample_range": "20250625-20260625",
+  "exchange": "binance",
+  "config_file": "/home/mohs/Desktop/jj/user_data/config.json",
+  "freqtrade_path": "freqtrade",
+  "user_data_dir": "/home/mohs/Desktop/jj/user_data",
+  "status": "running",
+  "current_stage": 3,
+  "stages": [
+    {
+      "index": 1,
+      "name": "Pre-Flight Filtering",
+      "status": "passed",
+      "message": "Pre-flight filtering complete \u2014 1 pairs approved.",
+      "data": {
+        "profit_total": -0.9510325689999999,
+        "profit_total_abs": -95.10325689999999,
+        "profit_mean_pct": -0.2016506270035106,
+        "max_drawdown_account": 0.9521622856123174,
+        "total_trades": 4419,
+        "wins": 2816,
+        "losses": 1593,
+        "draws": 10,
+        "win_rate": 0.0,
+        "profit_factor": 0.6306035204746532,
+        "sharpe_ratio": 0.0,
+        "calmar_ratio": 0.0,
+        "sortino_ratio": 0.0,
+        "stake_currency": "USDT",
+        "per_pair": [
+          {
+            "key": "SUI/USDT",
+            "profit_total": 0.03105996630000001,
+            "profit_mean_pct": 0.061040293464468216,
+            "trades": 247,
+            "wins": 161,
+            "losses": 86,
+            "profit_factor": 1.1556414442367118
+          },
+          {
+            "key": "LTC/USDT",
+            "profit_total": -0.002842652799999994,
+            "profit_mean_pct": -0.07909774656506276,
+            "trades": 174,
+            "wins": 113,
+            "losses": 61,
+            "profit_factor": 0.9585524948294847
+          },
+          {
+            "key": "BTC/USDT",
+            "profit_total": -0.0279951467,
+            "profit_mean_pct": -0.08823829735952815,
+            "trades": 273,
+            "wins": 173,
+            "losses": 97,
+            "profit_factor": 0.6952147370600669
+          },
+          {
+            "key": "ETH/USDT",
+            "profit_total": -0.04334108329999999,
+            "profit_mean_pct": -0.10587373869218554,
+            "trades": 280,
+            "wins": 168,
+            "losses": 112,
+            "profit_factor": 0.6888692824644981
+          },
+          {
+            "key": "SOL/USDT",
+            "profit_total": -0.05925341640000001,
+            "profit_mean_pct": -0.09769843174070024,
+            "trades": 317,
+            "wins": 212,
+            "losses": 103,
+            "profit_factor": 0.8082215967205462
+          },
+          {
+            "key": "TRX/USDT",
+            "profit_total": -0.0606258965,
+            "profit_mean_pct": -0.26335719872047797,
+            "trades": 181,
+            "wins": 111,
+            "losses": 70,
+            "profit_factor": 0.24873796846399682
+          },
+          {
+            "key": "XRP/USDT",
+            "profit_total": -0.068207713,
+            "profit_mean_pct": -0.18595104099559176,
+            "trades": 294,
+            "wins": 192,
+            "losses": 102,
+            "profit_factor": 0.6548178945496497
+          },
+          {
+            "key": "AVAX/USDT",
+            "profit_total": -0.083693293,
+            "profit_mean_pct": -0.316288986916225,
+            "trades": 175,
+            "wins": 110,
+            "losses": 65,
+            "profit_factor": 0.5978348798918587
+          },
+          {
+            "key": "BNB/USDT",
+            "profit_total": -0.09890734699999999,
+            "profit_mean_pct": -0.23738811220016987,
+            "trades": 298,
+            "wins": 185,
+            "losses": 113,
+            "profit_factor": 0.4532865427070971
+          },
+          {
+            "key": "ADA/USDT",
+            "profit_total": -0.14187856450000003,
+            "profit_mean_pct": -0.3137055474928502,
+            "trades": 239,
+            "wins": 153,
+            "losses": 84,
+            "profit_factor": 0.44754044841816015
+          },
+          {
+            "key": "LINK/USDT",
+            "profit_total": -0.17941661320000002,
+            "profit_mean_pct": -0.4413387759943226,
+            "trades": 221,
+            "wins": 131,
+            "losses": 90,
+            "profit_factor": 0.4181516868315532
+          },
+          {
+            "key": "DOGE/USDT",
+            "profit_total": -0.2159308089,
+            "profit_mean_pct": -0.2364901022816943,
+            "trades": 1720,
+            "wins": 1107,
+            "losses": 610,
+            "profit_factor": 0.5954867470517982
+          }
+        ],
+        "passing_pairs": [
+          "SUI/USDT"
+        ],
+        "filtered_pairs": [
+          {
+            "key": "LTC/USDT",
+            "reason": "low_profit_factor",
+            "total_trades": 174,
+            "profit_factor": 0.9585524948294847
+          },
+          {
+            "key": "BTC/USDT",
+            "reason": "low_profit_factor",
+            "total_trades": 273,
+            "profit_factor": 0.6952147370600669
+          },
+          {
+            "key": "ETH/USDT",
+            "reason": "low_profit_factor",
+            "total_trades": 280,
+            "profit_factor": 0.6888692824644981
+          },
+          {
+            "key": "SOL/USDT",
+            "reason": "low_profit_factor",
+            "total_trades": 317,
+            "profit_factor": 0.8082215967205462
+          },
+          {
+            "key": "TRX/USDT",
+            "reason": "low_profit_factor",
+            "total_trades": 181,
+            "profit_factor": 0.24873796846399682
+          },
+          {
+            "key": "XRP/USDT",
+            "reason": "low_profit_factor",
+            "total_trades": 294,
+            "profit_factor": 0.6548178945496497
+          },
+          {
+            "key": "AVAX/USDT",
+            "reason": "low_profit_factor",
+            "total_trades": 175,
+            "profit_factor": 0.5978348798918587
+          },
+          {
+            "key": "BNB/USDT",
+            "reason": "low_profit_factor",
+            "total_trades": 298,
+            "profit_factor": 0.4532865427070971
+          },
+          {
+            "key": "ADA/USDT",
+            "reason": "low_profit_factor",
+            "total_trades": 239,
+            "profit_factor": 0.44754044841816015
+          },
+          {
+            "key": "LINK/USDT",
+            "reason": "low_profit_factor",
+            "total_trades": 221,
+            "profit_factor": 0.4181516868315532
+          },
+          {
+            "key": "DOGE/USDT",
+            "reason": "low_profit_factor",
+            "total_trades": 1720,
+            "profit_factor": 0.5954867470517982
+          }
+        ],
+        "baseline_attempts": 1,
+        "discovery_gates": {
+          "min_profit_factor": 1.1,
+          "max_drawdown": 0.4,
+          "min_trades": 100,
+          "min_expectancy": 0.0005,
+          "min_win_rate": 0.45
+        },
+        "validation_notes": [
+          "Discovery found 0 liquid pairs, below the target of 6. Validation will continue with available pairs.",
+          "validation: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20230625-20250625, OOS=20250625-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+          "Discovery found 1 candidate pair(s), below the 3 pair target; validation will continue with notes."
+        ],
+        "schema_version": "stage_payload_v1",
+        "status_kind": "passed",
+        "input_summary": {
+          "strategy": "CatFactory",
+          "strategy_source": "existing",
+          "timeframe": "1h",
+          "in_sample_range": "20230625-20250625",
+          "pair_universe_count": 12,
+          "trading_style": "swing",
+          "risk_profile": "balanced"
+        },
+        "output_summary": {
+          "pairs_tested": 12,
+          "pairs_passed": 1,
+          "pairs_filtered": 11,
+          "baseline_attempts": 1,
+          "selected_pairs": [
+            "SUI/USDT"
+          ],
+          "validation_notes": [
+            "Discovery found 0 liquid pairs, below the target of 6. Validation will continue with available pairs.",
+            "validation: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20230625-20250625, OOS=20250625-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+            "Discovery found 1 candidate pair(s), below the 3 pair target; validation will continue with notes."
+          ]
+        },
+        "metrics": {
+          "profit_total": -0.9510325689999999,
+          "profit_total_abs": -95.10325689999999,
+          "profit_mean_pct": -0.2016506270035106,
+          "max_drawdown_account": 0.9521622856123174,
+          "total_trades": 4419,
+          "wins": 2816,
+          "losses": 1593,
+          "draws": 10,
+          "win_rate": 0.0,
+          "profit_factor": 0.6306035204746532,
+          "sharpe_ratio": 0.0,
+          "calmar_ratio": 0.0,
+          "sortino_ratio": 0.0,
+          "baseline_attempts": 1
+        },
+        "warnings": [
+          "Discovery found 0 liquid pairs, below the target of 6. Validation will continue with available pairs.",
+          "validation: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20230625-20250625, OOS=20250625-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+          "Discovery found 1 candidate pair(s), below the 3 pair target; validation will continue with notes.",
+          "11 pair(s) were filtered out before validation."
+        ],
+        "errors": [],
+        "retry_attempts": [
+          {
+            "attempt": 1,
+            "stage": 1,
+            "type": "baseline_auto_fix",
+            "status": "latest"
+          }
+        ],
+        "suggestions": [],
+        "auto_fix": {
+          "hooks": [
+            {
+              "name": "baseline_hard_mutation",
+              "enabled": true,
+              "attempts": 0,
+              "description": "Force available Boolean indicator switches and rerun pair filtering."
+            }
+          ],
+          "last_action": null
+        },
+        "stage_progress": {
+          "percent": 100,
+          "global_percent": 0,
+          "is_current": false,
+          "current_stage": 2
+        }
+      },
+      "started_at": "2026-06-25T08:43:36.262340+00:00",
+      "duration_s": 266.6
+    },
+    {
+      "index": 2,
+      "name": "Portfolio Baseline Backtest",
+      "status": "passed",
+      "message": "",
+      "data": {
+        "portfolio_summary": {
+          "profit_total": -0.689544633,
+          "profit_total_abs": -68.9544633,
+          "profit_mean_pct": -0.1990925256741963,
+          "max_drawdown_account": 0.6950967389662457,
+          "total_trades": 2924,
+          "wins": 1930,
+          "losses": 993,
+          "draws": 1,
+          "win_rate": 0.0,
+          "profit_factor": 0.7457289635371753,
+          "sharpe_ratio": 0.0,
+          "calmar_ratio": 0.0,
+          "sortino_ratio": 0.0,
+          "stake_currency": "USDT"
+        },
+        "per_pair": [
+          {
+            "key": "SUI/USDT",
+            "profit_total": -0.689544633,
+            "profit_mean_pct": -0.1990925256741963,
+            "trades": 2924,
+            "wins": 1930,
+            "losses": 993,
+            "profit_factor": 0.7457289635371753
+          }
+        ],
+        "portfolio_profit": -68.9544633,
+        "portfolio_max_dd": 0.6950967389662457,
+        "portfolio_trades": 2924,
+        "baseline_trade_counts": {
+          "SUI/USDT": 2924
+        }
+      },
+      "started_at": "2026-06-25T08:47:12.220851+00:00",
+      "duration_s": null
+    },
+    {
+      "index": 3,
+      "name": "WFA Hyperopt",
+      "status": "running",
+      "message": "",
+      "data": {
+        "schema_version": "stage_payload_v1",
+        "status_kind": "running",
+        "input_summary": {
+          "strategy": "CatFactory",
+          "selected_pairs_count": 1,
+          "hyperopt_loss": "ProfitLockinHyperOptLoss",
+          "hyperopt_spaces": [
+            "buy",
+            "stoploss",
+            "roi"
+          ],
+          "hyperopt_epochs": 100,
+          "wfo_enabled": false
+        },
+        "output_summary": {},
+        "metrics": {},
+        "warnings": [],
+        "errors": [],
+        "retry_attempts": [],
+        "suggestions": [],
+        "auto_fix": {
+          "hooks": [
+            {
+              "name": "sensitivity_self_heal",
+              "enabled": true,
+              "attempts": 0,
+              "max_attempts": 3,
+              "description": "Adjust hyperopt loss, spaces, epochs, or AI-proposed overrides after robustness failure."
+            },
+            {
+              "name": "ollama_sensitivity_fix",
+              "enabled": true,
+              "description": "Optional AI suggestion hook; backend still validates every proposed change."
+            }
+          ],
+          "last_action": null
+        },
+        "stage_progress": {
+          "percent": 50,
+          "global_percent": 33,
+          "is_current": true,
+          "current_stage": 3
+        }
+      },
+      "started_at": "2026-06-25T08:48:02.842723+00:00",
+      "duration_s": null
+    },
+    {
+      "index": 4,
+      "name": "Robustness & Feature Injection",
+      "status": "pending",
+      "message": "",
+      "data": {},
+      "started_at": null,
+      "duration_s": null
+    },
+    {
+      "index": 5,
+      "name": "Portfolio Competition",
+      "status": "pending",
+      "message": "",
+      "data": {},
+      "started_at": null,
+      "duration_s": null
+    },
+    {
+      "index": 6,
+      "name": "Delivery",
+      "status": "pending",
+      "message": "",
+      "data": {},
+      "started_at": null,
+      "duration_s": null
+    }
+  ],
+  "error": null,
+  "created_at": "2026-06-25T08:42:38.576986+00:00",
+  "completed_at": null,
+  "report": null,
+  "max_drawdown_threshold": 0.4,
+  "min_win_rate": 0.45,
+  "min_profit_factor": 1.2,
+  "min_sharpe": 0.5,
+  "monte_carlo_threshold": 0.35,
+  "hyperopt_loss": "ProfitLockinHyperOptLoss",
+  "hyperopt_spaces": [
+    "buy",
+    "stoploss",
+    "roi"
+  ],
+  "hyperopt_epochs": 100,
+  "hyperopt_workers": 2,
+  "min_oos_profit": 0.0,
+  "retry_count": 0,
+  "max_retries": 3,
+  "retry_history": [],
+  "generalization_failure": null,
+  "sensitivity": null,
+  "wfo_enabled": false,
+  "wfo_is_months": 3,
+  "wfo_oos_months": 1,
+  "wfo_recency_weight": 1.0,
+  "wfo_windows": [],
+  "wfo_skip_reason": null,
+  "ensemble_enabled": false,
+  "pair_universe": [
+    "BTC/USDT",
+    "ETH/USDT",
+    "BNB/USDT",
+    "SOL/USDT",
+    "XRP/USDT",
+    "ADA/USDT",
+    "DOGE/USDT",
+    "LINK/USDT",
+    "AVAX/USDT",
+    "SUI/USDT",
+    "LTC/USDT",
+    "TRX/USDT"
+  ],
+  "winning_pairs": [],
+  "selected_pairs": [
+    {
+      "key": "SUI/USDT"
+    }
+  ],
+  "excluded_time_windows": {},
+  "ai_enabled": true,
+  "ai_suggestions": {},
+  "ai_interactions": [],
+  "ollama_available": false,
+  "data_healing_warmup_candles": 200,
+  "data_healing_timeout": 300,
+  "phase1_heal_attempts": 0,
+  "stability_scores": {},
+  "portfolio_weights": {},
+  "baseline_trade_counts": {
+    "SUI/USDT": 2924
+  },
+  "max_open_trades": 5,
+  "strategy_source": "existing",
+  "trading_style": "swing",
+  "risk_profile": "balanced",
+  "analysis_depth": "standard",
+  "uploaded_strategy_id": null,
+  "advanced_overrides": {},
+  "auto_discovery_enabled": true,
+  "discovery_results": {
+    "candidate_timeframes": [
+      "1h",
+      "4h",
+      "1d"
+    ],
+    "unsupported_timeframes": [],
+    "strongest_timeframe": "1h",
+    "most_stable_timeframe": "1h",
+    "most_robust_timeframe": "1h",
+    "selected_timeframe": "1h",
+    "selected_pairs": [],
+    "pair_errors": {
+      "AVAX/USDT": "Low profit factor: 0.77 < 1.1",
+      "BTC/USDT": "Low profit factor: 0.72 < 1.1",
+      "BNB/USDT": "Low profit factor: 0.68 < 1.1",
+      "SOL/USDT": "Low profit factor: 0.79 < 1.1",
+      "ETH/USDT": "Low profit factor: 0.66 < 1.1",
+      "LTC/USDT": "Low profit factor: 0.57 < 1.1",
+      "ADA/USDT": "Low profit factor: 0.67 < 1.1",
+      "XRP/USDT": "Low profit factor: 0.70 < 1.1",
+      "LINK/USDT": "Low profit factor: 0.55 < 1.1",
+      "DOGE/USDT": "Low profit factor: 0.63 < 1.1",
+      "SUI/USDT": "Low profit factor: 0.54 < 1.1",
+      "TRX/USDT": "Low profit factor: 0.52 < 1.1"
+    },
+    "notes": [
+      "Discovery found 0 liquid pairs, below the target of 6. Validation will continue with available pairs."
+    ]
+  },
+  "validation_notes": [
+    "Discovery found 0 liquid pairs, below the target of 6. Validation will continue with available pairs.",
+    "validation: OOS CONTAMINATION DETECTED - IS and OOS ranges overlap by 1 days. IS=20230625-20250625, OOS=20250625-20260625. This may lead to overfitting. Results should be interpreted with caution.",
+    "Discovery found 1 candidate pair(s), below the 3 pair target; validation will continue with notes."
+  ],
+  "run_config_snapshot": {
+    "schema_version": "run_config_snapshot_v1",
+    "policy_versions": {
+      "timeframes": "timeframes_v1",
+      "risk_profiles": "risk_profiles_v1",
+      "pair_universe": "pair_universe_v1",
+      "score_weights": "robustness_score_v1",
+      "readiness_labels": "readiness_labels_v2",
+      "thresholds": "intraday:legacy,position:legacy,scalping:legacy,swing:legacy"
+    },
+    "strategy": "CatFactory",
+    "strategy_source": "existing",
+    "uploaded_strategy_id": null,
+    "generated_by": null,
+    "trading_style": "swing",
+    "risk_profile": "balanced",
+    "analysis_depth": "standard",
+    "timeframe": "5m",
+    "configured_timeframes": [
+      "1h",
+      "4h",
+      "1d"
+    ],
+    "unsupported_timeframes": [],
+    "selected_pairs": [
+      "BTC/USDT",
+      "ETH/USDT",
+      "BNB/USDT",
+      "SOL/USDT",
+      "XRP/USDT",
+      "ADA/USDT",
+      "DOGE/USDT",
+      "LINK/USDT",
+      "AVAX/USDT",
+      "SUI/USDT",
+      "LTC/USDT",
+      "TRX/USDT"
+    ],
+    "date_ranges": {
+      "in_sample": "20230625-20250625",
+      "out_of_sample": "20250625-20260625"
+    },
+    "optimization": {
+      "hyperopt_loss": "ProfitLockinHyperOptLoss",
+      "hyperopt_spaces": [
+        "buy",
+        "stoploss",
+        "roi"
+      ],
+      "hyperopt_epochs": 100,
+      "wfo_enabled": false,
+      "wfo_is_months": 3,
+      "wfo_oos_months": 1,
+      "wfo_recency_weight": 1.0,
+      "planned_wfo_windows": []
+    },
+    "thresholds": {
+      "min_profit_factor": 1.2,
+      "max_drawdown": 0.4,
+      "min_trades": 100,
+      "min_expectancy": 0.0008,
+      "min_win_rate": 0.45,
+      "min_pair_pass_rate": 0.6,
+      "min_oos_retention": 0.5,
+      "min_sharpe": 0.5,
+      "min_oos_profit": 0.0,
+      "monte_carlo_threshold": 0.35
+    },
+    "exchange": "binance",
+    "advanced_overrides": {}
+  },
+  "policy_versions": {
+    "timeframes": "timeframes_v1",
+    "risk_profiles": "risk_profiles_v1",
+    "pair_universe": "pair_universe_v1",
+    "score_weights": "robustness_score_v1",
+    "readiness_labels": "readiness_labels_v2",
+    "thresholds": "intraday:legacy,position:legacy,scalping:legacy,swing:legacy"
+  },
+  "selected_timeframe": "1h",
+  "selected_pair_universe": [
+    "BTC/USDT",
+    "ETH/USDT",
+    "BNB/USDT",
+    "SOL/USDT",
+    "XRP/USDT",
+    "ADA/USDT",
+    "DOGE/USDT",
+    "LINK/USDT",
+    "AVAX/USDT",
+    "SUI/USDT",
+    "LTC/USDT",
+    "TRX/USDT"
+  ],
+  "score": {},
+  "validation_status": "Candidate",
+  "readiness_label": "Candidate",
+  "score_explanation": [],
+  "progress_percent": 33,
+  "eta_seconds": null,
+  "progress_counters": {
+    "strategies_generated": 0,
+    "strategies_tested": 0,
+    "strategies_rejected": 0,
+    "strategies_surviving": 0
+  },
+  "strategy_runtime_dir": "/home/mohs/Desktop/jj/user_data/auto_quant/fef94f84-fcbd-463e-a99c-d7cd87e00fcc/strategies",
+  "strategy_variants": [
+    {
+      "role": "working",
+      "strategy_name": "CatFactory",
+      "path": "/home/mohs/Desktop/jj/user_data/auto_quant/fef94f84-fcbd-463e-a99c-d7cd87e00fcc/strategies/CatFactory.py",
+      "source": "/home/mohs/Desktop/jj/user_data/strategies/CatFactory.py"
+    }
+  ],
+  "artifact_versions": {
+    "run_config_snapshot_v1": "run_config_snapshot_v1.json",
+    "run_config_snapshot_latest": "run_config_snapshot_latest.json",
+    "run_config_snapshot": "run_config_snapshot.json",
+    "state_v1": "state_v1.json",
+    "state_latest": "state_latest.json",
+    "state": "state.json"
+  },
+  "user_approved_pairs": [],
+  "portfolio_baseline_result": {
+    "portfolio_summary": {
+      "profit_total": -0.689544633,
+      "profit_total_abs": -68.9544633,
+      "profit_mean_pct": -0.1990925256741963,
+      "max_drawdown_account": 0.6950967389662457,
+      "total_trades": 2924,
+      "wins": 1930,
+      "losses": 993,
+      "draws": 1,
+      "win_rate": 0.0,
+      "profit_factor": 0.7457289635371753,
+      "sharpe_ratio": 0.0,
+      "calmar_ratio": 0.0,
+      "sortino_ratio": 0.0,
+      "stake_currency": "USDT"
+    },
+    "per_pair": [
+      {
+        "key": "SUI/USDT",
+        "profit_total": -0.689544633,
+        "profit_mean_pct": -0.1990925256741963,
+        "trades": 2924,
+        "wins": 1930,
+        "losses": 993,
+        "profit_factor": 0.7457289635371753
+      }
+    ],
+    "portfolio_profit": -68.9544633,
+    "portfolio_max_dd": 0.6950967389662457,
+    "portfolio_trades": 2924
+  }
+}

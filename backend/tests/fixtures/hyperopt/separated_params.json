@@ -1,0 +1,44 @@
+[
+  {
+    "loss": 0.5,
+    "params": {
+      "buy": {
+        "rsi": 30,
+        "rsi_timeframe": "14"
+      },
+      "sell": {
+        "rsi": 70,
+        "rsi_timeframe": "14"
+      }
+    },
+    "metrics": {
+      "profit_total": 100.0,
+      "profit_factor": 1.5,
+      "trade_count": 50,
+      "win_rate": 0.6
+    }
+  },
+  {
+    "loss": 0.3,
+    "params": {
+      "buy": {
+        "rsi": 35,
+        "rsi_timeframe": "14"
+      },
+      "sell": {
+        "rsi": 65,
+        "rsi_timeframe": "14"
+      },
+      "roi": {
+        "0": 0.05,
+        "1": 0.10
+      }
+    },
+    "metrics": {
+      "profit_total": 115.5,
+      "profit_factor": 1.6,
+      "trade_count": 52,
+      "win_rate": 0.65
+    }
+  }
+]

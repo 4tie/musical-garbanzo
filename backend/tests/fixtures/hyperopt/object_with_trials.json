@@ -1,0 +1,26 @@
+{
+  "trials": [
+    {
+      "loss": 0.5,
+      "buy_rsi": 30,
+      "sell_rsi": 70,
+      "metrics": {
+        "profit_total": 100.0,
+        "profit_factor": 1.5,
+        "trade_count": 50,
+        "win_rate": 0.6
+      }
+    },
+    {
+      "loss": 0.3,
+      "buy_rsi": 35,
+      "sell_rsi": 65,
+      "metrics": {
+        "profit_total": 115.5,
+        "profit_factor": 1.6,
+        "trade_count": 52,
+        "win_rate": 0.65
+      }
+    }
+  ]
+}

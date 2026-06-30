@@ -1,0 +1,49 @@
+{
+  "strategy_name": "MyStrategy",
+  "source_trial_id": "trial-456",
+  "source_trial_number": 42,
+  "params": {
+    "buy": {
+      "buy_rsi": 30,
+      "buy_fastd": 20
+    },
+    "sell": {
+      "sell_rsi": 70,
+      "sell_fastd": 80
+    },
+    "roi": {
+      "0": 0.06,
+      "60": 0.04,
+      "120": 0.02
+    },
+    "stoploss": {
+      "stoploss": -0.1
+    },
+    "trailing": {
+      "trailing_stop": true,
+      "trailing_stop_positive": 0.02
+    }
+  },
+  "buy_params": {
+    "buy_rsi": 30,
+    "buy_fastd": 20
+  },
+  "sell_params": {
+    "sell_rsi": 70,
+    "sell_fastd": 80
+  },
+  "roi_params": {
+    "0": 0.06,
+    "60": 0.04,
+    "120": 0.02
+  },
+  "stoploss_params": {
+    "stoploss": -0.1
+  },
+  "trailing_params": {
+    "trailing_stop": true,
+    "trailing_stop_positive": 0.02
+  },
+  "created_at": "2026-06-30T02:33:13.272553Z",
+  "warning": "This is validation materialization, not approved export. Do not use for live trading without explicit approval."
+}

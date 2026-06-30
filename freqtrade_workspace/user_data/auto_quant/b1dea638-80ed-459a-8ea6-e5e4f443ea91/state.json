@@ -1,0 +1,304 @@
+{
+  "run_id": "b1dea638-80ed-459a-8ea6-e5e4f443ea91",
+  "strategy": "Diamond",
+  "original_strategy": "Diamond",
+  "original_strategy_hash": "23758b310b74130636019c06ff1e529b7f3b98f70d6b52c20d2c4766a38f2762",
+  "timeframe": "1h",
+  "in_sample_range": "20240101-20241231",
+  "out_sample_range": "20250101-20250630",
+  "exchange": "binance",
+  "config_file": "/home/mohs/Desktop/jj/user_data/config.json",
+  "freqtrade_path": "freqtrade",
+  "user_data_dir": "/home/mohs/Desktop/jj/user_data",
+  "status": "awaiting_user_approval",
+  "current_stage": 1,
+  "stages": [
+    {
+      "index": 1,
+      "name": "Pre-Flight Filtering",
+      "status": "running",
+      "message": "",
+      "data": {
+        "profit_total": 0.0,
+        "profit_total_abs": 0,
+        "profit_mean_pct": 0,
+        "max_drawdown_account": 0.0,
+        "total_trades": 0,
+        "wins": 0,
+        "losses": 0,
+        "draws": 0,
+        "win_rate": 0.0,
+        "profit_factor": 0.0,
+        "sharpe_ratio": 0.0,
+        "calmar_ratio": 0.0,
+        "sortino_ratio": 0.0,
+        "stake_currency": "USDT",
+        "per_pair": [
+          {
+            "key": "BTC/USDT",
+            "profit_total": 0.0,
+            "profit_mean_pct": 0.0,
+            "trades": 0,
+            "wins": 0,
+            "losses": 0,
+            "profit_factor": 0.0
+          }
+        ],
+        "passing_pairs": [
+          "BTC/USDT"
+        ],
+        "filtered_pairs": [
+          {
+            "key": "BTC/USDT",
+            "reason": "insufficient_trades",
+            "total_trades": 0,
+            "profit_factor": 0.0
+          }
+        ],
+        "baseline_attempts": 1,
+        "discovery_gates": {
+          "min_profit_factor": 1.05,
+          "max_drawdown": 0.5,
+          "min_trades": 500,
+          "min_expectancy": 0.0001,
+          "min_win_rate": 0.4
+        },
+        "validation_notes": [
+          "Discovery found 0 liquid pairs, below the target of 1. Validation will continue with available pairs.",
+          "Discovery found 1 candidate pair(s), below the 1 pair target; validation will continue with notes."
+        ]
+      },
+      "started_at": "2026-06-27T23:05:41.567595+00:00",
+      "duration_s": null
+    },
+    {
+      "index": 2,
+      "name": "Portfolio Baseline Backtest",
+      "status": "pending",
+      "message": "",
+      "data": {},
+      "started_at": null,
+      "duration_s": null
+    },
+    {
+      "index": 3,
+      "name": "WFA Hyperopt",
+      "status": "pending",
+      "message": "",
+      "data": {},
+      "started_at": null,
+      "duration_s": null
+    },
+    {
+      "index": 4,
+      "name": "Robustness & Feature Injection",
+      "status": "pending",
+      "message": "",
+      "data": {},
+      "started_at": null,
+      "duration_s": null
+    },
+    {
+      "index": 5,
+      "name": "Portfolio Competition",
+      "status": "pending",
+      "message": "",
+      "data": {},
+      "started_at": null,
+      "duration_s": null
+    },
+    {
+      "index": 6,
+      "name": "Delivery",
+      "status": "pending",
+      "message": "",
+      "data": {},
+      "started_at": null,
+      "duration_s": null
+    }
+  ],
+  "error": null,
+  "created_at": "2026-06-27T23:05:35.268646+00:00",
+  "completed_at": null,
+  "report": null,
+  "max_drawdown_threshold": 0.3,
+  "min_win_rate": 0.4,
+  "min_profit_factor": 1.0,
+  "min_sharpe": 0.5,
+  "monte_carlo_threshold": 0.35,
+  "hyperopt_loss": "ProfitLockinHyperOptLoss",
+  "hyperopt_spaces": [
+    "buy",
+    "sell",
+    "roi",
+    "stoploss",
+    "trailing"
+  ],
+  "hyperopt_epochs": 5,
+  "hyperopt_workers": 2,
+  "min_oos_profit": 0.0,
+  "retry_count": 0,
+  "max_retries": 3,
+  "retry_history": [],
+  "generalization_failure": null,
+  "sensitivity": null,
+  "wfo_enabled": false,
+  "wfo_is_months": 3,
+  "wfo_oos_months": 1,
+  "wfo_recency_weight": 1.0,
+  "wfo_windows": [],
+  "wfo_skip_reason": null,
+  "ensemble_enabled": false,
+  "pair_universe": [
+    "BTC/USDT"
+  ],
+  "winning_pairs": [],
+  "selected_pairs": [],
+  "excluded_time_windows": {},
+  "ai_enabled": true,
+  "ai_suggestions": {},
+  "ai_interactions": [],
+  "ollama_available": false,
+  "data_healing_warmup_candles": 200,
+  "data_healing_timeout": 300,
+  "phase1_heal_attempts": 0,
+  "stability_scores": {},
+  "portfolio_weights": {},
+  "baseline_trade_counts": {},
+  "max_open_trades": 5,
+  "strategy_source": "existing",
+  "trading_style": "scalping",
+  "risk_profile": "balanced",
+  "analysis_depth": "quick",
+  "uploaded_strategy_id": null,
+  "advanced_overrides": {},
+  "auto_discovery_enabled": true,
+  "discovery_results": {
+    "candidate_timeframes": [
+      "1m",
+      "3m",
+      "5m",
+      "15m"
+    ],
+    "unsupported_timeframes": [],
+    "strongest_timeframe": "1m",
+    "most_stable_timeframe": "1m",
+    "most_robust_timeframe": "1m",
+    "selected_timeframe": "1m",
+    "selected_pairs": [],
+    "pair_errors": {
+      "BTC/USDT": "Insufficient trades: 0 < 500"
+    },
+    "notes": [
+      "Discovery found 0 liquid pairs, below the target of 1. Validation will continue with available pairs."
+    ]
+  },
+  "validation_notes": [
+    "Discovery found 0 liquid pairs, below the target of 1. Validation will continue with available pairs.",
+    "Discovery found 1 candidate pair(s), below the 1 pair target; validation will continue with notes."
+  ],
+  "run_config_snapshot": {
+    "schema_version": "run_config_snapshot_v1",
+    "policy_versions": {
+      "timeframes": "timeframes_v1",
+      "risk_profiles": "risk_profiles_v1",
+      "pair_universe": "pair_universe_v1",
+      "score_weights": "robustness_score_v1",
+      "readiness_labels": "readiness_labels_v2",
+      "thresholds": "intraday:legacy,position:legacy,scalping:legacy,swing:legacy"
+    },
+    "strategy": "Diamond",
+    "strategy_source": "existing",
+    "uploaded_strategy_id": null,
+    "generated_by": null,
+    "trading_style": "scalping",
+    "risk_profile": "balanced",
+    "analysis_depth": "quick",
+    "timeframe": "1h",
+    "configured_timeframes": [
+      "1m",
+      "3m",
+      "5m",
+      "15m"
+    ],
+    "unsupported_timeframes": [],
+    "selected_pairs": [
+      "BTC/USDT"
+    ],
+    "date_ranges": {
+      "in_sample": "20240101-20241231",
+      "out_of_sample": "20250101-20250630"
+    },
+    "optimization": {
+      "hyperopt_loss": "ProfitLockinHyperOptLoss",
+      "hyperopt_spaces": [
+        "buy",
+        "sell",
+        "roi",
+        "stoploss",
+        "trailing"
+      ],
+      "hyperopt_epochs": 5,
+      "wfo_enabled": false,
+      "wfo_is_months": 3,
+      "wfo_oos_months": 1,
+      "wfo_recency_weight": 1.0,
+      "planned_wfo_windows": []
+    },
+    "thresholds": {
+      "min_profit_factor": 1.0,
+      "max_drawdown": 0.3,
+      "min_trades": 500,
+      "min_expectancy": 0.0002,
+      "min_win_rate": 0.4,
+      "min_pair_pass_rate": 0.6,
+      "min_oos_retention": 0.5,
+      "min_sharpe": 0.5,
+      "min_oos_profit": 0.0,
+      "monte_carlo_threshold": 0.35
+    },
+    "exchange": "binance",
+    "advanced_overrides": {}
+  },
+  "policy_versions": {
+    "timeframes": "timeframes_v1",
+    "risk_profiles": "risk_profiles_v1",
+    "pair_universe": "pair_universe_v1",
+    "score_weights": "robustness_score_v1",
+    "readiness_labels": "readiness_labels_v2",
+    "thresholds": "intraday:legacy,position:legacy,scalping:legacy,swing:legacy"
+  },
+  "selected_timeframe": "1m",
+  "selected_pair_universe": [],
+  "score": {},
+  "validation_status": "Candidate",
+  "readiness_label": "Candidate",
+  "score_explanation": [],
+  "progress_percent": 0,
+  "eta_seconds": null,
+  "progress_counters": {
+    "strategies_generated": 0,
+    "strategies_tested": 0,
+    "strategies_rejected": 0,
+    "strategies_surviving": 0
+  },
+  "strategy_runtime_dir": "/home/mohs/Desktop/jj/user_data/auto_quant/b1dea638-80ed-459a-8ea6-e5e4f443ea91/strategies",
+  "strategy_variants": [
+    {
+      "role": "working",
+      "strategy_name": "Diamond",
+      "path": "/home/mohs/Desktop/jj/user_data/auto_quant/b1dea638-80ed-459a-8ea6-e5e4f443ea91/strategies/Diamond.py",
+      "source": "/home/mohs/Desktop/jj/user_data/strategies/Diamond.py"
+    }
+  ],
+  "artifact_versions": {
+    "run_config_snapshot_v1": "run_config_snapshot_v1.json",
+    "run_config_snapshot_latest": "run_config_snapshot_latest.json",
+    "run_config_snapshot": "run_config_snapshot.json",
+    "state_v1": "state_v1.json",
+    "state_latest": "state_latest.json",
+    "state": "state.json"
+  },
+  "user_approved_pairs": [],
+  "portfolio_baseline_result": {}
+}
