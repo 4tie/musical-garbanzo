@@ -1,0 +1,610 @@
+You are working on the HER repository.
+
+HER is a profitable-strategy discovery and validation system.
+
+It tries to find profitable trading strategies, but it never claims profitability without evidence.
+
+Core rule:
+
+AI suggests.
+Backend validates.
+Freqtrade tests.
+HER decides.
+
+Your task is to redesign and improve the frontend UI/UX while preserving backend behavior.
+
+Do not rebuild the backend.
+Do not invent APIs.
+Do not add fake data.
+Do not add mock results.
+Do not add approval/export/live trading.
+Do not claim guaranteed profitability.
+
+The backend is the source of truth.
+
+---
+
+# Main Goal
+
+Create a beautiful, modern, workflow-driven frontend for HER.
+
+The user should clearly understand:
+
+1. Where they are in the strategy journey.
+2. What has already happened.
+3. What is currently running.
+4. Whether the strategy is improving or failing.
+5. What evidence supports the result.
+6. What the next safe action is.
+
+The UI must make HER feel like a real strategy discovery cockpit, not a collection of disconnected backend pages.
+
+---
+
+# Product Direction
+
+HER should guide the user through this journey:
+
+Strategy Workspace
+→ Readiness Check
+→ Baseline Run
+→ Baseline Evidence
+→ Optimization Run
+→ Trial Progress
+→ Best Trial / Optimized Candidate
+→ Baseline vs Optimized Comparison
+→ Validation Run
+→ OOS / WFO / Robustness Evidence
+→ Final Evidence Summary
+→ Next Action
+
+The UI should be designed around this journey.
+
+---
+
+# Design Style
+
+Use a premium dark dashboard style.
+
+Visual direction:
+
+* clean trading lab interface
+* dark background
+* soft cards
+* subtle borders
+* modern sidebar
+* compact but readable metric cards
+* status badges
+* step timeline
+* live run progress
+* charts for optimization and validation
+* no clutter
+* no fake “profit guaranteed” language
+
+Recommended visual feel:
+
+* dark navy / charcoal background
+* glass-like cards but not too shiny
+* accent color: electric blue or cyan
+* success: controlled green
+* warning: amber
+* failure: red
+* neutral: slate gray
+* typography: clean, technical, readable
+* spacing: generous enough to feel premium
+
+Do not use loud casino/trading hype visuals.
+
+HER must feel serious, analytical, and evidence-based.
+
+---
+
+# Required UX Principle
+
+Every page must answer:
+
+* What is this?
+* What data is real?
+* What is the current status?
+* What evidence exists?
+* What failed, if anything?
+* What should the user do next?
+
+No page should show raw backend data without explanation.
+
+---
+
+# Required Main Page: Strategy Journey
+
+Create or improve a main guided workflow page.
+
+Suggested route:
+
+`/journey`
+
+or integrate into the dashboard if the app already has a better main route.
+
+This page should show one selected strategy and its full lifecycle:
+
+## Sections
+
+### 1. Strategy Header
+
+Show:
+
+* strategy name
+* readiness status
+* sidecar JSON status
+* selected pairs
+* timeframe
+* risk profile
+* latest run status
+
+Actions:
+
+* Open Strategy Workspace
+* Run Baseline
+* Run Optimization if baseline candidate exists
+* Run Validation if baseline/optimized candidate exists
+
+Use confirmation dialogs before any run action.
+
+---
+
+### 2. Journey Timeline
+
+Create a horizontal or vertical stepper:
+
+1. Strategy selected
+2. Readiness checked
+3. Baseline completed
+4. Optimization completed
+5. Validation completed
+6. Candidate decision
+
+Each step should have:
+
+* status: not started / running / passed / failed / blocked
+* short message
+* timestamp if available
+* link to detail page
+* next action button where appropriate
+
+This timeline must not fake completion.
+
+If no backend data exists, show “Not started”.
+
+---
+
+### 3. Live Run Workflow Panel
+
+When a run is active, show a live workflow panel.
+
+This panel should show:
+
+* current stage
+* completed stages
+* running stage
+* failed stage if any
+* elapsed time if available
+* last updated time
+* controlled failure message if failed
+* progress percentage only if it can be derived safely
+
+Use polling if WebSocket is not available.
+
+Suggested polling:
+
+* every 2 seconds while status is running
+* stop polling when completed / failed / blocked
+* do not overload backend
+
+Do not invent live progress if backend does not provide it.
+
+If progress percentage is unknown, show stage-based progress instead.
+
+---
+
+# Live Charts and Metrics
+
+Add live charts where the backend provides real data.
+
+Do not use mock data.
+
+## Optimization Live Metrics
+
+On optimization detail and journey page, show:
+
+### Chart 1: Profit Factor by Trial
+
+Line chart:
+
+* x-axis: trial number
+* y-axis: profit factor
+* show best trial marker if available
+
+### Chart 2: Expectancy by Trial
+
+Line chart:
+
+* x-axis: trial number
+* y-axis: expectancy
+
+### Chart 3: Drawdown by Trial
+
+Line chart or area chart:
+
+* x-axis: trial number
+* y-axis: max drawdown
+* lower is better
+
+### Chart 4: Trial Status Distribution
+
+Small bar or donut chart:
+
+* completed
+* rejected
+* failed
+* ignored
+* best
+
+### Live Summary Cards
+
+Show:
+
+* trials completed
+* best profit factor
+* best expectancy
+* best drawdown
+* trade count
+* current best trial
+* optimization status
+* whether optimized result improved baseline
+
+Add visual trend indicators:
+
+* improved
+* worsened
+* unchanged
+* insufficient evidence
+
+Do not say “profitable” unless validation evidence supports it.
+
+Use wording like:
+
+* “Improving”
+* “Weak evidence”
+* “Rejected”
+* “Candidate”
+* “Needs validation”
+* “Validated by evidence”
+
+---
+
+## Baseline Evidence Charts
+
+On baseline detail and journey page, show:
+
+* Profit factor
+* Expectancy
+* Max drawdown
+* Trade count
+* Win rate
+* Net profit
+* Pair performance table
+* Pair performance bar chart if pair results exist
+* Trade summary cards
+
+If baseline is weak, explain why.
+
+Examples:
+
+* “Rejected because expectancy is negative.”
+* “Rejected because trade count is too low.”
+* “Candidate only. Needs validation.”
+* “High drawdown risk.”
+
+---
+
+## Validation Evidence Charts
+
+On validation detail and journey page, show:
+
+### OOS Card
+
+Show:
+
+* OOS status
+* OOS timerange
+* profit factor
+* expectancy
+* drawdown
+* trade count
+* issues
+* warnings
+
+### WFO Card
+
+Show:
+
+* total windows
+* passed windows
+* failed windows
+* pass rate
+* window table
+* WFO pass/fail status
+
+Add a WFO window chart if data exists:
+
+* x-axis: window index
+* y-axis: profit factor or expectancy
+* show pass/fail coloring through badges, not fake chart colors if not supported
+
+### Robustness Card
+
+Show:
+
+* passed checks
+* warnings
+* failed checks
+* critical failures
+* detailed issue list
+
+### Final Validation Banner
+
+Always include:
+
+“Validation is evidence only. It is not strategy approval, export, live-trading authorization, or a guarantee of future performance.”
+
+---
+
+# Existing Pages to Improve
+
+Improve these pages without breaking API behavior:
+
+* Strategy Workspace
+* Baseline detail
+* Optimization detail
+* Validation list
+* Validation detail
+* Runs page
+* Sidebar / navigation
+* Dashboard if present
+
+Do not remove existing functionality.
+
+Do not remove safety disclaimers.
+
+Do not remove controlled failure banners.
+
+Do not remove copy buttons for IDs or artifact paths.
+
+---
+
+# Navigation Design
+
+Create a clean sidebar:
+
+Suggested sections:
+
+## Discover
+
+* Dashboard
+* Strategy Journey
+* Strategy Workspace
+
+## Test
+
+* Runs
+* Baseline
+* Optimization
+* Validation
+
+## Evidence
+
+* Results
+* Metrics
+* Artifacts
+* Decisions
+
+## System
+
+* Settings
+* Health
+
+Keep it simple.
+Do not over-nest.
+
+---
+
+# Component System
+
+Create reusable UI components if missing:
+
+* `WorkflowStepper`
+* `LiveRunPanel`
+* `MetricTrendCard`
+* `EvidenceStatusBanner`
+* `RunActionButton`
+* `RunConfirmationDialog`
+* `TrialMetricChart`
+* `PairPerformanceChart`
+* `WFOWindowChart`
+* `DecisionSummaryCard`
+* `NextActionPanel`
+* `ControlledFailurePanel`
+* `EvidenceEmptyState`
+
+Use existing components where possible.
+
+Do not duplicate components unnecessarily.
+
+---
+
+# Live Workflow Behavior
+
+If backend has status endpoints, use them.
+
+Examples:
+
+* baseline status endpoint
+* optimization status endpoint
+* validation status endpoint
+* run stages endpoint
+* trial list endpoint
+* metrics endpoint
+
+Use existing API clients where possible.
+
+If API clients are missing, add frontend API client functions only.
+
+Do not change backend unless there is a clear mismatch and you document it.
+
+Polling rules:
+
+* Poll active runs every 2 seconds.
+* Stop polling when final status is reached.
+* Show “Last updated”.
+* Show retry button if polling fails.
+* Do not show fake progress.
+
+---
+
+# Safety Rules
+
+The frontend must never include:
+
+* guaranteed profit language
+* approved for live trading
+* one-click live trading
+* exchange order controls
+* fake metrics
+* fake charts
+* fake run IDs
+* fake completed states
+* hidden execution
+* auto-run without confirmation
+
+Every action that starts a backend run must require confirmation.
+
+Every confirmation dialog must explain:
+
+* what will run
+* strategy name
+* pairs
+* timeframe
+* risk profile
+* source run ID if relevant
+* evidence-only disclaimer
+
+---
+
+# Required User Flow
+
+After your changes, this flow should work from the UI:
+
+1. User opens Strategy Workspace.
+2. User selects a ready strategy.
+3. User starts baseline with confirmation.
+4. User sees baseline run progress.
+5. User opens baseline detail.
+6. User sees metrics, decision, pair results, and next action.
+7. User can start optimization if baseline is candidate/promising.
+8. User sees optimization live progress and trial charts.
+9. User opens optimization detail.
+10. User sees best trial and baseline-vs-optimized comparison.
+11. User can start validation from baseline or optimization detail.
+12. User confirms validation.
+13. User is redirected to validation detail.
+14. User sees OOS, WFO, robustness, final decision, and warnings.
+15. User sees next safe action.
+
+If a step cannot be completed because backend support is missing, document the exact missing endpoint or field. Do not fake it.
+
+---
+
+# Acceptance Criteria
+
+The redesign is accepted only if:
+
+* The app builds successfully.
+* TypeScript passes.
+* Lint passes.
+* Existing backend behavior is not changed.
+* No fake data is added.
+* No mock charts are added.
+* Charts use real backend data only.
+* Strategy workflow is clearer than before.
+* User can start validation from baseline and optimization detail pages.
+* Live run panel exists for active runs.
+* Optimization trial charts exist if trial data exists.
+* Validation evidence is visually clear.
+* Every run action has confirmation.
+* Safety disclaimers remain visible.
+* No export/approval/live trading controls are added.
+* Repo hygiene stays clean.
+
+---
+
+# Testing
+
+Run:
+
+Backend only if touched:
+
+`cd backend && ../.venv/bin/python -m pytest tests/test_validation_execution_service.py tests/test_validation_api.py -q`
+
+Frontend:
+
+`cd frontend && npm run lint && npm run build`
+
+Repo hygiene:
+
+`git status --short`
+
+`git ls-files | grep -E '(__pycache__|\.pyc|\.venv|node_modules|\.next)'`
+
+Expected:
+
+* frontend lint passes
+* frontend build passes
+* no runtime files tracked
+* no fake data committed
+* no backend behavior changed unless documented
+
+---
+
+# Documentation
+
+Create or update:
+
+* `docs/FRONTEND_WORKFLOW_REDESIGN_PLAN.md`
+* `docs/UI_WORKFLOW_ACCEPTANCE_CHECKLIST.md`
+* `docs/PART_14_GUIDED_STRATEGY_WORKFLOW_REPORT.md`
+
+The report must include:
+
+* what pages changed
+* what components were added
+* what APIs are used
+* what live polling does
+* what charts were added
+* what is real data vs unavailable data
+* what remains deferred
+* test results
+* build result
+* repo hygiene result
+
+---
+
+# Important
+
+Do not attempt to make the app look exciting by weakening the validation rules.
+
+This is not a casino UI.
+
+This is an evidence-driven trading strategy discovery system.
+
+The frontend can look beautiful, but it must remain honest.
+
+HER should help the user find promising strategies quickly, while protecting the user from believing weak or fake evidence.
