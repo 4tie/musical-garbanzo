@@ -48,7 +48,7 @@ def get_system_status() -> dict:
     return {
         "backend": "healthy",
         "database": db_status,
-        "database_path": str(get_database_path()),
+        "database_path": str(get_database_path()),  # always resolves to SQLite path
         "freqtrade": freqtrade_status,
         "ollama": ollama_status,
         "discord": discord_status,

@@ -15,7 +15,10 @@ aiosqlite==0.19.0
 httpx==0.25.2
 
 # Freqtrade real execution
-freqtrade[hyperopt]==2026.5.1
+# IMPORTANT: Use scripts/install-backend.sh for a deterministic install.
+# freqtrade's transitive deps can pull in a newer FastAPI; the script pins
+# the correct versions in a second pass. See knowledge_base/RUNBOOK.md.
+freqtrade[hyperopt]==2026.6
 
 # Environment Variables
 python-dotenv==1.0.0

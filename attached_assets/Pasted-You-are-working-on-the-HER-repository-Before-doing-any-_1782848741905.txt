@@ -1,0 +1,218 @@
+You are working on the HER repository.
+
+Before doing any implementation, read these project identity and indexing files first:
+
+* `README.md`
+* `AGENTS.md`
+* `docs/PROJECT_CHARTER.md`
+* `docs/SAFETY_RULES.md`
+* `docs/GLOSSARY.md`
+* `docs/FRONTEND_UX_GUIDE.md`
+* `knowledge_base/API_INDEX.md`
+* `knowledge_base/WORKFLOW_INDEX.md`
+* `knowledge_base/CODE_MAP.md`
+* `knowledge_base/RUNBOOK.md`
+* `project_plan/ROADMAP.md`
+* `knowledge_base/PROJECT_KNOWLEDGE_BASE_REPORT.md`
+
+These files define what HER is, how it works, what APIs exist, what workflows exist, what must not be broken, and how future AI assistants should work inside this project.
+
+Follow them as the source of truth.
+
+---
+
+# HER Identity
+
+HER is a profitable-strategy discovery and validation system.
+
+It tries to find profitable trading strategies, but it never claims profitability without evidence.
+
+Core rule:
+
+AI suggests.
+Backend validates.
+Freqtrade tests.
+HER decides.
+
+HER must remain honest, evidence-driven, and safe.
+
+---
+
+# Your Task
+
+Improve the frontend UI/UX and fix the frontend-to-backend connection problem.
+
+The backend and frontend both run, but the frontend is not correctly reading data from the backend.
+
+Your job is to:
+
+1. Diagnose why the frontend cannot read the backend.
+2. Fix the real integration issue.
+3. Improve the UI so the user can actually use HER smoothly.
+4. Reduce clutter, repeated sections, and confusing duplicated content.
+5. Make the workflow clearer and more beautiful.
+6. Add live workflow/status panels and real charts where real backend data exists.
+7. Preserve all safety rules.
+
+Do not create mockups.
+Do not add mock data.
+Do not add fake data.
+Do not add fake API responses.
+Do not add placeholder charts pretending to be real.
+Do not invent backend endpoints.
+Do not fake successful runs.
+Do not fake metrics.
+Do not weaken validation rules.
+
+---
+
+# First Priority: Fix Frontend ↔ Backend Connection
+
+Before redesigning visuals, fix the frontend/backend integration.
+
+Investigate:
+
+* frontend API base URL
+* environment variables
+* Vite/Next config
+* API client paths
+* backend FastAPI route prefixes
+* `/api` vs `/api/v1` mismatch
+* CORS settings
+* proxy settings
+* request/response shape mismatch
+* failing network calls in browser console
+* backend logs
+* frontend error handling
+* whether frontend expects fields that backend does not return
+* whether backend returns data but frontend silently ignores it
+
+Use `knowledge_base/API_INDEX.md` and actual backend routers as the source of truth.
+
+If a frontend client calls a missing endpoint, fix the frontend client or document the mismatch.
+
+If the backend endpoint exists but frontend uses the wrong path, fix the frontend.
+
+If CORS or backend route mounting is truly the issue, make the smallest safe backend config fix and document it.
+
+Do not rewrite backend behavior.
+
+---
+
+# Required Integration Report
+
+Create or update:
+
+`docs/FRONTEND_BACKEND_INTEGRATION_FIX_REPORT.md`
+
+Include:
+
+* root cause of frontend not reading backend
+* files changed
+* API paths fixed
+* environment/proxy/CORS changes if any
+* before/after behavior
+* how you verified the fix
+* remaining issues if any
+
+---
+
+# UI/UX Goal
+
+Make HER feel like a real strategy discovery cockpit.
+
+The user should clearly understand:
+
+* where they are
+* what strategy is selected
+* what has run
+* what is currently running
+* what failed
+* why it failed
+* what evidence exists
+* what next action is safe
+
+Do not make the UI bigger just for beauty.
+
+Make it simpler, clearer, and more useful.
+
+---
+
+# Main Workflow HER Must Support
+
+The frontend must guide this journey:
+
+Strategy Workspace
+→ Readiness Check
+→ Baseline Run
+→ Baseline Evidence
+→ Optimization Run
+→ Trial Progress
+→ Best Trial / Optimized Candidate
+→ Baseline vs Optimized Comparison
+→ Validation Run
+→ OOS / WFO / Robustness Evidence
+→ Final Evidence Summary
+→ Next Safe Action
+
+The UI must be workflow-first, not just a collection of disconnected pages.
+
+---
+
+# Required Main Page: Strategy Journey
+
+Create or improve a main guided workflow page.
+
+Suggested route:
+
+`/journey`
+
+This page should show one selected strategy and the full lifecycle.
+
+Required sections:
+
+## 1. Strategy Header
+
+Show:
+
+* strategy name
+* readiness status
+* sidecar JSON status
+* selected pairs
+* timeframe
+* risk profile
+* latest run status
+* latest decision/classification if available
+
+Actions:
+
+* Open Strategy Workspace
+* Run Baseline if allowed
+* Run Optimization if baseline candidate/promising exists
+* Run Validation if baseline or optimized candidate exists
+
+Every run action must require confirmation.
+
+---
+
+## 2. Journey Timeline
+
+Show these steps:
+
+1. Strategy selected
+2. Readiness checked
+3. Baseline completed
+4. Optimization completed
+5. Validation completed
+6. Candidate decision
+
+Each step must show:
+
+* status: not started / running / passed / failed / blocked
+* short explanation
+* timestamp if available
+* link to detail page if available
+* next safe action if available
+
+Do not fake completed states.
+...

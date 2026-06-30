@@ -62,8 +62,10 @@ bash scripts/dev-frontend.sh
 ## 4. Install / Dependency Commands
 
 ```bash
-# Backend Python dependencies
-pip install -r backend/requirements.txt
+# Backend Python dependencies — use the install script for deterministic results.
+# freqtrade's transitive deps can pull in a newer FastAPI; the script corrects
+# this in a second pip pass. Plain `pip install -r requirements.txt` may fail.
+bash scripts/install-backend.sh
 
 # Frontend Node dependencies
 cd frontend && npm install

@@ -86,6 +86,9 @@ out/
 .DS_Store
 Thumbs.db
 
+# Import artifacts — the zip is not needed after initial code extraction
+*.zip
+
 
 
 # Python cache files

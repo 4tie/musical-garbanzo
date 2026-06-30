@@ -1,0 +1,3 @@
+- [Replit proxy fix](replit-proxy-fix.md) — browser can't reach 127.0.0.1:8000; use Next.js rewrites + NEXT_PUBLIC_API_BASE_URL="" to proxy via frontend server.
+- [FastAPI-freqtrade version conflict](fastapi-freqtrade-conflict.md) — freqtrade install upgrades FastAPI to incompatible version; must force-reinstall fastapi==0.104.1 after.
+- [DATABASE_URL on Replit](database-url-replit.md) — Replit injects PostgreSQL DATABASE_URL; sqlite.py patched to fall back to ./data/her.db for non-SQLite URLs.

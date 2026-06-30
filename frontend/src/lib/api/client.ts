@@ -7,6 +7,10 @@ import {
 } from './types';
 import { invalidResponseError, isEmptyApiData, makeApiError } from './errors';
 
+// When NEXT_PUBLIC_API_BASE_URL is set to empty string ("") the client uses
+// relative paths so that Next.js rewrites (next.config.ts) can proxy the
+// requests to the backend.  This is required on Replit where the browser
+// cannot reach 127.0.0.1:8000 directly.
 const DEFAULT_API_BASE_URL = 'http://127.0.0.1:8000';
 const DEFAULT_TIMEOUT_MS = 15000;
 
@@ -22,8 +26,16 @@ interface PostOptions<TBody> {
   signal?: AbortSignal;
 }
 
-export const API_BASE_URL =
-  process.env.NEXT_PUBLIC_API_BASE_URL?.replace(/\/+$/, '') || DEFAULT_API_BASE_URL;
+// If NEXT_PUBLIC_API_BASE_URL is explicitly set (even to empty string), use it.
+// Empty string = relative-URL mode: Next.js rewrites (next.config.ts) proxy all
+// /api/** and /health calls to the backend at 127.0.0.1:8000.  This is
+// required on Replit where the browser cannot reach the backend directly.
+// If the var is not defined at all, fall back to the default local URL.
+export const API_BASE_URL = (() => {
+  const env = process.env.NEXT_PUBLIC_API_BASE_URL;
+  if (env !== undefined) return env.replace(/\/+$/, ''); // '' = relative mode
+  return DEFAULT_API_BASE_URL;
+})();
 
 export async function apiGetRecord<T>(
   path: string,
@@ -176,14 +188,26 @@ export async function apiPost<TBody, TResponse>(
   }
 }
 
+// Dummy absolute base used only when API_BASE_URL is "" (relative mode).
+// We build with a full URL so URLSearchParams works, then strip the origin.
+const RELATIVE_URL_BASE = 'http://localhost';
+
 function buildUrl(path: string, query?: QueryParams): string {
   const normalizedPath = path.startsWith('/') ? path : `/${path}`;
-  const url = new URL(`${API_BASE_URL}${normalizedPath}`);
+  const urlBase = API_BASE_URL || RELATIVE_URL_BASE;
+  const url = new URL(`${urlBase}${normalizedPath}`);
 
   if (query) {
     for (const [key, value] of Object.entries(query)) {
       appendQueryValue(url, key, value);
     }
+  }
+
+  // In relative mode, return only path + search so the browser sends the
+  // request to its current origin (the Next.js dev server), which then
+  // proxies it to the backend via the rewrites in next.config.ts.
+  if (!API_BASE_URL) {
+    return url.pathname + url.search;
   }
 
   return url.toString();

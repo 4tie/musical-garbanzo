@@ -10,17 +10,24 @@ from app.core.config import settings
 
 
 def get_database_path() -> Path:
-    """Get the absolute path to the SQLite database."""
+    """Get the absolute path to the SQLite database.
+    
+    HER always uses SQLite.  If DATABASE_URL is not a SQLite URL (e.g. because
+    the host environment injects a PostgreSQL URL), fall back to the default
+    SQLite path so the runtime always uses the correct file.
+    """
     db_url = settings.DATABASE_URL
     if db_url.startswith("sqlite:///"):
         db_path = db_url.replace("sqlite:///", "")
     else:
-        db_path = db_url
-    
+        # Non-SQLite URL in environment (e.g. Replit injects a PostgreSQL URL).
+        # HER is SQLite-only; use the default path.
+        db_path = "./data/her.db"
+
     # Convert to absolute path if relative
     if not Path(db_path).is_absolute():
         db_path = str(settings.project_root / db_path)
-    
+
     return Path(db_path)
 
 
