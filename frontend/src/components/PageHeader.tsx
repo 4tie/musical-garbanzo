@@ -8,11 +8,11 @@ interface PageHeaderProps {
 
 export default function PageHeader({ title, description, actions }: PageHeaderProps) {
   return (
-    <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+    <div className="flex flex-col gap-4 rounded-[var(--app-radius)] border border-[var(--app-border)] bg-[var(--app-surface-glass)] px-5 py-4 shadow-[var(--app-shadow-card)] md:flex-row md:items-start md:justify-between">
       <div className="min-w-0">
-        <h1 className="text-xl font-semibold tracking-tight text-[var(--app-text)]">{title}</h1>
+        <h1 className="text-2xl font-semibold tracking-normal text-[var(--app-text)]">{title}</h1>
         {description && (
-          <p className="mt-1 max-w-2xl text-xs leading-5 text-[var(--app-text-subtle)]">
+          <p className="mt-1.5 max-w-3xl text-sm leading-6 text-[var(--app-text-muted)]">
             {description}
           </p>
         )}

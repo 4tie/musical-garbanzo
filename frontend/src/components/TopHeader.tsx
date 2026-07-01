@@ -56,17 +56,28 @@ export default function TopHeader({
 
   return (
     <header
-      className="flex shrink-0 items-center justify-between border-b border-[var(--app-border)] bg-[var(--app-surface)] px-5"
+      className="flex shrink-0 items-center justify-between border-b border-[var(--app-border)] bg-[var(--app-surface-glass)] px-5 backdrop-blur"
       style={{ height: 'var(--app-header-height)' }}
     >
       {/* Left: breadcrumb + page title */}
       <div className="min-w-0">
         <div className="flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-widest text-[var(--app-text-subtle)]">
           <span>HER</span>
-          <span className="opacity-40">›</span>
+          <svg
+            className="h-3 w-3 opacity-40"
+            viewBox="0 0 12 12"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.7"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M4.5 2.5 7.5 6l-3 3.5" />
+          </svg>
           <span>{section}</span>
         </div>
-        <h1 className="truncate text-[15px] font-semibold leading-none text-[var(--app-text)]">
+        <h1 className="mt-1 truncate text-[15px] font-semibold leading-none text-[var(--app-text)]">
           {title}
         </h1>
       </div>

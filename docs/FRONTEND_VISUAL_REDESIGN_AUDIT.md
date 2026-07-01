@@ -1,112 +1,60 @@
 # HER Frontend Visual Redesign Audit
 
-**Date:** 2026-07-01
-**Scope:** UI/UX visual redesign — no backend changes
+## Current Weak Spots
 
----
+- The app already follows the dark HER design rules, but many surfaces still read as a careful admin panel rather than a premium research cockpit.
+- Page rhythm is repetitive: header, warning, section card, table/card grid repeats across Dashboard, Journey, Runs, Strategies, and detail pages.
+- Visual hierarchy is too flat. Important workflow state, next action, and evidence availability do not consistently dominate raw tables or secondary metadata.
+- Tables and cards are functional but boxy; density, borders, and backgrounds do not create enough scan-friendly layering.
+- Empty and loading states are correct but visually plain, so unavailable evidence feels like a blank area rather than an intentional "not available yet" state.
+- Strategy Journey has the right data sources, but the top section mixes selector, status, actions, and latest-run text into one dense strip.
+- Live workflow visibility is weak when there is no active run. The requested "No active run" state should be explicit and polished.
 
-## What Currently Looks Weak
+## Cluttered or Repetitive Pages
 
-### Layout & Shell
-- `TopHeader` contains a permanently-disabled search input that takes up width and signals "unfinished prototype"
-- Sidebar code badges (DB, JN, ST…) feel developer-tool-ish, not polished
-- Content max-width is `max-w-7xl` — acceptable but padding/spacing feels slightly cramped on medium screens
-- No visual hierarchy between page title (in shell) and page-level `PageHeader` — both repeat the same title
+- `/journey`: core workflow page, but needs a stronger summary-first cockpit layout and clearer next safe action.
+- `/runs`: useful table controls, but search/filter chrome should feel more integrated and less generic.
+- `/strategies`: filter-heavy table page needs stronger workspace framing and cleaner scan hierarchy.
+- Baseline, optimization, and validation detail pages benefit from shared card/table/metric restyling without changing their backend contracts.
+- Dashboard already has real-data charts and summaries, but shared surface updates should make it feel less like stacked sections.
 
-### Cards & Components
-- `MetricCard` wraps `SectionCard` — this creates a card nested inside a card. When metric cards are used inside a `SectionCard` grid, the result is double borders and double hover effects, which looks amateur.
-- `SectionCard` title is plain `text-base font-semibold` — blends into content too easily; no visual distinction from body text
-- `card-hover` applies `translateY(-1px)` on all `SectionCard` uses, including static metric grids — causes jittery mass-hover on grids
-- `EmptyState` defaults to "HER" text as icon — generic and doesn't convey meaning
-- `LoadingSkeleton` shimmer is subtle but correct
+## Navigation Issues
 
-### Banners & Notices
-- `ControlledFailureBanner` is amber/warning-styled but used on the Dashboard and Journey page as a generic "read-only inspection mode" notice — amber implies a problem; a read-only notice should be info/neutral
-- Multiple pages stack the same "evidence only / no live trading" text redundantly (banner + footer + disclaimer)
-- `ErrorBanner` is functional but visually heavy
+- Grouped navigation works and should stay, but active state should be more prominent and the sidebar should carry the read-only safety posture more clearly.
+- Existing pages only should be linked. Planned Metrics, Decisions, Artifacts, and Health destinations should not become live links until routes exist.
 
-### Status Badges
-- `StatusBadge` is functional but lacks a dot indicator — status meaning relies only on color, which is less readable at a glance
-- Badges are slightly too tall (`min-h-6`) for dense data tables
+## Layout Changes Planned
 
-### Pages
-- **Dashboard**: Large amber "Read-only inspection mode" banner above system overview makes the first impression feel like a warning screen
-- **Journey**: Previously improved — cockpit header added, action buttons added
-- **Runs**: Correct but sparse — filters are functional, table is readable
-- **Baseline detail**: Correct — stages, metrics, decisions present
-- **Optimization detail**: Has charts but they're SVG-based bar/line charts rendered inline
-- **Validation detail/list**: Functional
+- Tighten the shell with a layered charcoal/navy background, sticky sidebar, and more deliberate content gutters.
+- Improve the sidebar brand block, active state, group spacing, and footer safety treatment.
+- Upgrade `PageHeader`, `SectionCard`, `MetricCard`, `DataTable`, `EmptyState`, `LoadingSkeleton`, `LiveRunPanel`, and `NextActionPanel`.
+- Rework `/journey` into a workflow cockpit:
+  - strategy overview first
+  - status/readiness/sidecar/latest run summary
+  - explicit live workflow panel, including "No active run"
+  - timeline and evidence summary beside one clear next action
+  - latest baseline snapshot and readiness issues below
 
-### Navigation
-- "Strategy Journey" should be the primary cockpit entry, but visually it appears as a peer of "Dashboard"
-- Sidebar footer `"Evidence only. No live trading actions."` is good but easy to miss
+## What Must Stay Unchanged
 
----
+- Backend behavior, schemas, endpoints, confirmation gates, and execution logic.
+- All frontend API calls through `frontend/src/lib/api/*`.
+- No mock metrics, fake charts, hardcoded runs, or invented strategy states.
+- `ControlledFailureBanner`, validation safety copy, copy buttons, and confirmation dialogs.
+- Existing route contracts for Strategy Workspace, Runs, Baseline detail, Optimization detail, Validation list, and Validation detail.
 
-## What Pages Are Too Cluttered
+## Files Planned To Touch
 
-- **Dashboard** — banner + 4-card grid + 5-card summary + 3-column activity + 3-column charts is too much vertically. Key insight is buried.
-- **Baseline detail** — all sections at same visual weight; summary should be above stages
-- **Optimization detail** — trials table + drawer + charts + comparison all compete
-
----
-
-## What Sections Are Repetitive
-
-- "Evidence only" / "read-only" disclaimers appear in banner, footer, and page copy on multiple pages
-- Page title appears in both `TopHeader` H1 and `PageHeader` H1 on every page
-- "No real data yet" / "No runs found yet" appears in multiple identical empty states
-
----
-
-## What Navigation Is Confusing
-
-- "Runs" (generic list) and "Baseline" / "Optimization" / "Validation" (specific list + start form) are at the same level — users may not know which to use
-- "Results" and "Reports" in Evidence are unclear without tooltips
-- Some sidebar items (ai-assistant, autoquant, optimizer, strategy-lab, strategy-editor) exist as routes but are not in sidebar
-
----
-
-## What Layout Should Change
-
-- TopHeader: remove disabled search; make thinner (56px); cleaner right-side controls
-- MetricCard: standalone card, no SectionCard wrapper
-- SectionCard headers: add a subtle accent treatment, make title more visually distinct
-- WorkflowStepper: larger circles, better timeline feel
-- NextActionPanel: more premium call-to-action design
-- Dashboard: move disclaimer to a subtle top strip instead of a large amber banner
-
----
-
-## What Components Will Be Touched
-
-| Component | Change |
-|---|---|
-| `globals.css` | Token refinements, add surface layers |
-| `Sidebar.tsx` | Better branding, hierarchy, active states |
-| `TopHeader.tsx` | Remove dead search, cleaner layout |
-| `AppShell.tsx` | Minor padding/max-width improvements |
-| `SectionCard.tsx` | Better header treatment, `noPad` prop, soften hover |
-| `MetricCard.tsx` | Remove SectionCard wrapper — standalone card |
-| `StatusBadge.tsx` | Add dot indicator, more compact |
-| `EmptyState.tsx` | Remove "HER" default icon, better design |
-| `WorkflowStepper.tsx` | Larger circles, better typography |
-| `NextActionPanel.tsx` | Premium action panel design |
-| `PageHeader.tsx` | Remove redundant title (now in shell) — keep description only |
-| `Button.tsx` | Minor size/weight refinements |
-| `LoadingSkeleton.tsx` | Keep as-is (works correctly) |
-| `ControlledFailureBanner.tsx` | Keep semantic amber for actual failures |
-| Dashboard `page.tsx` | Replace generic amber banner with subtle info notice |
-
----
-
-## What Should Stay Unchanged
-
-- All API calls and data fetching logic
-- All confirmation dialogs
-- All controlled failure messages on actual failure states
-- All safety disclaimers on validation pages
-- All copy buttons
-- Color tokens (keep the cyan/navy palette — it's correct)
-- Route structure
-- Authentication/auth approach (none)
+- `frontend/src/app/globals.css` - theme tokens and shared visual depth.
+- `frontend/src/components/AppShell.tsx` - main shell background and content width.
+- `frontend/src/components/Sidebar.tsx` - navigation polish and stronger read-only safety footer.
+- `frontend/src/components/PageHeader.tsx` - summary-first page framing.
+- `frontend/src/components/SectionCard.tsx` - premium panel styling.
+- `frontend/src/components/MetricCard.tsx` - denser evidence metric cards.
+- `frontend/src/components/EmptyState.tsx` - polished unavailable-data states.
+- `frontend/src/components/LoadingSkeleton.tsx` - richer loading treatment.
+- `frontend/src/components/DataTable.tsx` - cleaner table surface.
+- `frontend/src/components/NextActionPanel.tsx` - clearer next-action emphasis.
+- `frontend/src/components/LiveRunPanel.tsx` - active/no-active run presentation.
+- `frontend/src/app/journey/page.tsx` - main workflow cockpit redesign.
+- `docs/FRONTEND_VISUAL_REDESIGN_REPORT.md` - final implementation and verification report.

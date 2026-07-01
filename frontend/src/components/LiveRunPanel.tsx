@@ -46,7 +46,7 @@ export default function LiveRunPanel({ runType, runId, label }: LiveRunPanelProp
   }
 
   return (
-    <div className="rounded-[var(--app-radius)] border border-[var(--app-accent-border)] bg-[var(--app-accent-soft)] p-4">
+    <div className="rounded-[var(--app-radius)] border border-[var(--app-accent-border)] bg-[var(--app-accent-soft)] p-4 shadow-[var(--app-shadow-card)]">
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-3 min-w-0">
           {alive && (
@@ -56,17 +56,17 @@ export default function LiveRunPanel({ runType, runId, label }: LiveRunPanelProp
             </span>
           )}
           <div className="min-w-0">
-            <p className="text-sm font-semibold text-[var(--app-accent)]">
+            <p className="text-sm font-semibold text-[var(--app-text)]">
               {label ?? (runType === 'baseline' ? 'Baseline run' : 'Optimization run')}
             </p>
             <p className="mt-0.5 font-mono text-[11px] text-[var(--app-text-subtle)]">{runId}</p>
           </div>
         </div>
-        <StatusBadge status={status} tone={alive ? 'info' : terminal ? (status === 'completed' ? 'success' : 'warning') : 'neutral'} />
+        <StatusBadge status={status} tone={alive ? 'info' : terminal ? (status === 'completed' ? 'success' : 'warning') : 'neutral'} dot />
       </div>
 
       {currentStage && (
-        <div className="mt-3 flex items-center gap-2">
+        <div className="mt-4 flex items-center gap-2 rounded-[var(--app-radius)] border border-[var(--app-border)] bg-[var(--app-surface-muted)] px-3 py-2">
           <span className="text-xs text-[var(--app-text-muted)]">Current stage:</span>
           <span className="text-xs font-medium text-[var(--app-text)]">{stageLabel(currentStage)}</span>
         </div>

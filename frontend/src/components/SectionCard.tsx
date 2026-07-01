@@ -24,20 +24,20 @@ export default function SectionCard({
   return (
     <section
       className={[
-        'rounded-[var(--app-radius)] border border-[var(--app-border)] bg-[var(--app-surface)]',
+        'app-panel-highlight rounded-[var(--app-radius)] border border-[var(--app-border)] shadow-[var(--app-shadow-card)]',
         accent ? 'border-t-2 border-t-[var(--app-accent)]' : '',
         noPad ? '' : 'p-5',
         className,
       ].join(' ')}
     >
       {(title || description || actions) && (
-        <div className={['flex items-start justify-between gap-4', noPad ? 'px-5 pt-5 pb-4' : 'mb-4'].join(' ')}>
+        <div className={['flex items-start justify-between gap-4 border-b border-[var(--app-border)]', noPad ? 'px-5 pt-5 pb-4' : '-mx-5 -mt-5 mb-5 px-5 py-4'].join(' ')}>
           <div className="min-w-0">
             {title && (
-              <h2 className="text-sm font-semibold text-[var(--app-text)]">{title}</h2>
+              <h2 className="text-sm font-semibold tracking-normal text-[var(--app-text)]">{title}</h2>
             )}
             {description && (
-              <p className="mt-0.5 text-xs leading-5 text-[var(--app-text-subtle)]">{description}</p>
+              <p className="mt-1 text-xs leading-5 text-[var(--app-text-muted)]">{description}</p>
             )}
           </div>
           {actions && <div className="shrink-0">{actions}</div>}

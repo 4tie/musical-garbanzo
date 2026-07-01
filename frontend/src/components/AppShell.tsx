@@ -23,7 +23,7 @@ export default function AppShell({
   refreshDisabled = false,
 }: AppShellProps) {
   return (
-    <div className="flex h-screen overflow-hidden bg-[var(--app-bg)] text-[var(--app-text)]">
+    <div className="app-shell-root flex h-screen overflow-hidden text-[var(--app-text)]">
       <Sidebar />
       <div className="flex min-w-0 flex-1 flex-col">
         <TopHeader
@@ -33,8 +33,8 @@ export default function AppShell({
           refreshDisabled={refreshDisabled}
         />
         <div className="flex min-h-0 flex-1">
-          <main className="min-w-0 flex-1 overflow-y-auto">
-            <div className="page-fade mx-auto w-full max-w-[1320px] p-5 lg:p-6">
+          <main className="app-main-scroll min-w-0 flex-1 overflow-y-auto">
+            <div className="page-fade mx-auto w-full max-w-[1400px] px-4 py-5 sm:px-5 lg:px-7 lg:py-6">
               {children}
             </div>
           </main>

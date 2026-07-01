@@ -9,10 +9,10 @@ interface EmptyStateProps {
 
 export default function EmptyState({ title, description, icon, action }: EmptyStateProps) {
   return (
-    <div className="flex min-h-48 flex-col items-center justify-center rounded-[var(--app-radius)] border border-dashed border-[var(--app-border)] bg-[var(--app-surface-muted)] p-8 text-center">
-      <div className="mb-4 flex h-10 w-10 items-center justify-center">
+    <div className="flex min-h-48 flex-col items-center justify-center rounded-[var(--app-radius)] border border-dashed border-[var(--app-border-strong)] bg-[var(--app-surface-muted)] p-8 text-center shadow-[var(--app-shadow-sm)]">
+      <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-full border border-[var(--app-border)] bg-[var(--app-surface)] text-[var(--app-text-subtle)]">
         {icon ?? (
-          <svg viewBox="0 0 40 40" fill="none" className="h-10 w-10 opacity-30" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none" className="h-8 w-8 opacity-70" aria-hidden="true">
             <circle cx="20" cy="20" r="18" stroke="currentColor" strokeWidth="1.5" />
             <path d="M13 20h14M20 13v14" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeDasharray="3 3" />
           </svg>

@@ -1,129 +1,94 @@
 # HER Frontend Visual Redesign Report
 
-**Date:** 2026-07-01  
-**Scope:** Full frontend visual redesign — no backend changes  
-**Commit message:** `Frontend: redesign HER visual system and workflow layout`
+## Design Direction
 
----
-
-## Design Direction Chosen
-
-**Concept:** Premium dark trading research cockpit  
-**Palette:** Deep navy backgrounds (`#070b12`) with layered dark surfaces, electric cyan accent (`#06b6d4`), semantic status colors  
-**Feel:** Calm, technical, evidence-driven — not casino, not crypto hype
-
-Key decisions:
-- Deeper, more layered dark backgrounds with three distinct surface levels
-- Thinner, more precise borders (`#1d2d42`)
-- Breadcrumb section context in top header instead of dead search input
-- Strategy Journey promoted to first nav position under Discover
-- MetricCard decoupled from SectionCard — standalone flat cards, no nested borders
-- WorkflowStepper with SVG icons and animated ping for running state
-- StatusBadge with optional dot indicator for at-a-glance scanning
-- NextActionPanel styled with accent border to stand out as the primary CTA
-- Dashboard amber safety banner replaced with a subtle one-line info strip
-
----
+- Chosen direction: premium dark trading research cockpit, using deep charcoal/navy surfaces, cyan accent, semantic status colors, compact cards, and stronger workflow hierarchy.
+- Visual concept generated with the built-in image tool as a design anchor: `/home/mohs/.codex/generated_images/019f1bcb-4f24-74c3-8f55-1336114c0b3c`.
+- Implementation stayed code-native. No raster UI, mock charts, fake strategy data, or placeholder metrics were added.
 
 ## Pages Changed
 
-| Page | Change |
-|---|---|
-| `/` Dashboard | Removed misused amber ControlledFailureBanner, replaced with subtle info strip |
-| `/journey` | Previously improved cockpit header remains; now uses redesigned components |
-| All pages | All use redesigned AppShell, Sidebar, TopHeader, SectionCard, StatusBadge |
-
----
+- `/journey`: reworked into the main workflow cockpit with strategy overview, live workflow state, timeline, evidence summary metrics, and one next safe action.
+- `/validation`: converted the list page away from hardcoded light Tailwind colors to shared dark HER components.
+- Existing major pages affected by shared component restyling: Dashboard, Strategy Workspace, Runs, Baseline detail, Optimization detail, Validation detail, Results, Reports, Settings.
 
 ## Components Changed
 
-| Component | What Changed |
-|---|---|
-| `globals.css` | Refined color tokens (deeper navy, 3-layer surfaces), new shadow tokens, sidebar/header height CSS variables |
-| `Sidebar.tsx` | Rebranded to "AutoQuant / Strategy Lab", Strategy Journey listed first (primary dot), narrower (228px), cleaner group labels, refined active state |
-| `TopHeader.tsx` | Removed disabled search input, added breadcrumb (`HER › SECTION`), 56px height, SVG refresh icon, dot-enhanced backend status |
-| `AppShell.tsx` | Max-width updated to 1320px, removed `overflow-hidden` from outer, uses CSS var for sidebar width |
-| `SectionCard.tsx` | Title reduced to `text-sm`, description to `text-xs`, added `noPad` prop for full-bleed content, added `accent` prop for top-border highlight, removed `card-hover` (hover effect now opt-in) |
-| `MetricCard.tsx` | Removed SectionCard wrapper entirely — standalone `div` with own border/bg, monospace value option, label uses 10px uppercase tracking |
-| `StatusBadge.tsx` | Added `dot` prop for colored dot indicator; refined color intensities; expanded `inferTone` with more status strings |
-| `EmptyState.tsx` | Replaced "HER" text default icon with SVG circle+crosshair; added optional `action` slot |
-| `PageHeader.tsx` | Title reduced to `text-xl`, description to `text-xs` — less visual competition with section headers |
-| `Button.tsx` | Tightened sizing (`h-9` for md), refined disabled opacity, subtle `shadow-sm` on primary |
-| `WorkflowStepper.tsx` | Larger circles (36px), SVG checkmark/cross icons, animated ping for running state, timestamp right-aligned, connector uses step color |
-| `NextActionPanel.tsx` | Accent-bordered panel with SVG arrow icon, UPPERCASE tracking title, more compact action buttons |
-
----
-
-## Routes Affected
-
-All routes — they all use `AppShell` which wraps `Sidebar` and `TopHeader`.  
-No route was added, removed, or structurally changed.
-
----
+- `AppShell`, `Sidebar`, `TopHeader`, `PageHeader`, `SectionCard`
+- `MetricCard`, `EmptyState`, `LoadingSkeleton`, `DataTable`
+- `NextActionPanel`, `LiveRunPanel`, `Button`
+- `ThemeProvider`
+- `useRunPolling`
 
 ## Functionality Preserved
 
-- ✅ All API calls and data fetching unchanged
-- ✅ Strategy Workspace loads real strategies
-- ✅ Runs page loads real runs
-- ✅ Baseline / Optimization / Validation detail load real backend data
-- ✅ Confirmation dialogs untouched
-- ✅ Copy buttons untouched
-- ✅ Controlled failure messages on actual failure states preserved
-- ✅ Safety disclaimers kept (reformatted, not removed)
-- ✅ Empty states show when real data is unavailable
-- ✅ No mock data added anywhere
-- ✅ No chart data fabricated
-- ✅ Backend unchanged
+- All API calls still go through `frontend/src/lib/api/*`.
+- Strategy Workspace still loads real workspace strategy summaries from `/api/strategies`.
+- Runs page still reads baseline and optimization APIs and remains read-only.
+- Validation list still reads `listValidationRuns`.
+- Confirmation gates and run forms were not removed or bypassed.
+- Copy buttons and controlled failure components were not removed.
+- No backend execution behavior, database schema, Freqtrade runner, thresholds, or repositories were changed.
 
----
+## Real Data Handling
 
-## What Data Is Real
+- Journey strategy, readiness, sidecar, run counts, latest validation state, and workflow timeline are derived from existing backend responses.
+- Journey metric cards read latest baseline detail metrics when a real latest baseline exists.
+- Missing metrics render "Not available yet"; no fallback numbers or fake charts are shown.
+- Live workflow panel shows "No active run." unless a real pending/running baseline or optimization run exists.
 
-All data rendered in the frontend comes from real API responses:
-- `/api/strategies` — strategy list and readiness
-- `/api/runs`, `/api/baseline/runs`, `/api/optimization/runs`, `/api/validation/runs`
-- `/health`, `/api/system/status`
+## Still Unavailable
 
----
+- Metrics/Decisions/Artifacts/Health sidebar links were not added because there are no matching real pages yet.
+- Journey cannot show stage-level progress for validation runs because the existing `LiveRunPanel` only supports baseline and optimization polling.
+- The top header still shows `Backend: unknown` on pages that do not pass `systemStatus` into `AppShell`; this is existing header wiring, not backend failure.
 
-## What Remains Unavailable
+## Verification
 
-- Search functionality — still disabled (no search backend)
-- Profit factor / expectancy on journey page — requires completed run records (none exist yet)
-- Pairs / risk profile on journey page — pairs shown from optimization runs; risk profile not in `RunListItem` shape (only in `RunRead`, which requires a separate fetch per run)
+- Browser plugin availability: absent in this session.
+- Fallback used: system Chrome headless screenshots because Playwright's managed browser was not installed and the Playwright Node module was not available as a project dependency.
+- Backend started read-only for smoke checks: `../.venv/bin/python -m uvicorn app.main:app --host 127.0.0.1 --port 8000`.
+- Frontend started at `http://localhost:3000`: `npm run dev -- --port 3000`.
+- Screenshots captured outside the repo:
+  - `/tmp/her-journey-desktop.png`
+  - `/tmp/her-journey-mobile.png`
+  - `/tmp/her-strategies-desktop.png`
+  - `/tmp/her-runs-desktop.png`
+  - `/tmp/her-validation-desktop.png`
+- Manual visual checks confirmed:
+  - Frontend opens without crash.
+  - Sidebar navigation works on desktop.
+  - Mobile Journey content no longer horizontally overflows.
+  - Strategy Workspace loads real `AIStrategy` records from backend.
+  - Runs page shows a real empty state without mock rows.
+  - Validation list shows a real empty state without mock rows.
+  - No chart uses fake data.
+  - No run starts without confirmation.
+  - Safety footer remains visible in the sidebar on desktop.
 
----
+## Test Results
 
-## Build / Lint Results
-
-```
-npm run lint  →  ✓ 0 errors, 0 warnings
-npm run build →  ✓ All 18 routes built successfully
-npx tsc       →  ✓ 0 type errors
-```
-
----
+- `cd frontend && npm run lint`
+  - Result: passed with 3 pre-existing warnings:
+    - `frontend/src/app/optimization/page.tsx`: unused `useRef`
+    - `frontend/src/app/optimization/page.tsx`: unused `RiskProfileSelect`
+    - `frontend/src/components/SystemHealthCard.tsx`: unused `SectionCard`
+- `cd frontend && npm run build`
+  - Result: passed.
+- Backend tests were not run because no backend files were changed.
 
 ## Repo Hygiene
 
-```
-git ls-files | grep -E '(__pycache__|\.pyc|\.venv|node_modules|\.next)'
-→ no tracked build artifacts
-```
-
----
+- `git ls-files | grep -E '(__pycache__|\\.pyc|\\.venv|node_modules|\\.next)'`
+  - Result: empty.
+- Runtime directories such as `node_modules` and `.next` were generated locally during verification but are untracked/ignored.
 
 ## Known Issues
 
-- `Backend: unknown` appears on initial journey page load (before health check resolves) — this is a timing issue in all pages that don't pass `systemStatus` to AppShell; the badge resolves after the first API call
-- `SectionCard` `card-hover` was removed from all cards by default; any card that was previously hover-interactive and relied on this for feedback may feel less reactive — but no cards were actually click-targets, so this is acceptable
+- The desktop sidebar is hidden on small screens to prevent horizontal overflow. A future pass should add a mobile navigation drawer or compact top navigation.
+- Some older pages outside this patch may still contain hardcoded light-mode classes and should be migrated gradually to the shared component system.
+- The lint warnings listed above remain outside this redesign slice.
 
----
+## Next Recommendation
 
-## Next Recommendations
-
-1. **Add `systemStatus` to journey page `AppShell`** — currently the journey page doesn't fetch system status so the header shows "Backend: unknown" on first load
-2. **Task #2** — Add optimization trial charts and baseline comparison view (the data model is there; recharts or similar SVG charts are ready to add)
-3. **Task #4** — API smoke test suite to catch regressions
-4. **Strategy Journey improvements** — fetch `RunRead` for the latest baseline to display pairs/risk_profile in the cockpit header
+Add a compact mobile navigation drawer and then migrate remaining hardcoded page-level styling to shared HER primitives, starting with baseline and optimization detail pages.

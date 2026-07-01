@@ -24,10 +24,10 @@ export default function NextActionPanel({
   children,
 }: NextActionPanelProps) {
   return (
-    <div className="rounded-[var(--app-radius)] border border-[var(--app-accent-border)] bg-[var(--app-accent-soft)] p-4">
+    <div className="rounded-[var(--app-radius)] border border-[var(--app-accent-border)] bg-[var(--app-accent-soft)] p-4 shadow-[var(--app-shadow-card)]">
       <div className="flex items-start gap-3">
         {/* Icon */}
-        <div className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full border border-[var(--app-accent-border)] bg-[var(--app-accent-soft)]">
+        <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--app-radius)] border border-[var(--app-accent-border)] bg-[var(--app-surface)]">
           <svg
             className="h-3 w-3 text-[var(--app-accent)]"
             viewBox="0 0 12 12"
@@ -43,7 +43,7 @@ export default function NextActionPanel({
         </div>
 
         <div className="min-w-0 flex-1">
-          <h3 className="text-xs font-semibold uppercase tracking-wide text-[var(--app-accent)]">
+          <h3 className="text-xs font-semibold uppercase tracking-[0.14em] text-[var(--app-accent)]">
             {title}
           </h3>
           {message && (
@@ -58,7 +58,7 @@ export default function NextActionPanel({
                   'inline-flex items-center rounded-[var(--app-radius-sm)] px-3 py-1.5 text-xs font-medium transition-colors disabled:cursor-not-allowed disabled:opacity-45';
                 const toneClass =
                   action.tone === 'primary'
-                    ? 'bg-[var(--app-accent)] text-white hover:bg-[var(--app-accent-strong)]'
+                    ? 'bg-[var(--app-accent)] text-[var(--app-accent-text)] hover:bg-[var(--app-accent-strong)]'
                     : action.tone === 'warning'
                     ? 'border border-[rgb(245_158_11_/_0.36)] bg-[rgb(245_158_11_/_0.09)] text-[var(--app-warning)] hover:bg-[rgb(245_158_11_/_0.16)]'
                     : 'border border-[var(--app-border)] bg-[var(--app-surface)] text-[var(--app-text-muted)] hover:text-[var(--app-text)]';

@@ -22,8 +22,28 @@ export interface PollingResult {
 }
 
 // Terminal states - polling stops when these are reached
-const BASELINE_TERMINAL_STATES = ['completed', 'failed', 'rejected', 'controlled_failure', 'error'];
-const OPTIMIZATION_TERMINAL_STATES = ['completed', 'optimization_rejected', 'failed', 'controlled_failure', 'error'];
+const BASELINE_TERMINAL_STATES = [
+  'completed',
+  'candidate',
+  'promising',
+  'validated',
+  'failed',
+  'failed_controlled',
+  'rejected',
+  'controlled_failure',
+  'error',
+];
+const OPTIMIZATION_TERMINAL_STATES = [
+  'completed',
+  'candidate',
+  'promising',
+  'validated',
+  'optimization_rejected',
+  'failed',
+  'failed_controlled',
+  'controlled_failure',
+  'error',
+];
 
 function isTerminalState(status: string, runType: RunType): boolean {
   const terminalStates = runType === 'baseline' ? BASELINE_TERMINAL_STATES : OPTIMIZATION_TERMINAL_STATES;
@@ -124,6 +144,8 @@ export function useRunPolling(runType: RunType, runId: string | null, options: P
 
   // Start polling
   useEffect(() => {
+    isMountedRef.current = true;
+
     if (!runId || !enabled || isTerminalState(status, runType)) {
       return;
     }
@@ -146,7 +168,6 @@ export function useRunPolling(runType: RunType, runId: string | null, options: P
         intervalRef.current = null;
       }
       clearTimeout(timeoutId);
-      isMountedRef.current = false;
     };
   }, [runId, runType, enabled, effectiveInterval, status, fetchStatus]);
 

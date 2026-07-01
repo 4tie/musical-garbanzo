@@ -13,8 +13,10 @@ import WorkflowStepper, { WorkflowStep, StepStatus } from '@/components/Workflow
 import MetricCard from '@/components/MetricCard';
 import {
   StrategySummary,
+  BaselineRunDetail,
   OptimizationRunListItem,
   RunListItem,
+  getBaselineRunDetail,
   listStrategies,
   listBaselineRuns,
   listOptimizationRuns,
@@ -31,6 +33,14 @@ interface JourneyState {
   loadedAt: string | null;
 }
 
+interface JourneyNextAction {
+  id: string;
+  label: string;
+  description: string;
+  href?: string;
+  tone?: 'primary' | 'secondary' | 'warning';
+}
+
 const INITIAL: JourneyState = {
   strategies: [],
   baselineRuns: [],
@@ -41,7 +51,7 @@ const INITIAL: JourneyState = {
 };
 
 function fmtTs(ts: string | null | undefined): string {
-  if (!ts) return '—';
+  if (!ts) return '-';
   try {
     return new Date(ts).toLocaleString(undefined, {
       month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit',
@@ -56,7 +66,7 @@ function isActiveStatus(status: string): boolean {
 }
 
 function isCompleted(status: string | null | undefined): boolean {
-  return status === 'completed' || status === 'passed';
+  return ['completed', 'passed', 'candidate', 'promising', 'validated'].includes(status ?? '');
 }
 
 function isFailed(status: string | null | undefined): boolean {
@@ -64,7 +74,7 @@ function isFailed(status: string | null | undefined): boolean {
 }
 
 function isRejected(status: string | null | undefined): boolean {
-  return ['rejected', 'optimization_rejected', 'controlled_failure'].includes(status ?? '');
+  return ['rejected', 'optimization_rejected', 'controlled_failure', 'failed_controlled'].includes(status ?? '');
 }
 
 function readinessLabel(readiness: string): string {
@@ -86,11 +96,37 @@ function readinessTone(readiness: string): 'success' | 'warning' | 'danger' | 'n
   return 'neutral';
 }
 
+function readMetric(metrics: Record<string, unknown> | null | undefined, keys: string[]): number | null {
+  if (!metrics) return null;
+  for (const key of keys) {
+    const value = metrics[key];
+    if (typeof value === 'number' && Number.isFinite(value)) return value;
+    if (typeof value === 'string' && value.trim() !== '') {
+      const numeric = Number(value);
+      if (Number.isFinite(numeric)) return numeric;
+    }
+  }
+  return null;
+}
+
+function fmtMetric(value: number | null, digits = 2, suffix = ''): string | null {
+  if (value === null) return null;
+  return `${value.toFixed(digits)}${suffix}`;
+}
+
+function fmtCount(value: number | null): string | null {
+  if (value === null) return null;
+  return String(Math.round(value));
+}
+
 export default function JourneyPage() {
   const [state, setState] = useState<JourneyState>(INITIAL);
   const [loading, setLoading] = useState(true);
   const [selectedStrategy, setSelectedStrategy] = useState<string>('');
   const [refreshing, setRefreshing] = useState(false);
+  const [baselineDetail, setBaselineDetail] = useState<BaselineRunDetail | null>(null);
+  const [baselineDetailError, setBaselineDetailError] = useState<string | null>(null);
+  const [baselineDetailRunId, setBaselineDetailRunId] = useState<string | null>(null);
 
   const load = useCallback(async (markRefreshing = true) => {
     if (markRefreshing) setRefreshing(true);
@@ -157,6 +193,31 @@ export default function JourneyPage() {
   const latestOptimization = strategyOptimizations[0] ?? null;
   const latestValidation = strategyValidations[0] ?? null;
 
+  useEffect(() => {
+    let cancelled = false;
+
+    async function loadBaselineDetail(runId: string) {
+      const result = await getBaselineRunDetail(runId);
+      if (cancelled) return;
+      setBaselineDetailRunId(runId);
+      if (result.success) {
+        setBaselineDetail(result.data);
+        setBaselineDetailError(null);
+      } else {
+        setBaselineDetail(null);
+        setBaselineDetailError(result.error.message);
+      }
+    }
+
+    if (latestBaseline?.id) {
+      void loadBaselineDetail(latestBaseline.id);
+    }
+
+    return () => {
+      cancelled = true;
+    };
+  }, [latestBaseline?.id]);
+
   const activeBaselineRun = strategyBaselines.find((r) => isActiveStatus(r.status)) ?? null;
   const activeOptimizationRun = strategyOptimizations.find((r) => isActiveStatus(r.status)) ?? null;
 
@@ -206,7 +267,7 @@ export default function JourneyPage() {
         const cls = latestBaseline.classification;
         if (isRejected(cls)) {
           baselineStatus = 'failed';
-          baselineMsg = `Rejected — ${cls ?? 'no classification'}.`;
+          baselineMsg = `Rejected - ${cls ?? 'no classification'}.`;
         } else {
           baselineStatus = 'passed';
           baselineMsg = cls ? `Classification: ${cls}` : 'Baseline completed.';
@@ -234,7 +295,7 @@ export default function JourneyPage() {
         const rs = latestOptimization.result_status;
         if (rs === 'optimization_rejected') {
           optStatus = 'failed';
-          optMsg = 'Optimization rejected — result did not improve baseline.';
+          optMsg = 'Optimization rejected - result did not improve baseline.';
         } else {
           optStatus = 'passed';
           optMsg = rs ? `Result: ${rs}` : 'Optimization completed.';
@@ -280,7 +341,7 @@ export default function JourneyPage() {
         decisionMsg = `Decision: ${ds}. Strategy is not a validated candidate.`;
       } else if (ds) {
         decisionStatus = 'passed';
-        decisionMsg = `Decision recorded: ${ds}. Evidence only — not a live-trading authorization.`;
+        decisionMsg = `Decision recorded: ${ds}. Evidence only - not a live-trading authorization.`;
       }
     }
 
@@ -333,52 +394,85 @@ export default function JourneyPage() {
     ];
   }, [selectedStrategy, strategy, latestBaseline, latestOptimization, latestValidation]);
 
-  const nextActions = useMemo(() => {
-    if (!selectedStrategy || !strategy) return [];
-    const actions: Array<{ id: string; label: string; description: string; href?: string; tone?: 'primary' | 'secondary' | 'warning' }> = [];
+  const nextActions = useMemo<JourneyNextAction[]>(() => {
+    if (!selectedStrategy || !strategy) {
+      return [{
+        id: 'select-strategy',
+        label: 'Open Strategy Workspace',
+        description: 'Select or import a strategy before starting the workflow.',
+        href: '/strategies',
+        tone: 'primary',
+      }];
+    }
+    const actions: JourneyNextAction[] = [];
 
     if (strategy.readiness !== 'ready') {
-      actions.push({
+      return [{
         id: 'fix-strategy',
-        label: 'Open Strategy',
+        label: 'Fix readiness issues',
         description: 'Review readiness issues before running.',
         href: `/strategies/${encodeURIComponent(selectedStrategy)}`,
         tone: 'warning',
-      });
+      }];
     }
 
-    if (latestBaseline) {
-      actions.push({
-        id: 'view-baseline',
-        label: 'View Baseline',
-        description: 'Inspect baseline metrics, decision, and pair results.',
-        href: `/baseline/${latestBaseline.id}`,
-        tone: 'secondary',
-      });
+    if (!latestBaseline) {
+      return [{
+        id: 'run-baseline',
+        label: 'Run baseline',
+        description: 'Open the baseline form. Confirmation is required before execution.',
+        href: '/baseline',
+        tone: 'primary',
+      }];
     }
 
-    if (latestOptimization) {
-      actions.push({
-        id: 'view-opt',
-        label: 'View Optimization',
-        description: 'Inspect optimization trials and baseline comparison.',
-        href: `/optimization/${latestOptimization.id}`,
-        tone: 'secondary',
-      });
+    if (canRunOptimization && !latestOptimization) {
+      return [{
+        id: 'run-optimization',
+        label: 'Run optimization',
+        description: 'Open the optimization form. Confirmation is required before execution.',
+        href: '/optimization',
+        tone: 'primary',
+      }];
+    }
+
+    if (canRunValidation && !latestValidation) {
+      return [{
+        id: 'run-validation',
+        label: 'Run validation',
+        description: 'Open the validation form. Confirmation is required before execution.',
+        href: '/validation',
+        tone: 'primary',
+      }];
     }
 
     if (latestValidation) {
       actions.push({
-        id: 'view-val',
-        label: 'View Validation',
+        id: 'review-validation',
+        label: 'Review validation evidence',
         description: 'Review OOS, WFO, and robustness evidence.',
         href: `/validation/${latestValidation.validation_run_id}`,
-        tone: 'secondary',
+        tone: 'primary',
+      });
+    } else if (latestOptimization) {
+      actions.push({
+        id: 'review-optimization',
+        label: 'Review best trial',
+        description: 'Inspect optimization trials and baseline comparison.',
+        href: `/optimization/${latestOptimization.id}`,
+        tone: 'primary',
+      });
+    } else {
+      actions.push({
+        id: 'review-baseline',
+        label: 'Review baseline',
+        description: 'Inspect baseline metrics, decision, and pair results.',
+        href: `/baseline/${latestBaseline.id}`,
+        tone: 'primary',
       });
     }
-
     return actions;
-  }, [selectedStrategy, strategy, latestBaseline, latestOptimization, latestValidation]);
+  }, [selectedStrategy, strategy, latestBaseline, latestOptimization, latestValidation, canRunOptimization, canRunValidation]);
 
   const hasActiveRun = Boolean(activeBaselineRun || activeOptimizationRun);
 
@@ -386,6 +480,19 @@ export default function JourneyPage() {
   const displayPairs = latestOptimization?.pairs ?? null;
   const displayTimeframe = strategy?.params_summary?.timeframe ?? latestOptimization?.timeframe ?? null;
   const latestDecision = latestValidation?.decision_status ?? latestValidation?.summary?.decision_status ?? null;
+  const selectedBaselineDetail =
+    baselineDetailRunId === latestBaseline?.id ? baselineDetail : null;
+  const selectedBaselineDetailError =
+    baselineDetailRunId === latestBaseline?.id ? baselineDetailError : null;
+  const latestMetrics = selectedBaselineDetail?.metrics as Record<string, unknown> | null | undefined;
+  const latestConfidence =
+    typeof selectedBaselineDetail?.confidence_score === 'number'
+      ? selectedBaselineDetail.confidence_score
+      : readMetric(selectedBaselineDetail?.decision as Record<string, unknown> | null | undefined, ['confidence_score']);
+  const profitFactor = readMetric(latestMetrics, ['profit_factor', 'profitFactor']);
+  const expectancy = readMetric(latestMetrics, ['expectancy']);
+  const maxDrawdown = readMetric(latestMetrics, ['max_drawdown', 'maxDrawdown']);
+  const tradeCount = readMetric(latestMetrics, ['trade_count', 'tradeCount', 'total_trades']);
 
   return (
     <AppShell
@@ -396,7 +503,7 @@ export default function JourneyPage() {
       <div className="space-y-6">
         <PageHeader
           title="Strategy Journey"
-          description="Select a strategy and follow its full discovery lifecycle — readiness, baseline, optimization, and validation."
+          description="Select a strategy and follow its full discovery lifecycle: readiness, baseline, optimization, and validation."
           actions={
             state.loadedAt ? (
               <span className="text-xs text-[var(--app-text-subtle)]">Updated {fmtTs(state.loadedAt)}</span>
@@ -412,158 +519,192 @@ export default function JourneyPage() {
           </ErrorBanner>
         )}
 
-        {/* Strategy Cockpit Header */}
-        <div className="rounded-[var(--app-radius)] border border-[var(--app-border)] bg-[var(--app-surface-muted)]">
-          {/* Top bar: selector */}
-          <div className="flex flex-wrap items-center gap-3 border-b border-[var(--app-border)] px-5 py-4">
-            <div className="flex min-w-0 flex-1 items-center gap-3">
-              <label htmlFor="strategy-select" className="shrink-0 text-xs font-semibold text-[var(--app-text-subtle)]">
-                Strategy
-              </label>
-              {loading ? (
-                <div className="h-9 w-56 animate-pulse rounded-[var(--app-radius)] bg-[var(--app-surface)]" />
-              ) : state.strategies.length === 0 ? (
-                <span className="text-sm text-[var(--app-text-muted)]">No strategies found — import strategies to begin.</span>
-              ) : (
-                <select
-                  id="strategy-select"
-                  value={selectedStrategy}
-                  onChange={(e) => setSelectedStrategy(e.target.value)}
-                  className="h-9 w-full max-w-xs rounded-[var(--app-radius)] border border-[var(--app-border)] bg-[var(--app-surface)] px-3 text-sm font-medium text-[var(--app-text)] outline-none focus:border-[var(--app-accent-border)]"
-                >
-                  {state.strategies.map((s) => (
-                    <option key={s.strategy_name} value={s.strategy_name}>
-                      {s.strategy_name}
-                    </option>
-                  ))}
-                </select>
-              )}
-            </div>
-            {selectedStrategy && (
-              <a
-                href={`/strategies/${encodeURIComponent(selectedStrategy)}`}
-                className="shrink-0 rounded-[var(--app-radius)] border border-[var(--app-border)] bg-[var(--app-surface)] px-3 py-1.5 text-xs font-medium text-[var(--app-text-muted)] transition-colors hover:text-[var(--app-text)]"
-              >
-                Open workspace →
-              </a>
-            )}
-          </div>
+        <section className="overflow-hidden rounded-[var(--app-radius)] border border-[var(--app-border)] bg-[var(--app-surface-glass)] shadow-[var(--app-shadow-card)]">
+          <div className="grid gap-0 lg:grid-cols-[minmax(0,1fr)_360px]">
+            <div className="p-5 lg:p-6">
+              <div className="flex flex-col gap-4 xl:flex-row xl:items-start xl:justify-between">
+                <div className="min-w-0">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--app-text-subtle)]">
+                    Strategy overview
+                  </p>
+                  <h2 className="mt-2 truncate text-2xl font-semibold text-[var(--app-text)]">
+                    {selectedStrategy || 'Select a strategy from Strategy Workspace to begin.'}
+                  </h2>
+                  <p className="mt-2 max-w-3xl text-sm leading-6 text-[var(--app-text-muted)]">
+                    Backend records define every stage here. Missing metrics remain unavailable until a real run produces evidence.
+                  </p>
+                </div>
 
-          {/* Status strip */}
-          {selectedStrategy && strategy && (
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 border-b border-[var(--app-border)] px-5 py-3">
-              <StatusBadge
-                status={strategy.readiness}
-                tone={readinessTone(strategy.readiness)}
-                label={`Readiness: ${readinessLabel(strategy.readiness)}`}
-              />
-              {strategy.has_sidecar ? (
-                <span className="rounded border border-[rgb(34_197_94_/_0.32)] bg-[rgb(34_197_94_/_0.10)] px-2 py-0.5 text-xs text-[var(--app-success)]">
-                  Sidecar ✓
-                </span>
-              ) : (
-                <span className="rounded border border-[var(--app-border)] px-2 py-0.5 text-xs text-[var(--app-text-subtle)]">
-                  No sidecar
-                </span>
+                <div className="flex min-w-0 flex-col gap-2 sm:flex-row xl:flex-col">
+                  {loading ? (
+                    <div className="h-10 w-64 animate-pulse rounded-[var(--app-radius)] bg-[var(--app-surface)]" />
+                  ) : state.strategies.length === 0 ? (
+                    <span className="text-sm text-[var(--app-text-muted)]">No strategies found.</span>
+                  ) : (
+                    <label className="min-w-0">
+                      <span className="sr-only">Strategy</span>
+                      <select
+                        id="strategy-select"
+                        value={selectedStrategy}
+                        onChange={(e) => setSelectedStrategy(e.target.value)}
+                        className="h-10 w-full min-w-64 rounded-[var(--app-radius)] border border-[var(--app-border)] bg-[var(--app-surface)] px-3 text-sm font-medium text-[var(--app-text)] outline-none focus:border-[var(--app-accent-border)]"
+                      >
+                        {state.strategies.map((s) => (
+                          <option key={s.strategy_name} value={s.strategy_name}>
+                            {s.strategy_name}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  )}
+                  {selectedStrategy && (
+                    <a
+                      href={`/strategies/${encodeURIComponent(selectedStrategy)}`}
+                      className="inline-flex h-10 items-center justify-center rounded-[var(--app-radius)] border border-[var(--app-border)] bg-[var(--app-surface)] px-3 text-xs font-medium text-[var(--app-text-muted)] transition-colors hover:border-[var(--app-border-strong)] hover:text-[var(--app-text)]"
+                    >
+                      Open workspace
+                    </a>
+                  )}
+                </div>
+              </div>
+
+              {selectedStrategy && strategy && (
+                <div className="mt-5 grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+                  <OverviewTile
+                    label="Readiness"
+                    value={readinessLabel(strategy.readiness)}
+                    status={strategy.readiness}
+                    tone={readinessTone(strategy.readiness)}
+                  />
+                  <OverviewTile
+                    label="Sidecar JSON"
+                    value={strategy.has_sidecar ? 'Present' : 'Missing'}
+                    status={strategy.has_sidecar ? 'configured' : 'missing'}
+                    tone={strategy.has_sidecar ? 'success' : 'warning'}
+                  />
+                  <OverviewTile
+                    label="Latest baseline"
+                    value={latestBaseline?.classification ?? latestBaseline?.status ?? 'Not started'}
+                    status={latestBaseline?.classification ?? latestBaseline?.status ?? 'not_started'}
+                  />
+                  <OverviewTile
+                    label="Latest decision"
+                    value={latestDecision ? String(latestDecision) : 'Not available yet'}
+                    status={latestDecision ? String(latestDecision) : 'not_started'}
+                  />
+                </div>
               )}
-              {displayTimeframe && (
-                <span className="rounded border border-[var(--app-border)] bg-[var(--app-surface)] px-2 py-0.5 text-xs font-mono text-[var(--app-text-muted)]">
-                  {displayTimeframe}
-                </span>
-              )}
-              {displayPairs && displayPairs.length > 0 && (
-                <span className="text-xs text-[var(--app-text-muted)]">
-                  {displayPairs.length === 1
-                    ? displayPairs[0]
-                    : `${displayPairs[0]} +${displayPairs.length - 1} pair${displayPairs.length > 2 ? 's' : ''}`}
-                </span>
-              )}
-              {strategy.issues.length > 0 && (
-                <span className="text-xs text-[var(--app-danger)]">
-                  {strategy.issues.length} issue{strategy.issues.length !== 1 ? 's' : ''}
-                </span>
-              )}
-              {latestDecision && (
-                <StatusBadge status={String(latestDecision)} label={`Decision: ${String(latestDecision)}`} />
-              )}
-              {/* Latest run status */}
-              {(latestBaseline || latestOptimization || latestValidation) && (
-                <span className="text-xs text-[var(--app-text-subtle)]">
-                  Latest run:{' '}
-                  <span className="font-medium text-[var(--app-text-muted)]">
-                    {latestValidation
-                      ? `Validation — ${latestValidation.status}`
-                      : latestOptimization
-                      ? `Optimization — ${latestOptimization.result_status ?? latestOptimization.status}`
-                      : `Baseline — ${latestBaseline?.classification ?? latestBaseline?.status}`}
+
+              {selectedStrategy && !loading && (
+                <div className="mt-5 flex flex-wrap items-center gap-3 border-t border-[var(--app-border)] pt-4">
+                  <p className="mr-1 text-xs font-semibold uppercase tracking-[0.14em] text-[var(--app-text-subtle)]">Run forms</p>
+                  <ActionButton
+                    label="Start Baseline"
+                    href="/baseline"
+                    enabled={canRunBaseline}
+                    disabledReason={
+                      !strategy
+                        ? 'Select a strategy first.'
+                        : activeBaselineRun || activeOptimizationRun
+                        ? 'A run is already active.'
+                        : !canRunBaseline
+                        ? `Strategy readiness is ${strategy?.readiness ?? 'unknown'}. Fix issues before running.`
+                        : undefined
+                    }
+                  />
+                  <ActionButton
+                    label="Start Optimization"
+                    href="/optimization"
+                    enabled={canRunOptimization}
+                    disabledReason={
+                      activeBaselineRun || activeOptimizationRun
+                        ? 'A run is already active.'
+                        : !latestBaseline
+                        ? 'Run a baseline first.'
+                        : !canRunOptimization
+                        ? 'Latest baseline was rejected or is incomplete.'
+                        : undefined
+                    }
+                  />
+                  <ActionButton
+                    label="Start Validation"
+                    href="/validation"
+                    enabled={canRunValidation}
+                    disabledReason={
+                      activeBaselineRun || activeOptimizationRun
+                        ? 'A run is already active.'
+                        : !canRunValidation
+                        ? 'A completed baseline or optimization run is required.'
+                        : undefined
+                    }
+                  />
+                  <span className="text-[11px] text-[var(--app-text-subtle)]">
+                    Confirmation is required before execution.
                   </span>
-                </span>
+                </div>
               )}
             </div>
-          )}
 
-          {/* Action buttons */}
-          {selectedStrategy && !loading && (
-            <div className="flex flex-wrap items-center gap-3 px-5 py-4">
-              <p className="mr-2 text-xs font-semibold text-[var(--app-text-subtle)]">Run actions</p>
-              <ActionButton
-                label="Start Baseline"
-                href="/baseline"
-                enabled={canRunBaseline}
-                disabledReason={
-                  !strategy
-                    ? 'Select a strategy first.'
-                    : activeBaselineRun || activeOptimizationRun
-                    ? 'A run is already active.'
-                    : !canRunBaseline
-                    ? `Strategy readiness is ${strategy?.readiness ?? 'unknown'}. Fix issues before running.`
-                    : undefined
-                }
-              />
-              <ActionButton
-                label="Start Optimization"
-                href="/optimization"
-                enabled={canRunOptimization}
-                disabledReason={
-                  activeBaselineRun || activeOptimizationRun
-                    ? 'A run is already active.'
-                    : !latestBaseline
-                    ? 'Run a baseline first.'
-                    : !canRunOptimization
-                    ? 'Latest baseline was rejected or is incomplete.'
-                    : undefined
-                }
-              />
-              <ActionButton
-                label="Start Validation"
-                href="/validation"
-                enabled={canRunValidation}
-                disabledReason={
-                  activeBaselineRun || activeOptimizationRun
-                    ? 'A run is already active.'
-                    : !canRunValidation
-                    ? 'A completed baseline or optimization run is required.'
-                    : undefined
-                }
-              />
-              <span className="ml-auto text-[11px] text-[var(--app-text-subtle)]">
-                Each form requires confirmation before execution.
-              </span>
+            <div className="border-t border-[var(--app-border)] bg-[var(--app-surface-muted)] p-5 lg:border-l lg:border-t-0 lg:p-6">
+              <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--app-text-subtle)]">Current context</p>
+              <div className="mt-4 space-y-3">
+                <ContextRow label="Timeframe" value={displayTimeframe ?? 'Not recorded'} />
+                <ContextRow
+                  label="Pairs"
+                  value={
+                    displayPairs && displayPairs.length > 0
+                      ? displayPairs.length === 1
+                        ? displayPairs[0]
+                        : `${displayPairs[0]} +${displayPairs.length - 1} more`
+                      : 'Not recorded'
+                  }
+                />
+                <ContextRow
+                  label="Latest run"
+                  value={
+                    latestValidation
+                      ? `Validation - ${latestValidation.status}`
+                      : latestOptimization
+                      ? `Optimization - ${latestOptimization.result_status ?? latestOptimization.status}`
+                      : latestBaseline
+                      ? `Baseline - ${latestBaseline.classification ?? latestBaseline.status}`
+                      : 'Not started'
+                  }
+                />
+                <ContextRow
+                  label="Issues"
+                  value={strategy ? `${strategy.issues.length} issue${strategy.issues.length !== 1 ? 's' : ''}` : 'Not available'}
+                  danger={Boolean(strategy && strategy.issues.length > 0)}
+                />
+              </div>
             </div>
-          )}
-        </div>
+          </div>
+        </section>
 
-        {/* Live run panel */}
-        {selectedStrategy && !loading && hasActiveRun && (
-          <SectionCard title="Live run" description="A run is currently active. Polling every 2 seconds.">
-            <div className="space-y-3">
-              {activeBaselineRun && (
-                <LiveRunPanel runType="baseline" runId={activeBaselineRun.id} label="Baseline run (active)" />
-              )}
-              {activeOptimizationRun && (
-                <LiveRunPanel runType="optimization" runId={activeOptimizationRun.id} label="Optimization run (active)" />
-              )}
-            </div>
+        {selectedStrategy && !loading && (
+          <SectionCard title="Live workflow panel" description="Active pipeline status is shown only when a real backend run is pending or running.">
+            {hasActiveRun ? (
+              <div className="space-y-3">
+                {activeBaselineRun && (
+                  <LiveRunPanel runType="baseline" runId={activeBaselineRun.id} label="Baseline run (active)" />
+                )}
+                {activeOptimizationRun && (
+                  <LiveRunPanel runType="optimization" runId={activeOptimizationRun.id} label="Optimization run (active)" />
+                )}
+              </div>
+            ) : (
+              <div className="rounded-[var(--app-radius)] border border-[var(--app-border)] bg-[var(--app-surface-muted)] p-4">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+                  <div>
+                    <p className="text-sm font-semibold text-[var(--app-text)]">No active run.</p>
+                    <p className="mt-1 text-xs leading-5 text-[var(--app-text-muted)]">
+                      Stage progress will appear here after a confirmed baseline or optimization run starts.
+                    </p>
+                  </div>
+                  <StatusBadge status="not_started" label="Idle" tone="neutral" dot />
+                </div>
+              </div>
+            )}
           </SectionCard>
         )}
 
@@ -586,8 +727,21 @@ export default function JourneyPage() {
 
             {/* Sidebar — 1/3 */}
             <div className="space-y-4">
-              <SectionCard title="Evidence summary" description="Run counts for this strategy.">
-                <div className="space-y-3">
+              <SectionCard title="Evidence summary" description="Compact metrics from real baseline and validation responses.">
+                <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-1">
+                  <MetricCard label="Profit factor" value={fmtMetric(profitFactor)} helper="Latest baseline detail metric." />
+                  <MetricCard label="Expectancy" value={fmtMetric(expectancy, 4)} helper="Latest baseline detail metric." />
+                  <MetricCard label="Max drawdown" value={fmtMetric(maxDrawdown, 2)} helper="Latest baseline detail metric." />
+                  <MetricCard label="Trade count" value={fmtCount(tradeCount)} helper="Latest baseline detail metric." />
+                  <MetricCard label="Validation status" value={latestValidation?.decision_status ?? latestValidation?.status ?? null} helper="Latest validation record." />
+                  <MetricCard label="Evidence strength" value={fmtMetric(latestConfidence, 0, '/100')} helper="Decision confidence if returned by backend." />
+                </div>
+                {selectedBaselineDetailError && (
+                  <p className="mt-3 text-xs leading-5 text-[var(--app-warning)]">
+                    Latest baseline detail unavailable: {selectedBaselineDetailError}
+                  </p>
+                )}
+                <div className="mt-4 space-y-2 border-t border-[var(--app-border)] pt-4">
                   <EvidenceRow
                     label="Baseline runs"
                     count={strategyBaselines.length}
@@ -618,13 +772,11 @@ export default function JourneyPage() {
                 </div>
               </SectionCard>
 
-              {nextActions.length > 0 && (
-                <NextActionPanel
-                  title="Next safe action"
-                  message="Navigate to a detail page to review evidence."
-                  actions={nextActions}
-                />
-              )}
+              <NextActionPanel
+                title="Next safe action"
+                message="One workflow step is shown at a time. Run forms still require confirmation before execution."
+                actions={nextActions}
+              />
             </div>
           </div>
         )}
@@ -633,16 +785,16 @@ export default function JourneyPage() {
         {selectedStrategy && !loading && latestBaseline && (
           <SectionCard
             title="Latest baseline snapshot"
-            description={`Most recent baseline run — ${latestBaseline.id}. Open the detail page for full evidence.`}
+            description={`Most recent baseline run: ${latestBaseline.id}. Open the detail page for full evidence.`}
           >
             <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
               <MetricCard
                 label="Classification"
-                value={latestBaseline.classification ?? latestBaseline.status ?? '—'}
+                value={latestBaseline.classification ?? latestBaseline.status ?? '-'}
               />
               <MetricCard
                 label="Mode"
-                value={latestBaseline.mode ?? '—'}
+                value={latestBaseline.mode ?? '-'}
               />
               <MetricCard
                 label="Started"
@@ -658,7 +810,7 @@ export default function JourneyPage() {
                 href={`/baseline/${latestBaseline.id}`}
                 className="inline-flex h-9 items-center rounded-[var(--app-radius)] border border-[var(--app-border)] bg-[var(--app-surface-muted)] px-3.5 text-sm text-[var(--app-text-muted)] transition-colors hover:text-[var(--app-text)]"
               >
-                Open full baseline detail →
+                Open full baseline detail
               </a>
             </div>
           </SectionCard>
@@ -706,6 +858,39 @@ export default function JourneyPage() {
 
 // ─── Sub-components ───────────────────────────────────────────────────────────
 
+function OverviewTile({
+  label,
+  value,
+  status,
+  tone,
+}: {
+  label: string;
+  value: string;
+  status: string;
+  tone?: 'success' | 'warning' | 'danger' | 'neutral' | 'info' | 'optimization';
+}) {
+  return (
+    <div className="rounded-[var(--app-radius)] border border-[var(--app-border)] bg-[var(--app-surface-muted)] p-3">
+      <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[var(--app-text-subtle)]">{label}</p>
+      <div className="mt-2 flex flex-col items-start gap-2">
+        <p className="text-sm font-semibold leading-5 text-[var(--app-text)]">{value}</p>
+        <StatusBadge status={status} tone={tone} dot />
+      </div>
+    </div>
+  );
+}
+
+function ContextRow({ label, value, danger = false }: { label: string; value: string; danger?: boolean }) {
+  return (
+    <div className="flex items-center justify-between gap-3 rounded-[var(--app-radius)] border border-[var(--app-border)] bg-[var(--app-surface)] px-3 py-2">
+      <span className="text-xs text-[var(--app-text-subtle)]">{label}</span>
+      <span className={['min-w-0 truncate text-right text-xs font-medium', danger ? 'text-[var(--app-danger)]' : 'text-[var(--app-text-muted)]'].join(' ')}>
+        {value}
+      </span>
+    </div>
+  );
+}
+
 function ActionButton({
   label,
   href,
@@ -721,7 +906,7 @@ function ActionButton({
     return (
       <a
         href={href}
-        className="inline-flex h-9 items-center rounded-[var(--app-radius)] border border-[var(--app-accent-border)] bg-[var(--app-accent-soft)] px-4 text-sm font-medium text-[var(--app-accent)] transition-colors hover:bg-[var(--app-accent)] hover:text-white"
+        className="inline-flex h-9 items-center rounded-[var(--app-radius)] border border-[var(--app-accent-border)] bg-[var(--app-accent-soft)] px-4 text-sm font-medium text-[var(--app-accent)] transition-colors hover:bg-[var(--app-accent)] hover:text-[var(--app-accent-text)]"
       >
         {label}
       </a>

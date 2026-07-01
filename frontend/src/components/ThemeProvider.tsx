@@ -23,7 +23,7 @@ interface ThemeContextValue extends ThemeSettingsState {
 const STORAGE_KEY = 'her-command-center-theme-v1';
 const DEFAULT_SETTINGS: ThemeSettingsState = {
   mode: 'dark',
-  accent: 'emerald',
+  accent: 'cyan',
   reducedMotion: false,
   density: 'comfortable',
 };

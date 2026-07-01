@@ -74,10 +74,10 @@ export default function DataTable<T>({
   }
 
   return (
-    <div className="overflow-hidden rounded-[var(--app-radius)] border border-[var(--app-border)]">
+    <div className="overflow-hidden rounded-[var(--app-radius)] border border-[var(--app-border)] bg-[var(--app-surface-muted)] shadow-[var(--app-shadow-sm)]">
       <div className="overflow-auto">
         <table className="min-w-full border-collapse text-left text-sm">
-          <thead className="sticky top-0 z-10 bg-[var(--app-surface-muted)] text-xs uppercase text-[var(--app-text-subtle)]">
+          <thead className="sticky top-0 z-10 border-b border-[var(--app-border)] bg-[var(--app-surface-card)] text-xs uppercase text-[var(--app-text-subtle)]">
             <tr>
               {columns.map((column) => {
                 const sortable = Boolean(column.sortValue);
@@ -95,8 +95,21 @@ export default function DataTable<T>({
                           : 'cursor-default text-[var(--app-text-subtle)]',
                       ].join(' ')}
                     >
-                      {column.header}
-                      {active && <span aria-hidden="true">{sortDirection === 'asc' ? '^' : 'v'}</span>}
+                        {column.header}
+                      {active && (
+                        <svg
+                          className={['h-3 w-3 transition-transform', sortDirection === 'desc' ? 'rotate-180' : ''].join(' ')}
+                          viewBox="0 0 12 12"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="1.7"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          aria-hidden="true"
+                        >
+                          <path d="M6 2v8M3 5l3-3 3 3" />
+                        </svg>
+                      )}
                     </button>
                   </th>
                 );
@@ -118,7 +131,7 @@ export default function DataTable<T>({
                 className={[
                   'border-t border-[var(--app-border)] bg-[var(--app-surface)] transition-colors',
                   onRowClick
-                    ? 'cursor-pointer hover:bg-[var(--app-surface-muted)] focus:bg-[var(--app-surface-muted)] focus:outline-none'
+                    ? 'cursor-pointer hover:bg-[var(--app-surface-card)] focus:bg-[var(--app-surface-card)] focus:outline-none'
                     : '',
                 ].join(' ')}
               >
