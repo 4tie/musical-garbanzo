@@ -1,0 +1,32 @@
+VERDICT: REJECTED
+The task should not be marked complete because the changes still introduce/retain a credential exposure and include unrelated high-risk artifacts.
+
+Critical findings:
+1) **Credential leak not actually remediated**: the repo now contains a tracked file named `postgresql:/postgres:password@helium/heliumdb?sslmode=disable`, and memory/docs repeat the same connection-string-with-credentials pattern. Even if this came from env injection, storing credential-bearing strings in repo paths/content is a blocking security issue.
+2) **Unrelated/unsafe repository pollution**: `zipFile.zip` (~25MB) and the malformed `postgresql:` path are committed artifacts unrelated to a clean setup fix. This creates operational and maintenance risk and indicates the setup process captured runtime byproducts into source control.
+3) **Dependency conflict is documented, not solved in code**: `backend/requirements.txt` still pins `fastapi==0.104.1` while requiring `freqtrade[hyperopt]==2026.6` (known to pull newer FastAPI). Comments instructing manual force-reinstall are not a deterministic setup fix; fresh installs remain fragile.
+
+Security: **serious violation observed** — credential-bearing DB URL data is stored in tracked repo content/path.
+
+Next actions:
+1) Remove and purge the credential-bearing file/path and any credential-like URL strings from tracked files (including memory/docs), then rotate any affected DB credentials if real.
+2) Remove accidental binary artifacts (`zipFile.zip`) and add safeguards (`.gitignore` rules / validation checks) to prevent runtime/generated files from being committed.
+3) Make backend installation deterministic in code (e.g., isolate freqtrade deps, use constraints/lock strategy, or dependency split) so `pip install -r` succeeds without manual repair steps.
+
+VERDICT: REJECTED
+VERDICT: REJECTED
+The task should not be marked complete because the changes still introduce/retain a credential exposure and include unrelated high-risk artifacts.
+
+Critical findings:
+1) **Credential leak not actually remediated**: the repo now contains a tracked file named `postgresql:/postgres:password@helium/heliumdb?sslmode=disable`, and memory/docs repeat the same connection-string-with-credentials pattern. Even if this came from env injection, storing credential-bearing strings in repo paths/content is a blocking security issue.
+2) **Unrelated/unsafe repository pollution**: `zipFile.zip` (~25MB) and the malformed `postgresql:` path are committed artifacts unrelated to a clean setup fix. This creates operational and maintenance risk and indicates the setup process captured runtime byproducts into source control.
+3) **Dependency conflict is documented, not solved in code**: `backend/requirements.txt` still pins `fastapi==0.104.1` while requiring `freqtrade[hyperopt]==2026.6` (known to pull newer FastAPI). Comments instructing manual force-reinstall are not a deterministic setup fix; fresh installs remain fragile.
+
+Security: **serious violation observed** — credential-bearing DB URL data is stored in tracked repo content/path.
+
+Next actions:
+1) Remove and purge the credential-bearing file/path and any credential-like URL strings from tracked files (including memory/docs), then rotate any affected DB credentials if real.
+2) Remove accidental binary artifacts (`zipFile.zip`) and add safeguards (`.gitignore` rules / validation checks) to prevent runtime/generated files from being committed.
+3) Make backend installation deterministic in code (e.g., isolate freqtrade deps, use constraints/lock strategy, or dependency split) so `pip install -r` succeeds without manual repair steps.
+
+VERDICT: REJECTED

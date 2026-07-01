@@ -87,7 +87,7 @@ class OptimizationRequest(BaseModel):
     risk_profile: str = Field(default="balanced", description="Risk profile")
     baseline_run_id: Optional[str] = Field(default=None, description="Existing baseline run ID to reuse")
     run_baseline_first: bool = Field(default=True, description="Run baseline before optimization")
-    download_missing_data: bool = Field(default=False, description="Download missing market data")
+    download_missing_data: bool = Field(default=True, description="Download missing market data automatically")
     user_confirmed: bool = Field(default=False, description="User confirmation for resource-intensive operations")
     epochs: int = Field(default=50, description="Number of hyperopt epochs")
     spaces: List[str] = Field(default=["buy", "sell"], description="Hyperopt spaces to optimize")

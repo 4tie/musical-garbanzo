@@ -1,0 +1,98 @@
+
+> frontend@0.1.0 dev
+> next dev --port 5000
+
+[1G[0K[1m[38;2;173;127;168m▲ Next.js 16.2.9[39m[22m (Turbopack)
+- Local:         http://localhost:5000
+- Network:       http://172.24.0.2:5000
+- Environments: .env.local
+[32m[1m✓[22m[39m Ready in 743ms
+
+[37m[1m○[22m[39m Compiling / ...
+ GET / [32m200[39m in 5.4s[2m (next.js: 5.3s, application-code: 164ms)[22m
+Failed to proxy http://127.0.0.1:8000/health Error: connect ECONNREFUSED 127.0.0.1:8000
+    at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:8000) {
+  errno: [33m-111[39m,
+  code: [32m'ECONNREFUSED'[39m,
+  syscall: [32m'connect'[39m,
+  address: [32m'127.0.0.1'[39m,
+  port: [33m8000[39m
+}
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:8000) {
+  errno: [33m-111[39m,
+  code: [32m'ECONNREFUSED'[39m,
+  syscall: [32m'connect'[39m,
+  address: [32m'127.0.0.1'[39m,
+  port: [33m8000[39m
+}
+Failed to proxy http://127.0.0.1:8000/api/system/status Error: connect ECONNREFUSED 127.0.0.1:8000
+    at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:8000) {
+  errno: [33m-111[39m,
+  code: [32m'ECONNREFUSED'[39m,
+  syscall: [32m'connect'[39m,
+  address: [32m'127.0.0.1'[39m,
+  port: [33m8000[39m
+}
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:8000) {
+  errno: [33m-111[39m,
+  code: [32m'ECONNREFUSED'[39m,
+  syscall: [32m'connect'[39m,
+  address: [32m'127.0.0.1'[39m,
+  port: [33m8000[39m
+}
+Failed to proxy http://127.0.0.1:8000/api/optimization/runs?limit=500 Error: connect ECONNREFUSED 127.0.0.1:8000
+    at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:8000) {
+  errno: [33m-111[39m,
+  code: [32m'ECONNREFUSED'[39m,
+  syscall: [32m'connect'[39m,
+  address: [32m'127.0.0.1'[39m,
+  port: [33m8000[39m
+}
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:8000) {
+  errno: [33m-111[39m,
+  code: [32m'ECONNREFUSED'[39m,
+  syscall: [32m'connect'[39m,
+  address: [32m'127.0.0.1'[39m,
+  port: [33m8000[39m
+}
+Failed to proxy http://127.0.0.1:8000/api/runs?limit=500 Error: connect ECONNREFUSED 127.0.0.1:8000
+    at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:8000) {
+  errno: [33m-111[39m,
+  code: [32m'ECONNREFUSED'[39m,
+  syscall: [32m'connect'[39m,
+  address: [32m'127.0.0.1'[39m,
+  port: [33m8000[39m
+}
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:8000) {
+  errno: [33m-111[39m,
+  code: [32m'ECONNREFUSED'[39m,
+  syscall: [32m'connect'[39m,
+  address: [32m'127.0.0.1'[39m,
+  port: [33m8000[39m
+}
+Failed to proxy http://127.0.0.1:8000/api/runs?limit=500 Error: connect ECONNREFUSED 127.0.0.1:8000
+    at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:8000) {
+  errno: [33m-111[39m,
+  code: [32m'ECONNREFUSED'[39m,
+  syscall: [32m'connect'[39m,
+  address: [32m'127.0.0.1'[39m,
+  port: [33m8000[39m
+}
+Error: connect ECONNREFUSED 127.0.0.1:8000
+    at <unknown> (Error: connect ECONNREFUSED 127.0.0.1:8000) {
+  errno: [33m-111[39m,
+  code: [32m'ECONNREFUSED'[39m,
+  syscall: [32m'connect'[39m,
+  address: [32m'127.0.0.1'[39m,
+  port: [33m8000[39m
+}
+ GET / [32m200[39m in 91ms[2m (next.js: 22ms, application-code: 69ms)[22m
+ GET /journey [32m200[39m in 831ms[2m (next.js: 653ms, application-code: 178ms)[22m
+ GET / [32m200[39m in 88ms[2m (next.js: 17ms, application-code: 71ms)[22m
+ GET / [32m200[39m in 64ms[2m (next.js: 13ms, application-code: 51ms)[22m
+ GET / [32m200[39m in 76ms[2m (next.js: 3ms, application-code: 73ms)[22m
+ GET / [32m200[39m in 65ms[2m (next.js: 14ms, application-code: 51ms)[22m

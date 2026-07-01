@@ -1,5 +1,6 @@
 import { apiGetArray, apiGetRecord, apiPost } from './client';
 import {
+  AvailablePairsResponse,
   OptimizationComparison,
   OptimizationReport,
   OptimizationRequest,
@@ -9,6 +10,7 @@ import {
   OptimizationStatusResponse,
   OptimizationTrial,
   OptimizationTrialDetail,
+  SupportedExchange,
 } from './types';
 
 interface ListOptimizationRunsParams {
@@ -101,4 +103,14 @@ export function startOptimization(request: OptimizationRequest) {
     '/api/optimization/run',
     { body: request },
   );
+}
+
+export function listSupportedExchanges() {
+  return apiGetRecord<{ exchanges: SupportedExchange[] }>('/api/optimization/exchanges');
+}
+
+export function getAvailablePairs(exchange: string, quote: string, limit: number = 100) {
+  return apiGetRecord<AvailablePairsResponse>('/api/optimization/available-pairs', {
+    query: { exchange, quote, limit },
+  });
 }

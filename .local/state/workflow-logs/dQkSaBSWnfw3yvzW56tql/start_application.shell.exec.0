@@ -1,0 +1,61 @@
+
+> frontend@0.1.0 dev
+> next dev --port 5000
+
+[1G[0K[1m[38;2;173;127;168m▲ Next.js 16.2.9[39m[22m (Turbopack)
+- Local:         http://localhost:5000
+- Network:       http://172.24.0.2:5000
+- Environments: .env.local
+[32m[1m✓[22m[39m Ready in 435ms
+
+ GET / [32m200[39m in 1534ms[2m (next.js: 1245ms, application-code: 289ms)[22m
+ GET / [32m200[39m in 86ms[2m (next.js: 7ms, application-code: 79ms)[22m
+ GET / [32m200[39m in 64ms[2m (next.js: 4ms, application-code: 60ms)[22m
+ GET / [32m200[39m in 80ms[2m (next.js: 7ms, application-code: 73ms)[22m
+ GET / [32m200[39m in 75ms[2m (next.js: 5ms, application-code: 70ms)[22m
+ GET / [32m200[39m in 69ms[2m (next.js: 4ms, application-code: 65ms)[22m
+ GET / [32m200[39m in 54ms[2m (next.js: 4ms, application-code: 50ms)[22m
+ GET / [32m200[39m in 78ms[2m (next.js: 7ms, application-code: 71ms)[22m
+ GET / [32m200[39m in 67ms[2m (next.js: 5ms, application-code: 62ms)[22m
+ GET / [32m200[39m in 97ms[2m (next.js: 14ms, application-code: 83ms)[22m
+[37m[1m○[22m[39m Compiling /journey ...
+ GET /journey [32m200[39m in 3.4s[2m (next.js: 3.3s, application-code: 60ms)[22m
+ GET /journey [32m200[39m in 208ms[2m (next.js: 7ms, application-code: 201ms)[22m
+ GET /strategies [32m200[39m in 1225ms[2m (next.js: 1118ms, application-code: 106ms)[22m
+ GET /runs [32m200[39m in 611ms[2m (next.js: 585ms, application-code: 26ms)[22m
+ GET /baseline [32m200[39m in 988ms[2m (next.js: 944ms, application-code: 44ms)[22m
+ GET /optimization [32m200[39m in 1086ms[2m (next.js: 1053ms, application-code: 33ms)[22m
+ GET /validation [32m200[39m in 786ms[2m (next.js: 763ms, application-code: 23ms)[22m
+ GET / [32m200[39m in 230ms[2m (next.js: 198ms, application-code: 31ms)[22m
+ GET /journey [32m200[39m in 25ms[2m (next.js: 3ms, application-code: 22ms)[22m
+ GET /strategies [32m200[39m in 20ms[2m (next.js: 3ms, application-code: 17ms)[22m
+ GET / [32m200[39m in 33ms[2m (next.js: 10ms, application-code: 23ms)[22m
+ GET / [32m200[39m in 99ms[2m (next.js: 13ms, application-code: 86ms)[22m
+ GET / [32m200[39m in 53ms[2m (next.js: 4ms, application-code: 49ms)[22m
+ GET /journey [32m200[39m in 40ms[2m (next.js: 10ms, application-code: 30ms)[22m
+ GET /strategies [32m200[39m in 26ms[2m (next.js: 7ms, application-code: 19ms)[22m
+ GET /runs [32m200[39m in 28ms[2m (next.js: 5ms, application-code: 23ms)[22m
+ GET /baseline [32m200[39m in 27ms[2m (next.js: 6ms, application-code: 21ms)[22m
+ GET /optimization [32m200[39m in 23ms[2m (next.js: 4ms, application-code: 19ms)[22m
+ GET /validation [32m200[39m in 22ms[2m (next.js: 3ms, application-code: 18ms)[22m
+ GET /results [32m200[39m in 679ms[2m (next.js: 612ms, application-code: 66ms)[22m
+ GET /reports [32m200[39m in 585ms[2m (next.js: 553ms, application-code: 31ms)[22m
+ GET /settings [32m200[39m in 545ms[2m (next.js: 511ms, application-code: 33ms)[22m
+ GET / [32m200[39m in 608ms[2m (next.js: 525ms, application-code: 83ms)[22m
+ GET / [32m200[39m in 51ms[2m (next.js: 3ms, application-code: 48ms)[22m
+ GET / [32m200[39m in 47ms[2m (next.js: 5ms, application-code: 42ms)[22m
+ GET / [32m200[39m in 40ms[2m (next.js: 2ms, application-code: 38ms)[22m
+ GET / [32m200[39m in 44ms[2m (next.js: 3ms, application-code: 41ms)[22m
+ GET /journey [32m200[39m in 31ms[2m (next.js: 3ms, application-code: 29ms)[22m
+ GET /strategies [32m200[39m in 33ms[2m (next.js: 4ms, application-code: 29ms)[22m
+ GET /runs [32m200[39m in 29ms[2m (next.js: 6ms, application-code: 23ms)[22m
+ GET /baseline [32m200[39m in 21ms[2m (next.js: 2ms, application-code: 18ms)[22m
+ GET /optimization [32m200[39m in 28ms[2m (next.js: 3ms, application-code: 25ms)[22m
+ GET /validation [32m200[39m in 76ms[2m (next.js: 3ms, application-code: 73ms)[22m
+ GET /results [32m200[39m in 36ms[2m (next.js: 3ms, application-code: 32ms)[22m
+ GET /reports [32m200[39m in 25ms[2m (next.js: 2ms, application-code: 23ms)[22m
+ GET /settings [32m200[39m in 21ms[2m (next.js: 3ms, application-code: 19ms)[22m
+ GET / [32m200[39m in 27ms[2m (next.js: 6ms, application-code: 21ms)[22m
+ GET /journey [32m200[39m in 21ms[2m (next.js: 3ms, application-code: 18ms)[22m
+ GET / [32m200[39m in 90ms[2m (next.js: 16ms, application-code: 75ms)[22m
+ GET / [32m200[39m in 42ms[2m (next.js: 4ms, application-code: 38ms)[22m

@@ -1,0 +1,50 @@
+[32mINFO[0m:     Will watch for changes in these directories: ['/home/runner/workspace/backend']
+[32mINFO[0m:     Uvicorn running on [1mhttp://0.0.0.0:8000[0m (Press CTRL+C to quit)
+[32mINFO[0m:     Started reloader process [[36m[1m887[0m] using [36m[1mWatchFiles[0m
+[32mINFO[0m:     Started server process [[36m899[0m]
+[32mINFO[0m:     Waiting for application startup.
+[32mINFO[0m:     Application startup complete.
+[32mINFO[0m:     127.0.0.1:46312 - "[1mGET /health HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:46320 - "[1mGET /api/system/status HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:46334 - "[1mGET /health HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:46348 - "[1mGET /api/system/status HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:46364 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:46358 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:46380 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:46868 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:46848 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:46862 - "[1mGET /api/validation/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:46832 - "[1mGET /api/strategies?limit=200 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:46896 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:46882 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:46908 - "[1mGET /api/validation/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:46880 - "[1mGET /api/strategies?limit=200 HTTP/1.1[0m" [32m200 OK[0m
+[33mWARNING[0m:  WatchFiles detected changes in 'app/db/sqlite.py'. Reloading...
+[32mINFO[0m:     Shutting down
+[32mINFO[0m:     Waiting for application shutdown.
+[32mINFO[0m:     Application shutdown complete.
+[32mINFO[0m:     Finished server process [[36m899[0m]
+[32mINFO[0m:     Started server process [[36m1306[0m]
+[32mINFO[0m:     Waiting for application startup.
+[32mINFO[0m:     Application startup complete.
+[33mWARNING[0m:  WatchFiles detected changes in 'app/services/system_service.py'. Reloading...
+[32mINFO[0m:     Shutting down
+[32mINFO[0m:     Waiting for application shutdown.
+[32mINFO[0m:     Application shutdown complete.
+[32mINFO[0m:     Finished server process [[36m1306[0m]
+[32mINFO[0m:     Started server process [[36m1315[0m]
+[32mINFO[0m:     Waiting for application startup.
+[32mINFO[0m:     Application startup complete.
+[32mINFO[0m:     127.0.0.1:58686 - "[1mGET /api/system/status HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:58690 - "[1mGET /health HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:58696 - "[1mGET /api/system/status HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:58720 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:58712 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:58722 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:48124 - "[1mGET /health HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:49682 - "[1mGET /health HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.5.50:0 - "[1mGET /health HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.2.128:0 - "[1mGET /api/system/status HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.4.109:0 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.7.115:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.4.109:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m

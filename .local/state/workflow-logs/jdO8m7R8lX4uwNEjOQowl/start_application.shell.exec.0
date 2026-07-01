@@ -1,0 +1,31 @@
+
+> frontend@0.1.0 dev
+> next dev --port 5000
+
+[1G[0K[1m[38;2;173;127;168m▲ Next.js 16.2.9[39m[22m (Turbopack)
+- Local:         http://localhost:5000
+- Network:       http://172.24.0.2:5000
+- Environments: .env.local
+[32m[1m✓[22m[39m Ready in 429ms
+
+[37m[1m○[22m[39m Compiling / ...
+ GET / [32m200[39m in 4.4s[2m (next.js: 4.2s, application-code: 214ms)[22m
+[33m[1m⚠[22m[39m Blocked cross-origin request to Next.js dev resource /_next/webpack-hmr from "b88bec15-ba4a-4bb9-9915-c1bbfae9a35f-00-2mqhvwhzsfgpq.pike.replit.dev".
+Cross-origin access to Next.js dev resources is blocked by default for safety.
+
+To allow this host in development, add it to "allowedDevOrigins" in next.config.js and restart the dev server:
+
+// next.config.js
+module.exports = {
+  allowedDevOrigins: ['b88bec15-ba4a-4bb9-9915-c1bbfae9a35f-00-2mqhvwhzsfgpq.pike.replit.dev'],
+}
+
+Read more: https://nextjs.org/docs/app/api-reference/config/next-config-js/allowedDevOrigins
+[33m[1m⚠[22m[39m Found a change in next.config.ts. Restarting the server to apply the changes...
+[1m[38;2;173;127;168m▲ Next.js 16.2.9[39m[22m (Turbopack)
+- Local:         http://localhost:5000
+- Network:       http://172.24.0.2:5000
+- Environments: .env.local
+[32m[1m✓[22m[39m Ready in 359ms
+
+ GET / [32m200[39m in 1551ms[2m (next.js: 1222ms, application-code: 328ms)[22m

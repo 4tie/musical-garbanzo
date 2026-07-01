@@ -1,0 +1,627 @@
+You are working on the HER repository.
+
+Before editing, read these files first:
+
+* `README.md`
+* `AGENTS.md`
+* `docs/PROJECT_CHARTER.md`
+* `docs/SAFETY_RULES.md`
+* `docs/GLOSSARY.md`
+* `docs/FRONTEND_UX_GUIDE.md`
+* `knowledge_base/API_INDEX.md`
+* `knowledge_base/WORKFLOW_INDEX.md`
+* `knowledge_base/CODE_MAP.md`
+* `knowledge_base/RUNBOOK.md`
+* `project_plan/ROADMAP.md`
+
+HER is a profitable-strategy discovery and validation system.
+
+It tries to find profitable trading strategies, but it never claims profitability without evidence.
+
+Core rule:
+
+AI suggests.
+Backend validates.
+Freqtrade tests.
+HER decides.
+
+---
+
+# Task
+
+Improve the Optimization configuration workflow.
+
+The current Optimization flow requires the user to manually select:
+
+* strategy
+* trading pairs
+* timeframe
+* risk profile
+* data days
+* download missing data checkbox
+* exchange
+* max open trades
+* stake amount
+* notes
+
+This is too manual and not smart enough.
+
+The new flow should be:
+
+User selects strategy
+→ user selects risk profile
+→ HER can auto-configure timeframe and timerange
+→ user can still override timeframe and timerange
+→ user can manually configure pairs OR load top pairs
+→ missing data is downloaded automatically when needed
+→ optimization runs with clear, safe configuration
+
+Do not add mock data.
+Do not add fake pairs.
+Do not add fake charts.
+Do not invent backend results.
+Do not weaken safety rules.
+Do not change validation thresholds.
+Do not add approval/export/live trading.
+
+---
+
+# Main UX Goal
+
+Make Optimization easier and smarter.
+
+The user should not need to understand every technical detail before running optimization.
+
+The UI should guide the user with smart defaults while still allowing manual override.
+
+---
+
+# Required Optimization Form Changes
+
+## 1. Strategy Selection
+
+Keep strategy selection.
+
+The user must still select a strategy.
+
+The selected strategy should drive:
+
+* readiness status
+* available actions
+* validation warnings
+* whether optimization can start
+
+If the strategy is not ready, block optimization and show the readiness reason.
+
+---
+
+## 2. Trading Pairs
+
+Replace the current rigid trading pair input with a better pair selection section.
+
+The user should have two modes:
+
+### Mode A: Manual pairs
+
+User manually selects or enters trading pairs.
+
+Examples:
+
+* `BTC/USDT`
+* `ETH/USDT`
+* `SOL/USDT`
+
+The UI should support:
+
+* adding/removing pairs
+* validation of empty list
+* clear pair count
+* warning if pair count is too high
+
+### Mode B: Load top pairs
+
+Add a button:
+
+`Load Top 100 Pairs`
+
+Behavior:
+
+* It must load real pairs only.
+* It must not use mock pairs.
+* It must not hardcode fake data.
+* It should use backend/exchange/pairlist data if available.
+* If backend support is missing, add the smallest safe backend endpoint needed or document the missing support clearly.
+* Pairs should be filtered by selected exchange and quote currency if supported.
+* Default quote currency can be `USDT`.
+
+Expected UX:
+
+* Button: `Load Top 100 Pairs`
+* Optional selector: `Top 20 / Top 50 / Top 100`
+* Show loaded count.
+* Show warning: “More pairs may increase runtime.”
+* Allow user to remove pairs after loading.
+
+If top pairs cannot be loaded, show a controlled error:
+
+`Unable to load top pairs from real exchange data.`
+
+Do not fallback to fake pairs.
+
+---
+
+## 3. Risk Profile Controls Timeframe Defaults
+
+Risk profile should control default timeframe.
+
+The user can still override timeframe manually.
+
+Required behavior:
+
+When user selects risk profile:
+
+### Lower Risk
+
+Default:
+
+* timeframe: `1h`
+* timerange: longer history, for example 12 months
+
+### Balanced
+
+Default:
+
+* timeframe: `30m`
+* timerange: medium history, for example 9–12 months
+
+### Aggressive
+
+Default:
+
+* timeframe: `5m` or `15m`
+* timerange: shorter but enough data, for example 3–6 months
+
+Important:
+
+* Do not force the timeframe if user manually overrides it.
+* Show an “Auto” mode and a “Manual override” mode.
+
+Suggested UI:
+
+Timeframe:
+
+* `Auto from risk profile`
+* `Manual`
+
+If Auto:
+
+* show selected auto timeframe
+* explain why it was selected
+
+If Manual:
+
+* user can select timeframe from dropdown
+
+Supported timeframe options should be realistic for Freqtrade, for example:
+
+* `1m`
+* `3m`
+* `5m`
+* `15m`
+* `30m`
+* `1h`
+* `4h`
+* `1d`
+
+Only include options the backend/Freqtrade setup can support.
+
+---
+
+## 4. Replace Days with Timerange
+
+Remove the “days” field from the Optimization UI.
+
+Replace it with timerange configuration.
+
+The user should have:
+
+### Timerange Auto
+
+Auto-select timerange based on risk profile.
+
+Examples:
+
+* Lower Risk: last 12 months
+* Balanced: last 9–12 months
+* Aggressive: last 3–6 months
+
+### Timerange Manual
+
+User can select:
+
+* start date
+* end date
+
+Then frontend/backend converts it into the Freqtrade timerange format if needed.
+
+Example:
+
+`20240101-20240630`
+
+Rules:
+
+* end date must be after start date
+* show readable date range
+* show resulting timerange string if useful
+* do not allow invalid timerange silently
+
+---
+
+## 5. Remove “Download Missing Data” Checkbox
+
+Remove the checkbox from the UI.
+
+Missing data should be handled automatically.
+
+Expected behavior:
+
+* Before optimization, backend checks required data.
+* If required data is missing, backend downloads it automatically.
+* If download succeeds, optimization continues.
+* If download fails, return controlled failure with a clear message.
+* UI should show this as part of preflight/progress:
+
+  * Checking data
+  * Downloading missing data
+  * Data ready
+  * Optimization started
+
+Do not require the user to decide this.
+
+The user should not need a checkbox for something required.
+
+Important:
+
+* Do not fake data download.
+* Do not mark data ready unless backend confirms it.
+* Do not silently skip missing data.
+
+---
+
+## 6. Exchange Dropdown
+
+Improve exchange selection.
+
+Add a dropdown for supported exchanges.
+
+The dropdown must use real supported values.
+
+Preferred approach:
+
+* Use backend-supported exchange list if available.
+* If not available, add a small safe backend endpoint that returns configured/supported exchanges.
+* If using a static allowlist, document it clearly and keep it conservative.
+
+Examples can include:
+
+* Binance
+* Binance US
+* Kraken
+* Coinbase
+* Bybit
+* OKX
+
+But do not include exchanges unless the backend/Freqtrade config can support them.
+
+Exchange selection should affect:
+
+* pair loading
+* config generation
+* data availability
+* optimization request
+
+---
+
+## 7. Keep Max Open Trades
+
+Keep `max_open_trades`.
+
+Improve the UI explanation.
+
+Suggested helper text:
+
+“Maximum number of simultaneous open trades allowed during the backtest/optimization.”
+
+Do not change behavior unless there is an existing bug.
+
+---
+
+## 8. Keep Stake Amount
+
+Keep `stake_amount`.
+
+Improve the UI explanation.
+
+Suggested helper text:
+
+“Capital allocated per trade in the generated Freqtrade config. This affects backtest sizing, not live trading.”
+
+Do not imply live trading.
+
+---
+
+## 9. Improve Notes Field
+
+Inspect whether the current notes field is used.
+
+If it is unused, make it useful.
+
+Rename it to:
+
+`Experiment Notes`
+
+or:
+
+`Optimization Hypothesis`
+
+Purpose:
+
+The user can write why this optimization is being run.
+
+Examples:
+
+* “Testing if this strategy performs better on high-volume USDT pairs.”
+* “Trying aggressive profile with shorter timeframe.”
+* “Comparing optimized candidate against baseline before validation.”
+
+Rules:
+
+* Notes must be stored with the optimization run if backend supports it.
+* If backend does not support notes, add minimal safe persistence or document the limitation.
+* Notes must not affect trading logic.
+* Notes must not affect validation decision.
+* Notes must not affect metrics.
+* Notes are for audit/explanation only.
+
+Show notes later on:
+
+* optimization detail page
+* report metadata if available
+
+---
+
+# Request Payload Requirements
+
+Update frontend request shape only according to real backend support.
+
+If backend currently expects `days`, update backend safely to accept `timerange` if necessary.
+
+Preferred request fields:
+
+* `strategy_name` or strategy identifier
+* `pairs`
+* `pair_selection_mode`: `manual` or `top`
+* `top_pairs_count`: optional, for top pair mode
+* `exchange`
+* `quote_currency`
+* `risk_profile`
+* `timeframe_mode`: `auto` or `manual`
+* `timeframe`
+* `timerange_mode`: `auto` or `manual`
+* `timerange`
+* `start_date`: if manual
+* `end_date`: if manual
+* `max_open_trades`
+* `stake_amount`
+* `experiment_notes`
+* `user_confirmed`
+
+Do not send fields that backend does not accept unless you update backend schema safely.
+
+---
+
+# Backend Policy
+
+Backend changes are allowed only if needed to support this workflow.
+
+Allowed backend changes:
+
+* accept timerange instead of days
+* auto-download missing data during preflight
+* expose supported exchanges endpoint
+* expose/load real top pairs
+* persist experiment notes
+* return better controlled failures
+* update schemas/tests accordingly
+
+Forbidden backend changes:
+
+* changing validation thresholds
+* changing decision rules
+* changing Freqtrade safety guarantees
+* adding live trading
+* adding export/approval
+* adding fake data
+* adding mock results
+* bypassing readiness gate
+* bypassing confirmation
+
+---
+
+# Required UI Behavior
+
+The Optimization form should be organized like this:
+
+## Section 1: Strategy
+
+* selected strategy
+* readiness badge
+* readiness issues if blocked
+
+## Section 2: Risk Profile
+
+* lower risk
+* balanced
+* aggressive
+
+Selecting risk profile updates default timeframe and timerange if auto mode is enabled.
+
+## Section 3: Market Selection
+
+* exchange dropdown
+* quote currency
+* pair selection mode
+* manual pair editor
+* Load Top 20 / 50 / 100 Pairs
+* pair count
+* runtime warning for large pair count
+
+## Section 4: Time Configuration
+
+* timeframe mode: auto/manual
+* selected timeframe
+* timerange mode: auto/manual
+* date range picker for manual
+* generated Freqtrade timerange preview
+
+## Section 5: Capital / Execution Settings
+
+* max open trades
+* stake amount
+
+## Section 6: Experiment Notes
+
+* optional text area
+* saved with run/report if supported
+* clearly marked as not affecting metrics or decisions
+
+## Section 7: Review & Run
+
+Before starting optimization, show a confirmation dialog with:
+
+* strategy
+* exchange
+* pairs count
+* selected timeframe
+* timerange
+* risk profile
+* max open trades
+* stake amount
+* whether data will be checked/downloaded automatically
+* evidence-only disclaimer
+
+---
+
+# Safety Disclaimer
+
+Every optimization run confirmation must include:
+
+“Optimization is historical evidence only. It is not strategy approval, export, live-trading authorization, or a guarantee of future performance.”
+
+---
+
+# Data Download Progress
+
+After starting optimization, show preflight progress if backend provides it:
+
+* Checking strategy readiness
+* Checking market data
+* Downloading missing data if needed
+* Data ready
+* Running optimization
+* Parsing trials
+* Selecting best trial
+* Comparing baseline vs optimized
+
+If backend does not expose these stages yet, show only real stages returned by backend.
+
+Do not fake progress.
+
+---
+
+# Acceptance Criteria
+
+Accept this task only if:
+
+* Optimization page no longer requires days input
+* Timerange replaces days
+* Timeframe can be auto-selected from risk profile
+* User can manually override timeframe
+* Timerange can be auto-selected from risk profile
+* User can manually override timerange
+* Download missing data checkbox is removed
+* Missing data is handled automatically by backend or documented if unsupported
+* Exchange dropdown exists and uses real supported values
+* User can manually configure trading pairs
+* User can load real top pairs
+* No fake pairs are used
+* Max open trades remains
+* Stake amount remains
+* Notes field is explained and used as experiment notes/hypothesis
+* Confirmation dialog shows the final configuration before running
+* Existing optimization backend safety remains intact
+* No mock data added
+* No fake charts added
+* Frontend lint passes
+* Frontend build passes
+* Backend tests pass if backend was changed
+* Repo hygiene is clean
+
+---
+
+# Tests
+
+If frontend only changed:
+
+```bash
+cd frontend && npm run lint && npm run build
+```
+
+If backend changed:
+
+```bash
+cd backend && ../.venv/bin/python -m pytest -q
+cd frontend && npm run lint && npm run build
+```
+
+Repo hygiene:
+
+```bash
+git status --short
+git ls-files | grep -E '(__pycache__|\.pyc|\.venv|node_modules|\.next)'
+```
+
+---
+
+# Documentation
+
+Create or update:
+
+* `docs/OPTIMIZATION_CONFIG_REDESIGN_PLAN.md`
+* `docs/OPTIMIZATION_CONFIG_REDESIGN_REPORT.md`
+* `knowledge_base/API_INDEX.md`
+* `knowledge_base/WORKFLOW_INDEX.md`
+* `knowledge_base/CODE_MAP.md`
+* `docs/FRONTEND_UX_GUIDE.md` if needed
+
+Report must include:
+
+* what changed in the optimization form
+* how top pairs are loaded
+* how timeframe auto mode works
+* how timerange auto mode works
+* how missing data is handled
+* what backend endpoints/schemas changed, if any
+* how notes are stored or why they remain frontend-only
+* tests run
+* build/lint results
+* repo hygiene result
+* remaining limitations
+
+---
+
+# Commit Message
+
+Use:
+
+`Optimization: redesign configuration flow and pair selection`

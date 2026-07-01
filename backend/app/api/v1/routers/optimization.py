@@ -26,12 +26,130 @@ from app.services.strategy_readiness_gate import assert_strategy_ready_for_run
 
 router = APIRouter(prefix="/optimization", tags=["Optimization"])
 
+# ---------------------------------------------------------------------------
+# Conservative static exchange list. Only include exchanges that Freqtrade
+# supports in backtesting mode without live API keys. Do not add margin/
+# derivatives exchanges that could imply live trading.
+# ---------------------------------------------------------------------------
+SUPPORTED_EXCHANGES = [
+    {"id": "binance",    "name": "Binance",     "note": "Recommended for USDT pairs"},
+    {"id": "kraken",     "name": "Kraken",      "note": "USD/EUR base"},
+    {"id": "bybit",      "name": "Bybit",       "note": "USDT spot"},
+    {"id": "okx",        "name": "OKX",         "note": "USDT/USDC"},
+    {"id": "gateio",     "name": "Gate.io",     "note": "Wide altcoin coverage"},
+    {"id": "bitfinex",   "name": "Bitfinex",    "note": "USD pairs"},
+    {"id": "coinbasepro","name": "Coinbase Advanced Trade", "note": "USD pairs"},
+]
+
 
 class OptimizationStartResponse(BaseModel):
     """Response for starting optimization."""
     run_id: str
     status: OptimizationStatus
     message: str
+
+
+@router.get("/exchanges")
+async def list_supported_exchanges():
+    """
+    Return the conservative static list of exchanges supported for optimization.
+
+    These are exchanges with Freqtrade backtesting support. No live API keys
+    are needed for backtesting/optimization. The list is intentionally small
+    and conservative — do not add derivatives or margin exchanges.
+    """
+    return {"exchanges": SUPPORTED_EXCHANGES}
+
+
+@router.get("/available-pairs")
+async def get_available_pairs(
+    exchange: str = "binance",
+    quote: str = "USDT",
+    limit: int = 100,
+):
+    """
+    Return trading pairs that have real locally-downloaded OHLCV data.
+
+    Scans the Freqtrade user_data/data/{exchange}/ directory for feather files
+    and returns matching pairs filtered by quote currency.
+
+    - Returns only REAL pairs from actual downloaded data.
+    - Returns empty list with a message if no local data exists.
+    - Does NOT return fake, hardcoded, or mock pairs.
+    - If the data directory does not exist, instructs the user to download data.
+
+    For top-volume pairs without local data, download data first via
+    Freqtrade's download-data command, then use this endpoint.
+    """
+    from pathlib import Path
+    from app.core.config import settings
+
+    try:
+        data_dir = Path(settings.freqtrade_user_data_dir) / "data" / exchange.lower()
+
+        if not data_dir.exists():
+            return {
+                "pairs": [],
+                "count": 0,
+                "total_available": 0,
+                "exchange": exchange,
+                "quote": quote,
+                "source": "local_data",
+                "available": False,
+                "message": (
+                    f"No local data directory found for exchange '{exchange}'. "
+                    "Download data first using the Freqtrade download-data command, "
+                    "then use this endpoint to load the available pairs."
+                ),
+            }
+
+        pairs: set = set()
+        # Freqtrade stores files as: {BASE}_{QUOTE}-{timeframe}.feather
+        for f in data_dir.glob("*-*.feather"):
+            stem = f.stem  # e.g. BTC_USDT-1h
+            dash_idx = stem.rfind("-")
+            if dash_idx > 0:
+                pair_part = stem[:dash_idx]  # BTC_USDT
+                parts = pair_part.split("_")
+                if len(parts) == 2:
+                    base, quote_cur = parts
+                    if quote_cur.upper() == quote.upper():
+                        pairs.add(f"{base}/{quote_cur}")
+
+        sorted_pairs = sorted(pairs)
+        limited = sorted_pairs[:limit]
+
+        return {
+            "pairs": limited,
+            "count": len(limited),
+            "total_available": len(sorted_pairs),
+            "exchange": exchange,
+            "quote": quote,
+            "source": "local_data",
+            "available": len(sorted_pairs) > 0,
+            "message": (
+                f"Found {len(sorted_pairs)} {quote} pairs with local data on {exchange}."
+                if sorted_pairs
+                else (
+                    f"No local {quote} pair data found for {exchange}. "
+                    "Download data first, then reload."
+                )
+            ),
+        }
+
+    except Exception as e:
+        return {
+            "pairs": [],
+            "count": 0,
+            "total_available": 0,
+            "exchange": exchange,
+            "quote": quote,
+            "source": "error",
+            "available": False,
+            "error": "Unable to scan local pair data",
+            "detail": str(e)[:200],
+            "message": "Unable to load pairs from local exchange data.",
+        }
 
 
 @router.post("/run", response_model=OptimizationStartResponse, status_code=202)

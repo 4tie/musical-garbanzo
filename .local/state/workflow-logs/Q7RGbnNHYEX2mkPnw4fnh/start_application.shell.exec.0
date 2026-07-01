@@ -1,0 +1,105 @@
+[1G[0K⠙[1G[0K
+> frontend@0.1.0 dev
+> next dev --port 5000
+
+[1G[0K⠙[1G[0K[1m[38;2;173;127;168m▲ Next.js 16.2.9[39m[22m (Turbopack)
+- Local:         http://localhost:5000
+- Network:       http://172.24.0.2:5000
+- Environments: .env.local
+[32m[1m✓[22m[39m Ready in 908ms
+
+ GET / [32m200[39m in 2.2s[2m (next.js: 1996ms, application-code: 177ms)[22m
+ GET /journey [32m200[39m in 46ms[2m (next.js: 20ms, application-code: 26ms)[22m
+ GET /strategies [32m200[39m in 1057ms[2m (next.js: 1028ms, application-code: 29ms)[22m
+ GET /runs [32m200[39m in 412ms[2m (next.js: 389ms, application-code: 23ms)[22m
+ GET /baseline [32m200[39m in 555ms[2m (next.js: 530ms, application-code: 25ms)[22m
+ GET /optimization [32m200[39m in 439ms[2m (next.js: 418ms, application-code: 21ms)[22m
+ GET /validation [32m200[39m in 436ms[2m (next.js: 394ms, application-code: 43ms)[22m
+ GET /results [32m200[39m in 403ms[2m (next.js: 374ms, application-code: 29ms)[22m
+ GET /reports [32m200[39m in 565ms[2m (next.js: 535ms, application-code: 30ms)[22m
+ GET /settings [32m200[39m in 424ms[2m (next.js: 392ms, application-code: 32ms)[22m
+ GET / [32m200[39m in 24ms[2m (next.js: 5ms, application-code: 19ms)[22m
+ GET / [32m200[39m in 71ms[2m (next.js: 5ms, application-code: 66ms)[22m
+[32m[1m✓[22m[39m Compiled in 2s
+ GET / [32m200[39m in 188ms[2m (next.js: 136ms, application-code: 52ms)[22m
+ GET / [32m200[39m in 22ms[2m (next.js: 5ms, application-code: 17ms)[22m
+ GET /journey [32m200[39m in 134ms[2m (next.js: 24ms, application-code: 110ms)[22m
+ GET / [32m200[39m in 61ms[2m (next.js: 5ms, application-code: 56ms)[22m
+ GET /journey [32m200[39m in 23ms[2m (next.js: 6ms, application-code: 17ms)[22m
+ GET /strategies/AIStrategy [32m200[39m in 1015ms[2m (next.js: 918ms, application-code: 97ms)[22m
+ GET /runs [32m200[39m in 46ms[2m (next.js: 16ms, application-code: 30ms)[22m
+ GET /baseline [32m200[39m in 51ms[2m (next.js: 29ms, application-code: 21ms)[22m
+ GET /optimization [32m200[39m in 50ms[2m (next.js: 21ms, application-code: 29ms)[22m
+ GET /validation [32m200[39m in 35ms[2m (next.js: 18ms, application-code: 17ms)[22m
+ GET /results [32m200[39m in 39ms[2m (next.js: 15ms, application-code: 24ms)[22m
+ GET /reports [32m200[39m in 86ms[2m (next.js: 14ms, application-code: 72ms)[22m
+ GET /settings [32m200[39m in 40ms[2m (next.js: 15ms, application-code: 25ms)[22m
+ GET / [32m200[39m in 19ms[2m (next.js: 5ms, application-code: 14ms)[22m
+[32m[1m✓[22m[39m Compiled in 3.5s
+ GET / [32m200[39m in 295ms[2m (next.js: 213ms, application-code: 82ms)[22m
+ GET / [32m200[39m in 18ms[2m (next.js: 3ms, application-code: 15ms)[22m
+[32m[1m✓[22m[39m Compiled in 301ms
+ GET / [32m200[39m in 38ms[2m (next.js: 8ms, application-code: 30ms)[22m
+ GET / [32m200[39m in 21ms[2m (next.js: 1854µs, application-code: 19ms)[22m
+[32m[1m✓[22m[39m Compiled in 136ms
+[32m[1m✓[22m[39m Compiled in 260ms
+ GET / [32m200[39m in 19ms[2m (next.js: 3ms, application-code: 16ms)[22m
+[32m[1m✓[22m[39m Compiled in 111ms
+ GET / [32m200[39m in 32ms[2m (next.js: 3ms, application-code: 28ms)[22m
+ GET / [32m200[39m in 30ms[2m (next.js: 7ms, application-code: 23ms)[22m
+[32m[1m✓[22m[39m Compiled in 151ms
+[32m[1m✓[22m[39m Compiled in 186ms
+ GET / [32m200[39m in 184ms[2m (next.js: 150ms, application-code: 34ms)[22m
+ GET / [32m200[39m in 18ms[2m (next.js: 2ms, application-code: 15ms)[22m
+[32m[1m✓[22m[39m Compiled in 143ms
+[32m[1m✓[22m[39m Compiled in 109ms
+[32m[1m✓[22m[39m Compiled in 107ms
+[32m[1m✓[22m[39m Compiled in 98ms
+[32m[1m✓[22m[39m Compiled in 196ms
+ GET / [32m200[39m in 252ms[2m (next.js: 188ms, application-code: 64ms)[22m
+ GET / [32m200[39m in 23ms[2m (next.js: 2ms, application-code: 21ms)[22m
+[36m[browser][39m [31mUncaught ReferenceError: ControlledFailureBanner is not defined[39m
+[31m    at Dashboard (src/app/page.tsx:187:10)[39m
+  [90m185 |[0m         )}
+  [90m186 |[0m
+[31m[1m>[0m [90m187 |[0m         <[33mControlledFailureBanner[0m title=[32m"Read-only inspection mode"[0m>
+  [90m    |[0m          [31m[1m^[0m
+  [90m188 |[0m           [33mThis[0m dashboard is read-only. [33mHER[0m is a validation engine, no...
+  [90m189 |[0m         </[33mControlledFailureBanner[0m>
+  [90m190 |[0m
+[32m[1m✓[22m[39m Compiled in 134ms
+[33m[1m⚠[22m[39m Fast Refresh had to perform a full reload due to a runtime error.
+ GET / [32m200[39m in 526ms[2m (next.js: 8ms, application-code: 518ms)[22m
+ GET / [32m200[39m in 68ms[2m (next.js: 4ms, application-code: 64ms)[22m
+ GET /journey [32m200[39m in 85ms[2m (next.js: 26ms, application-code: 60ms)[22m
+ GET /strategies [32m200[39m in 135ms[2m (next.js: 32ms, application-code: 103ms)[22m
+ GET / [32m200[39m in 69ms[2m (next.js: 8ms, application-code: 61ms)[22m
+ GET / [32m200[39m in 179ms[2m (next.js: 7ms, application-code: 172ms)[22m
+[32m[1m✓[22m[39m Compiled in 185ms
+ GET / [32m200[39m in 60ms[2m (next.js: 7ms, application-code: 53ms)[22m
+ GET /journey [32m200[39m in 46ms[2m (next.js: 15ms, application-code: 31ms)[22m
+ GET /strategies [32m200[39m in 23ms[2m (next.js: 5ms, application-code: 18ms)[22m
+ GET /runs [32m200[39m in 78ms[2m (next.js: 29ms, application-code: 49ms)[22m
+ GET /baseline [32m200[39m in 42ms[2m (next.js: 22ms, application-code: 20ms)[22m
+ GET /optimization [32m200[39m in 43ms[2m (next.js: 23ms, application-code: 20ms)[22m
+ GET /optimization [32m200[39m in 61ms[2m (next.js: 3ms, application-code: 58ms)[22m
+ GET / [32m200[39m in 47ms[2m (next.js: 3ms, application-code: 44ms)[22m
+ GET /journey [32m200[39m in 22ms[2m (next.js: 3ms, application-code: 19ms)[22m
+ GET /strategies/AIStrategy [32m200[39m in 111ms[2m (next.js: 56ms, application-code: 55ms)[22m
+ GET /optimization [32m200[39m in 24ms[2m (next.js: 3ms, application-code: 20ms)[22m
+ GET /validation [32m200[39m in 52ms[2m (next.js: 30ms, application-code: 23ms)[22m
+ GET /baseline [32m200[39m in 38ms[2m (next.js: 3ms, application-code: 35ms)[22m
+ GET /runs [32m200[39m in 21ms[2m (next.js: 4ms, application-code: 17ms)[22m
+ GET /baseline [32m200[39m in 20ms[2m (next.js: 3ms, application-code: 17ms)[22m
+ GET /strategies [32m200[39m in 19ms[2m (next.js: 3ms, application-code: 16ms)[22m
+ GET /runs [32m200[39m in 19ms[2m (next.js: 3ms, application-code: 17ms)[22m
+ GET /strategies [32m200[39m in 19ms[2m (next.js: 2ms, application-code: 16ms)[22m
+ GET /baseline [32m200[39m in 20ms[2m (next.js: 3ms, application-code: 17ms)[22m
+ GET /optimization [32m200[39m in 16ms[2m (next.js: 2ms, application-code: 14ms)[22m
+[32m[1m✓[22m[39m Compiled in 1436ms
+[32m[1m✓[22m[39m Compiled in 76ms
+[32m[1m✓[22m[39m Compiled in 536ms
+[32m[1m✓[22m[39m Compiled in 110ms
+[32m[1m✓[22m[39m Compiled in 706ms
+ GET /optimization [32m200[39m in 297ms[2m (next.js: 265ms, application-code: 32ms)[22m
+ GET /optimization [32m200[39m in 20ms[2m (next.js: 1939µs, application-code: 18ms)[22m

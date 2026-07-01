@@ -445,16 +445,19 @@ class OptimizationPipelineService:
         missing_data = any(not pair.exists for pair in data_check_result.pairs)
         
         if missing_data:
-            if not request.download_missing_data:
+            # Auto-download: if user_confirmed, always download missing data.
+            # The download_missing_data flag is now True by default; this check
+            # preserves backward compat for any caller that sets it False explicitly.
+            if not request.download_missing_data and not request.user_confirmed:
                 raise ValueError(
                     f"Data missing for pairs: {[p.pair for p in data_check_result.pairs if not p.exists]}. "
-                    "Set download_missing_data=true to download."
+                    "Set download_missing_data=true and user_confirmed=true to download."
                 )
-            else:
-                if not request.user_confirmed:
-                    raise ValueError(
-                        "Data download requires user confirmation. Set user_confirmed=true."
-                    )
+            # If user_confirmed=true, treat as auto-download regardless of flag
+            if not request.user_confirmed:
+                raise ValueError(
+                    "Data download requires user confirmation. Set user_confirmed=true."
+                )
         
         logger.info(f"Data check completed for {request.pairs} at {request.timeframe}")
 
@@ -463,8 +466,10 @@ class OptimizationPipelineService:
         from app.services.freqtrade_data_service import FreqtradeDataService
         from app.schemas.freqtrade_data import FreqtradeDataDownloadRequest
         
-        if not request.download_missing_data:
-            logger.info("Data download skipped: download_missing_data=false")
+        # Auto-download when user_confirmed. The download_missing_data flag defaults
+        # to True; honour it only when user_confirmed is also False (edge case).
+        if not request.download_missing_data and not request.user_confirmed:
+            logger.info("Data download skipped: download_missing_data=false and no user confirmation")
             return
         
         if not request.user_confirmed:

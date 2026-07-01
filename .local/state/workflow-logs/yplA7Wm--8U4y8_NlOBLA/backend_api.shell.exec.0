@@ -1,0 +1,192 @@
+[32mINFO[0m:     Will watch for changes in these directories: ['/home/runner/workspace/backend']
+[32mINFO[0m:     Uvicorn running on [1mhttp://0.0.0.0:8000[0m (Press CTRL+C to quit)
+[32mINFO[0m:     Started reloader process [[36m[1m110[0m] using [36m[1mWatchFiles[0m
+[32mINFO[0m:     Started server process [[36m153[0m]
+[32mINFO[0m:     Waiting for application startup.
+[32mINFO[0m:     Application startup complete.
+[32mINFO[0m:     10.60.5.50:0 - "[1mGET /api/system/status HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.2.128:0 - "[1mGET /health HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.7.115:0 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.4.109:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.5.50:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.7.115:0 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.7.115:0 - "[1mGET /api/validation/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.1.155:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.5.50:0 - "[1mGET /api/strategies?limit=200 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.1.155:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.7.115:0 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.5.50:0 - "[1mGET /api/validation/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.5.50:0 - "[1mGET /api/strategies?limit=200 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.10.119:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.7.115:0 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.7.115:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.10.119:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.7.115:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.4.109:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.5.50:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.10.119:0 - "[1mGET /api/validation/runs?limit=50 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.1.155:0 - "[1mGET /api/validation/runs?limit=50 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.5.50:0 - "[1mGET /health HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.4.109:0 - "[1mGET /api/system/status HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.4.109:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.5.50:0 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.4.109:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:60142 - "[1mGET /health HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:60144 - "[1mGET /api/system/status HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:60156 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:60158 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:60160 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:60862 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:60858 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:60864 - "[1mGET /api/validation/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:60850 - "[1mGET /api/strategies?limit=200 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:60882 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:60880 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:60894 - "[1mGET /api/validation/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:60874 - "[1mGET /api/strategies?limit=200 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:50500 - "[1mGET /health HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:50510 - "[1mGET /api/system/status HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:50520 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:50512 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:50536 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.2.128:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.7.115:0 - "[1mGET /api/strategies?limit=200 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.2.128:0 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.5.50:0 - "[1mGET /api/validation/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.4.109:0 - "[1mGET /api/validation/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.10.119:0 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.1.155:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.5.50:0 - "[1mGET /api/strategies?limit=200 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.4.109:0 - "[1mGET /api/strategies/AIStrategy HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.2.128:0 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.4.109:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.5.50:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.2.128:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.4.109:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.7.115:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.4.109:0 - "[1mGET /api/validation/runs?limit=50 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.7.115:0 - "[1mGET /api/validation/runs?limit=50 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.7.115:0 - "[1mGET /api/system/status HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.1.155:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.5.50:0 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.1.155:0 - "[1mGET /health HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.1.155:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.5.50:0 - "[1mGET /health HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.10.119:0 - "[1mGET /api/system/status HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.10.119:0 - "[1mGET /api/system/status HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.7.115:0 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.10.119:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.1.155:0 - "[1mGET /health HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.2.128:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:52654 - "[1mGET /health HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:52660 - "[1mGET /api/system/status HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:52664 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:52662 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:52668 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:52684 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:52676 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:52698 - "[1mGET /api/validation/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:52670 - "[1mGET /api/strategies?limit=200 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:52712 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:52706 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:52728 - "[1mGET /api/validation/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:52702 - "[1mGET /api/strategies?limit=200 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:39988 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.4.109:0 - "[1mGET /health HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.4.109:0 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.10.119:0 - "[1mGET /api/system/status HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.7.115:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.7.115:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:36546 - "[1mGET /health HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:36548 - "[1mGET /api/system/status HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:36566 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:36562 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     127.0.0.1:36578 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.7.115:0 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.5.50:0 - "[1mGET /health HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.4.109:0 - "[1mGET /api/system/status HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.1.155:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.1.155:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.4.109:0 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.10.119:0 - "[1mGET /api/validation/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.2.128:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.10.119:0 - "[1mGET /api/strategies?limit=200 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.5.50:0 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.10.119:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.4.109:0 - "[1mGET /api/validation/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.10.119:0 - "[1mGET /api/strategies?limit=200 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.1.155:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.10.119:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.5.50:0 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.1.155:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.4.109:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.4.109:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.4.109:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.4.109:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.1.155:0 - "[1mGET /health HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.7.115:0 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.5.50:0 - "[1mGET /api/system/status HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.5.50:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.5.50:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.2.128:0 - "[1mGET /api/validation/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.4.109:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.7.115:0 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.2.128:0 - "[1mGET /api/strategies?limit=200 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.1.155:0 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.7.115:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.4.109:0 - "[1mGET /api/validation/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.4.109:0 - "[1mGET /api/strategies?limit=200 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.7.115:0 - "[1mGET /api/strategies/AIStrategy HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.2.128:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.2.128:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.5.50:0 - "[1mGET /api/validation/runs?limit=50 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.5.50:0 - "[1mGET /api/validation/runs?limit=50 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.2.128:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.10.119:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.1.155:0 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.1.155:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.4.109:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.2.128:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.7.115:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.5.50:0 - "[1mGET /api/optimization/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.4.109:0 - "[1mGET /api/runs?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.2.128:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.10.119:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.5.50:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.2.128:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.10.119:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m
+[33mWARNING[0m:  WatchFiles detected changes in 'app/schemas/optimization.py'. Reloading...
+[32mINFO[0m:     Shutting down
+[32mINFO[0m:     Waiting for application shutdown.
+[32mINFO[0m:     Application shutdown complete.
+[32mINFO[0m:     Finished server process [[36m153[0m]
+[33mWARNING[0m:  WatchFiles detected changes in 'app/services/optimization_pipeline_service.py'. Reloading...
+[32mINFO[0m:     Started server process [[36m1436[0m]
+[32mINFO[0m:     Waiting for application startup.
+[32mINFO[0m:     Application startup complete.
+[33mWARNING[0m:  WatchFiles detected changes in 'app/services/optimization_pipeline_service.py'. Reloading...
+[32mINFO[0m:     Shutting down
+[32mINFO[0m:     Waiting for application shutdown.
+[32mINFO[0m:     Application shutdown complete.
+[32mINFO[0m:     Finished server process [[36m1436[0m]
+[32mINFO[0m:     Started server process [[36m1440[0m]
+[32mINFO[0m:     Waiting for application startup.
+[32mINFO[0m:     Application startup complete.
+[33mWARNING[0m:  WatchFiles detected changes in 'app/api/v1/routers/optimization.py'. Reloading...
+[32mINFO[0m:     Shutting down
+[32mINFO[0m:     Waiting for application shutdown.
+[32mINFO[0m:     Application shutdown complete.
+[32mINFO[0m:     Finished server process [[36m1440[0m]
+[32mINFO[0m:     Started server process [[36m1450[0m]
+[32mINFO[0m:     Waiting for application startup.
+[32mINFO[0m:     Application startup complete.
+[33mWARNING[0m:  WatchFiles detected changes in 'app/api/v1/routers/optimization.py'. Reloading...
+[32mINFO[0m:     Shutting down
+[32mINFO[0m:     Waiting for application shutdown.
+[32mINFO[0m:     Application shutdown complete.
+[32mINFO[0m:     Finished server process [[36m1450[0m]
+[32mINFO[0m:     Started server process [[36m1455[0m]
+[32mINFO[0m:     Waiting for application startup.
+[32mINFO[0m:     Application startup complete.
+[32mINFO[0m:     10.60.10.119:0 - "[1mGET /api/optimization/exchanges HTTP/1.1[0m" [32m200 OK[0m
+[32mINFO[0m:     10.60.4.109:0 - "[1mGET /api/strategies?limit=500 HTTP/1.1[0m" [32m200 OK[0m

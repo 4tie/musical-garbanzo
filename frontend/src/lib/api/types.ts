@@ -650,6 +650,7 @@ export interface OptimizationRequest {
   risk_profile?: string;
   baseline_run_id?: string;
   run_baseline_first?: boolean;
+  /** Always sent as true — data download is now automatic when user_confirmed=true */
   download_missing_data?: boolean;
   user_confirmed: boolean;
   epochs?: number;
@@ -658,7 +659,26 @@ export interface OptimizationRequest {
   stake_currency?: string;
   stake_amount?: number | string;
   apply_decision_to_run?: boolean;
+  /** Stored in request_json blob on the backend via the 'notes' field */
   notes?: string;
+}
+
+export interface AvailablePairsResponse {
+  pairs: string[];
+  count: number;
+  total_available: number;
+  exchange: string;
+  quote: string;
+  source: string;
+  available: boolean;
+  message: string;
+  error?: string;
+}
+
+export interface SupportedExchange {
+  id: string;
+  name: string;
+  note: string;
 }
 
 export interface OptimizationStartResponse {

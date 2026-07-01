@@ -1,0 +1,11 @@
+[1G[0K⠙[1G[0K
+> frontend@0.1.0 dev
+> next dev --port 5000
+
+[1G[0K⠙[1G[0K[1m[38;2;173;127;168m▲ Next.js 16.2.9[39m[22m (Turbopack)
+- Local:         http://localhost:5000
+- Network:       http://172.24.0.2:5000
+- Environments: .env.local
+[32m[1m✓[22m[39m Ready in 794ms
+
+ GET / [32m200[39m in 2.9s[2m (next.js: 2.8s, application-code: 175ms)[22m

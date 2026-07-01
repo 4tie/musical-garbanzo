@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Exec(source)",
+      "Exec(pytest)"
+    ]
+  }
+}
