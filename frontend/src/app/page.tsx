@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import AppShell from '@/components/AppShell';
-import ControlledFailureBanner from '@/components/ControlledFailureBanner';
 import EmptyState from '@/components/EmptyState';
 import ErrorBanner from '@/components/ErrorBanner';
 import LoadingSkeleton from '@/components/LoadingSkeleton';
@@ -185,9 +184,10 @@ export default function Dashboard() {
           </ErrorBanner>
         )}
 
-        <ControlledFailureBanner title="Read-only inspection mode">
-          This dashboard is read-only. HER is a validation engine, not a profit generator. No live trading actions exist in this dashboard, and rejected validation results are not system failures.
-        </ControlledFailureBanner>
+        <div className="flex items-center gap-2 rounded-[var(--app-radius)] border border-[var(--app-border)] bg-[var(--app-surface-muted)] px-4 py-2.5 text-xs text-[var(--app-text-subtle)]">
+          <span className="h-1.5 w-1.5 shrink-0 rounded-full bg-[var(--app-info)] opacity-60" />
+          Read-only. HER is a validation engine — no live trading actions. Rejected results are not system failures.
+        </div>
 
         <SectionCard title="System overview" description="Availability and latest run state from real API responses.">
           {loading ? (

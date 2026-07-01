@@ -7,6 +7,7 @@ interface NavItem {
   name: string;
   path: string;
   code: string;
+  primary?: boolean;
 }
 
 interface NavGroup {
@@ -18,8 +19,8 @@ const navGroups: NavGroup[] = [
   {
     label: 'Discover',
     items: [
+      { name: 'Strategy Journey', path: '/journey', code: 'JN', primary: true },
       { name: 'Dashboard', path: '/', code: 'DB' },
-      { name: 'Strategy Journey', path: '/journey', code: 'JN' },
       { name: 'Strategies', path: '/strategies', code: 'ST' },
     ],
   },
@@ -55,27 +56,30 @@ export default function Sidebar() {
   }
 
   return (
-    <aside className="flex w-60 shrink-0 flex-col border-r border-[var(--app-border)] bg-[var(--app-surface-muted)]">
-      <div className="border-b border-[var(--app-border)] px-4 py-4">
-        <div className="flex items-center gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-[var(--app-radius)] border border-[var(--app-accent-border)] bg-[var(--app-accent-soft)] text-xs font-bold tracking-wider text-[var(--app-accent)]">
-            HER
-          </div>
-          <div>
-            <h1 className="text-sm font-semibold text-[var(--app-text)]">Command Center</h1>
-            <p className="text-[11px] text-[var(--app-text-subtle)]">Strategy discovery</p>
-          </div>
+    <aside
+      className="flex flex-col border-r border-[var(--app-border)] bg-[var(--app-surface-muted)]"
+      style={{ width: 'var(--app-sidebar-width)' }}
+    >
+      {/* Brand */}
+      <div className="flex items-center gap-3 border-b border-[var(--app-border)] px-4 py-[14px]">
+        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--app-radius-sm)] bg-[var(--app-accent)] text-[11px] font-bold tracking-wider text-white shadow-sm">
+          HER
+        </div>
+        <div className="min-w-0">
+          <p className="text-[13px] font-semibold leading-none text-[var(--app-text)]">AutoQuant</p>
+          <p className="mt-0.5 text-[10px] leading-none text-[var(--app-text-subtle)]">Strategy Lab</p>
         </div>
       </div>
 
-      <nav className="flex-1 overflow-auto px-3 py-3" aria-label="Primary navigation">
-        <div className="space-y-5">
+      {/* Nav */}
+      <nav className="flex-1 overflow-auto px-2.5 py-3" aria-label="Primary navigation">
+        <div className="space-y-4">
           {navGroups.map((group) => (
             <div key={group.label}>
-              <p className="mb-1 px-2 text-[10px] font-semibold uppercase tracking-widest text-[var(--app-text-subtle)]">
+              <p className="mb-1 px-2.5 text-[9px] font-semibold uppercase tracking-[0.12em] text-[var(--app-text-subtle)]">
                 {group.label}
               </p>
-              <ul className="space-y-0.5">
+              <ul className="space-y-px">
                 {group.items.map((item) => {
                   const active = isActive(item.path);
                   return (
@@ -83,21 +87,28 @@ export default function Sidebar() {
                       <Link
                         href={item.path}
                         className={[
-                          'flex h-9 items-center gap-2.5 rounded-[var(--app-radius)] px-2.5 text-sm font-medium transition-colors',
-                          active
-                            ? 'border border-[var(--app-accent-border)] bg-[var(--app-accent-soft)] text-[var(--app-accent)]'
-                            : 'border border-transparent text-[var(--app-text-muted)] hover:bg-[var(--app-surface)] hover:text-[var(--app-text)]',
-                        ].join(' ')}
-                      >
-                        <span className={[
-                          'flex h-5 w-6 items-center justify-center rounded text-[9px] font-semibold',
+                          'group flex h-8 items-center gap-2.5 rounded-[var(--app-radius-sm)] px-2.5 text-[13px] font-medium transition-colors',
                           active
                             ? 'bg-[var(--app-accent-soft)] text-[var(--app-accent)]'
-                            : 'bg-[var(--app-surface)] text-[var(--app-text-subtle)]',
-                        ].join(' ')}>
+                            : item.primary
+                            ? 'text-[var(--app-text-muted)] hover:bg-[var(--app-surface-card)] hover:text-[var(--app-text)]'
+                            : 'text-[var(--app-text-subtle)] hover:bg-[var(--app-surface-card)] hover:text-[var(--app-text-muted)]',
+                        ].join(' ')}
+                      >
+                        <span
+                          className={[
+                            'flex h-[18px] w-[22px] shrink-0 items-center justify-center rounded text-[9px] font-semibold',
+                            active
+                              ? 'bg-[var(--app-accent-soft)] text-[var(--app-accent)]'
+                              : 'bg-[var(--app-border)] text-[var(--app-text-subtle)] group-hover:text-[var(--app-text-muted)]',
+                          ].join(' ')}
+                        >
                           {item.code}
                         </span>
-                        {item.name}
+                        <span className="min-w-0 truncate">{item.name}</span>
+                        {item.primary && !active && (
+                          <span className="ml-auto h-1 w-1 shrink-0 rounded-full bg-[var(--app-accent)] opacity-50" />
+                        )}
                       </Link>
                     </li>
                   );
@@ -108,9 +119,12 @@ export default function Sidebar() {
         </div>
       </nav>
 
-      <div className="border-t border-[var(--app-border)] p-3">
-        <p className="text-[11px] leading-5 text-[var(--app-text-subtle)]">
-          Evidence only. No live trading actions.
+      {/* Footer */}
+      <div className="border-t border-[var(--app-border)] px-4 py-3">
+        <p className="text-[10px] leading-4 text-[var(--app-text-subtle)]">
+          Evidence only.
+          <br />
+          No live trading actions.
         </p>
       </div>
     </aside>

@@ -13,15 +13,31 @@ interface TopHeaderProps {
   refreshDisabled?: boolean;
 }
 
-const routeTitles: Record<string, string> = {
-  '/': 'Dashboard',
-  '/runs': 'Runs',
-  '/baseline': 'Baseline',
-  '/optimization': 'Optimization',
-  '/strategies': 'Strategies',
-  '/reports': 'Reports',
-  '/settings': 'Settings',
+const routeMeta: Record<string, { section: string; title: string }> = {
+  '/':            { section: 'Discover', title: 'Dashboard' },
+  '/journey':     { section: 'Discover', title: 'Strategy Journey' },
+  '/strategies':  { section: 'Discover', title: 'Strategies' },
+  '/runs':        { section: 'Test',     title: 'Runs' },
+  '/baseline':    { section: 'Test',     title: 'Baseline' },
+  '/optimization':{ section: 'Test',     title: 'Optimization' },
+  '/validation':  { section: 'Test',     title: 'Validation' },
+  '/results':     { section: 'Evidence', title: 'Results' },
+  '/reports':     { section: 'Evidence', title: 'Reports' },
+  '/settings':    { section: 'System',   title: 'Settings' },
 };
+
+function resolveMeta(pathname: string, overrideTitle?: string) {
+  const exact = routeMeta[pathname];
+  if (exact) return { section: exact.section, title: overrideTitle ?? exact.title };
+
+  // Dynamic segments — match prefix
+  for (const [key, meta] of Object.entries(routeMeta)) {
+    if (key !== '/' && pathname.startsWith(key)) {
+      return { section: meta.section, title: overrideTitle ?? meta.title };
+    }
+  }
+  return { section: 'HER', title: overrideTitle ?? 'Command Center' };
+}
 
 export default function TopHeader({
   pageTitle,
@@ -30,35 +46,60 @@ export default function TopHeader({
   refreshDisabled = false,
 }: TopHeaderProps) {
   const pathname = usePathname();
-  const resolvedTitle = pageTitle ?? routeTitles[pathname] ?? 'HER Command Center';
+  const { section, title } = resolveMeta(pathname, pageTitle);
+
+  // Derive backend health from systemStatus if available, else mark unknown
   const backendStatus = systemStatus?.backend ?? 'unknown';
+  const backendTone =
+    backendStatus === 'healthy' || backendStatus === 'configured' ? 'success' :
+    backendStatus === 'unknown' ? 'warning' : 'danger';
 
   return (
-    <header className="flex min-h-16 flex-col gap-3 border-b border-[var(--app-border)] bg-[var(--app-surface)] px-4 py-3 lg:flex-row lg:items-center lg:justify-between">
+    <header
+      className="flex shrink-0 items-center justify-between border-b border-[var(--app-border)] bg-[var(--app-surface)] px-5"
+      style={{ height: 'var(--app-header-height)' }}
+    >
+      {/* Left: breadcrumb + page title */}
       <div className="min-w-0">
-        <p className="text-xs font-medium uppercase text-[var(--app-text-subtle)]">
-          HER Command Center
-        </p>
-        <h1 className="truncate text-lg font-semibold text-[var(--app-text)]">{resolvedTitle}</h1>
+        <div className="flex items-center gap-1.5 text-[10px] font-medium uppercase tracking-widest text-[var(--app-text-subtle)]">
+          <span>HER</span>
+          <span className="opacity-40">›</span>
+          <span>{section}</span>
+        </div>
+        <h1 className="truncate text-[15px] font-semibold leading-none text-[var(--app-text)]">
+          {title}
+        </h1>
       </div>
 
-      <div className="flex flex-wrap items-center gap-2">
-        <StatusBadge status={backendStatus} label={`Backend: ${backendStatus}`} />
-        <label className="relative min-w-48">
-          <span className="sr-only">Search placeholder</span>
-          <input
-            type="search"
-            placeholder="Search arrives with real data"
-            disabled
-            className="h-9 w-full rounded-[var(--app-radius)] border border-[var(--app-border)] bg-[var(--app-surface-muted)] px-3 text-sm text-[var(--app-text-muted)] outline-none"
-          />
-        </label>
+      {/* Right: status + controls */}
+      <div className="flex shrink-0 items-center gap-2">
+        <StatusBadge
+          status={backendStatus}
+          tone={backendTone}
+          label={`Backend: ${backendStatus}`}
+          dot
+        />
+        <div className="mx-1 h-4 w-px bg-[var(--app-border)]" />
         <Button
           size="sm"
-          variant="secondary"
+          variant="ghost"
           onClick={onRefresh ?? (() => window.location.reload())}
           disabled={refreshDisabled}
+          title="Refresh page data"
         >
+          <svg
+            className="h-3.5 w-3.5"
+            viewBox="0 0 16 16"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            aria-hidden="true"
+          >
+            <path d="M13.65 2.35A8 8 0 1 0 14 8" />
+            <path d="M14 2v4h-4" />
+          </svg>
           Refresh
         </Button>
         <ThemeSettings compact />

@@ -1,0 +1,606 @@
+You are working on the HER repository.
+
+The frontend/backend connection issues are already fixed.
+
+Now the user is not satisfied with the current frontend visual design.
+
+Your task is to perform a full frontend visual redesign and layout upgrade while preserving all existing working functionality.
+
+This is a UI/UX redesign task, not a backend rewrite task.
+
+---
+
+# Main Objective
+
+Redesign the HER frontend so it feels like a premium, modern, serious strategy discovery cockpit.
+
+The current frontend works, but the visual style, layout, spacing, and page structure are not good enough.
+
+The user wants the app to feel like a polished trading research product, not a rough admin dashboard.
+
+You may redesign:
+
+* theme
+* layout
+* sidebar
+* top navigation
+* dashboard structure
+* page hierarchy
+* cards
+* metric sections
+* charts layout
+* workflow timeline
+* spacing
+* typography
+* visual rhythm
+* empty states
+* loading states
+* error states
+* status badges
+* confirmation dialogs
+
+But you must not break any existing functionality.
+
+---
+
+# Critical Rules
+
+Do not modify backend behavior.
+
+Do not invent APIs.
+
+Do not add mock data.
+
+Do not add fake data.
+
+Do not add fake charts.
+
+Do not add placeholder metrics.
+
+Do not fake completed runs.
+
+Do not fake live progress.
+
+Do not remove safety disclaimers.
+
+Do not remove confirmation dialogs.
+
+Do not remove working API calls.
+
+Do not remove existing routes unless you replace them safely with equivalent working routes.
+
+Do not break the Strategy Workspace, Runs, Baseline, Optimization, or Validation workflows.
+
+The backend remains the source of truth.
+
+---
+
+# Required First Step: Visual Audit
+
+Before implementing, inspect the current frontend and write a short design audit in:
+
+`docs/FRONTEND_VISUAL_REDESIGN_AUDIT.md`
+
+Include:
+
+* what currently looks weak
+* what pages are too cluttered
+* what sections are repetitive
+* what navigation is confusing
+* what layout should change
+* what components should be restyled
+* what should stay unchanged because it already works
+* which files/components will be touched
+
+Do not spend too long on the audit. Keep it practical.
+
+---
+
+# Design Direction
+
+Create a new visual identity for HER.
+
+HER should feel like:
+
+* professional trading strategy lab
+* AI-assisted quant research cockpit
+* evidence-driven validation dashboard
+* modern dark SaaS product
+* calm, premium, technical, serious
+
+HER should not feel like:
+
+* casino app
+* crypto hype dashboard
+* generic admin panel
+* raw developer tool
+* unfinished prototype
+
+---
+
+# Preferred Visual Style
+
+Use a premium dark theme.
+
+Suggested direction:
+
+* background: deep charcoal / dark navy
+* surfaces: layered dark cards
+* borders: subtle low-contrast borders
+* accent: cyan / electric blue / violet-blue
+* success: controlled green
+* warning: amber
+* danger: clean red
+* neutral: slate gray
+* typography: clean, modern, readable
+* cards: soft radius, clear spacing, not too glassy
+* layout: spacious but information-dense
+* charts: calm and readable
+* buttons: clear hierarchy, not oversized
+* badges: compact and consistent
+
+Avoid loud gradients everywhere.
+
+Avoid overusing glow effects.
+
+Use visual polish, but keep the product serious.
+
+---
+
+# Layout Redesign Requirements
+
+The current app should be reorganized visually around the user journey.
+
+Main journey:
+
+Strategy
+→ Readiness
+→ Baseline
+→ Optimization
+→ Validation
+→ Decision / Next Action
+
+The UI should make this journey obvious.
+
+## Main Shell
+
+Redesign the app shell:
+
+* cleaner sidebar
+* better grouping
+* clear active nav state
+* top header with current page context
+* responsive layout
+* better content width
+* less visual noise
+
+Suggested sidebar groups:
+
+## Discover
+
+* Dashboard
+* Strategy Journey
+* Strategy Workspace
+
+## Test
+
+* Runs
+* Baseline
+* Optimization
+* Validation
+
+## Evidence
+
+* Results
+* Metrics
+* Decisions
+* Artifacts
+
+## System
+
+* Settings
+* Health
+
+If some routes do not exist, do not invent backend data. You may add navigation only to real frontend pages or clearly planned disabled items.
+
+---
+
+# Required Main UX Improvement: Strategy Journey Page
+
+Create or significantly improve:
+
+`/journey`
+
+This should be the main cockpit page.
+
+It should not be a fake dashboard.
+
+It must use real backend data only.
+
+The page should include:
+
+## 1. Hero Strategy Panel
+
+Show:
+
+* selected strategy if available
+* readiness status
+* current lifecycle state
+* latest baseline status
+* latest optimization status
+* latest validation status
+* next safe action
+
+If no strategy is selected, show a clean empty state:
+
+“Select a strategy from Strategy Workspace to begin.”
+
+Do not fake a selected strategy.
+
+## 2. Journey Timeline
+
+A beautiful stepper/timeline:
+
+* Strategy selected
+* Readiness checked
+* Baseline
+* Optimization
+* Validation
+* Final decision
+
+Each step should show:
+
+* status
+* short explanation
+* link to detail page if available
+* next action if allowed
+
+## 3. Live Workflow Panel
+
+If an active run exists, show:
+
+* current stage
+* running/completed/failed steps
+* last updated
+* controlled failure if any
+* stage progress only if derived from real stages
+
+If no active run exists, show:
+
+“No active run.”
+
+## 4. Evidence Summary
+
+Show compact cards for:
+
+* profit factor
+* expectancy
+* drawdown
+* trade count
+* validation status
+* confidence score if available
+
+Only show real values.
+
+If missing, show “Not available yet.”
+
+## 5. Next Action Panel
+
+A clear panel that tells the user what to do next:
+
+Examples:
+
+* Select a strategy
+* Fix readiness issues
+* Run baseline
+* Review baseline result
+* Run optimization
+* Review best trial
+* Run validation
+* Review validation evidence
+
+No auto-execution.
+
+Every run action requires confirmation.
+
+---
+
+# Page Cleanup Requirements
+
+Improve these existing pages visually:
+
+* Strategy Workspace
+* Runs
+* Baseline detail
+* Optimization detail
+* Validation list
+* Validation detail
+* Dashboard if present
+
+For each page:
+
+* reduce repeated banners
+* reduce repeated text
+* move raw JSON into collapsible advanced sections
+* show summary first
+* show details second
+* show next action clearly
+* use consistent cards
+* use consistent metric formatting
+* use consistent status badges
+* keep copy buttons but make them visually secondary
+* improve empty/loading/error states
+
+Do not remove critical evidence.
+
+Do not remove controlled failure messages.
+
+Do not hide warnings.
+
+---
+
+# Components to Create or Restyle
+
+Create or improve reusable components:
+
+* `AppShell`
+* `Sidebar`
+* `PageHeader`
+* `WorkflowStepper`
+* `LiveRunPanel`
+* `MetricTrendCard`
+* `EvidenceStatusBanner`
+* `NextActionPanel`
+* `RunConfirmationDialog`
+* `TrialMetricChart`
+* `PairPerformanceChart`
+* `ValidationEvidenceCard`
+* `ControlledFailurePanel`
+* `EvidenceEmptyState`
+* `StatusBadge`
+
+Prefer improving existing components over duplicating new ones.
+
+---
+
+# Chart Rules
+
+Charts are allowed only with real backend data.
+
+No mock chart data.
+
+No fake placeholder data.
+
+No invented trial history.
+
+No invented metric trend.
+
+If no data exists, show a polished empty state.
+
+Required chart improvements where real data exists:
+
+## Optimization Detail
+
+* Profit Factor by Trial
+* Expectancy by Trial
+* Drawdown by Trial
+* Trial Status Distribution
+
+## Baseline Detail
+
+* Pair performance chart if pair results exist
+* Metric cards for real baseline metrics
+
+## Validation Detail
+
+* OOS summary
+* WFO window chart/table if evidence exists
+* Robustness summary
+
+If the backend does not provide enough data, document what is missing.
+
+---
+
+# Safety Language
+
+Keep HER honest.
+
+Allowed language:
+
+* Candidate
+* Promising
+* Rejected
+* Needs validation
+* Validated by evidence
+* Insufficient evidence
+* Improving
+* Weak evidence
+* Controlled failure
+
+Forbidden language:
+
+* Guaranteed profitable
+* Approved for live trading
+* Will make money
+* Safe to trade live
+* Profit guaranteed
+* One-click trading
+
+Always keep this disclaimer visible on validation-related pages:
+
+“Validation is evidence only. It is not strategy approval, export, live-trading authorization, or a guarantee of future performance.”
+
+---
+
+# Functionality Preservation
+
+After the redesign, these must still work:
+
+* frontend reads backend data
+* Strategy Workspace loads real strategies
+* Runs page loads real runs
+* Baseline detail loads real backend data
+* Optimization detail loads real backend data
+* Validation list/detail loads real backend data
+* Run Validation from baseline detail
+* Run Validation from optimization detail
+* confirmation dialogs
+* copy buttons
+* controlled failure banners
+* empty states when real data is unavailable
+
+Do not break working API integration.
+
+---
+
+# Backend Policy
+
+Do not touch backend unless absolutely necessary.
+
+This is a frontend redesign task.
+
+If you believe backend change is needed, stop and document the mismatch first.
+
+Allowed backend changes only with clear justification:
+
+* CORS/config fix
+* route prefix mismatch
+* response serialization mismatch
+
+Do not change:
+
+* trading logic
+* validation thresholds
+* Freqtrade runner
+* optimization logic
+* decision logic
+* repositories
+* database schema
+* safety gates
+
+---
+
+# Implementation Approach
+
+Do this in safe phases:
+
+## Phase 1: Audit
+
+Create:
+
+`docs/FRONTEND_VISUAL_REDESIGN_AUDIT.md`
+
+## Phase 2: Design System
+
+Improve theme tokens, layout components, cards, buttons, badges, typography, spacing.
+
+## Phase 3: App Shell
+
+Redesign sidebar, main layout, page headers, responsive behavior.
+
+## Phase 4: Journey Page
+
+Create/improve `/journey` as the main workflow cockpit.
+
+## Phase 5: Existing Pages
+
+Improve Strategy Workspace, Runs, Baseline, Optimization, Validation.
+
+## Phase 6: Verify Functionality
+
+Run build/lint and manually verify key flows.
+
+---
+
+# Required Reports
+
+Create:
+
+`docs/FRONTEND_VISUAL_REDESIGN_REPORT.md`
+
+Include:
+
+* design direction chosen
+* pages changed
+* components changed
+* routes affected
+* what functionality was preserved
+* what data is real
+* what remains unavailable
+* screenshots description if browser was checked
+* tests run
+* build/lint results
+* repo hygiene result
+* known issues
+* next recommendation
+
+---
+
+# Testing
+
+Run:
+
+```bash
+cd frontend && npm run lint && npm run build
+```
+
+If backend was touched, also run:
+
+```bash
+cd backend && ../.venv/bin/python -m pytest -q
+```
+
+Repo hygiene:
+
+```bash
+git status --short
+git ls-files | grep -E '(__pycache__|\.pyc|\.venv|node_modules|\.next)'
+```
+
+---
+
+# Manual Smoke Checklist
+
+Verify manually or document why not possible:
+
+1. Frontend opens without crash.
+2. Sidebar navigation works.
+3. Strategy Workspace loads real backend data.
+4. Runs page loads real backend data.
+5. Baseline detail loads real backend data.
+6. Optimization detail loads real backend data.
+7. Validation list/detail loads real backend data.
+8. Run Validation still works from baseline detail.
+9. Run Validation still works from optimization detail.
+10. No page uses mock data.
+11. No chart uses fake data.
+12. No run starts without confirmation.
+13. No safety disclaimer was removed.
+14. Build passes.
+15. Lint passes.
+
+---
+
+# Acceptance Criteria
+
+Accept this task only if:
+
+* the app looks significantly better
+* the layout feels intentionally redesigned
+* the UI is cleaner and less repetitive
+* the user journey is easier to understand
+* all existing working functionality remains working
+* no backend behavior is changed
+* no mock/fake data is introduced
+* no safety rule is weakened
+* lint passes
+* build passes
+* repo hygiene is clean
+
+---
+
+# Commit Message
+
+Use:
+
+`Frontend: redesign HER visual system and workflow layout`

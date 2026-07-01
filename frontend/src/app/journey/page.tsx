@@ -5,7 +5,6 @@ import AppShell from '@/components/AppShell';
 import EmptyState from '@/components/EmptyState';
 import ErrorBanner from '@/components/ErrorBanner';
 import LiveRunPanel from '@/components/LiveRunPanel';
-import LoadingSkeleton from '@/components/LoadingSkeleton';
 import NextActionPanel from '@/components/NextActionPanel';
 import PageHeader from '@/components/PageHeader';
 import SectionCard from '@/components/SectionCard';
