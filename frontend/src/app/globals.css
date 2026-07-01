@@ -148,16 +148,6 @@ button, input, select, textarea { font: inherit; }
   animation: page-fade var(--app-motion-base) ease-out;
 }
 
-/* Card hover — only used on explicitly interactive cards */
-.card-hover {
-  transition: border-color var(--app-motion-fast) ease,
-              box-shadow var(--app-motion-fast) ease;
-}
-.card-hover:hover {
-  border-color: var(--app-accent-border);
-  box-shadow: var(--app-shadow-card);
-}
-
 /* Drawer slide-in */
 .drawer-panel {
   animation: drawer-slide var(--app-motion-base) ease-out;
