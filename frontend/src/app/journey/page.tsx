@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import AppShell from '@/components/AppShell';
-import ControlledFailureBanner from '@/components/ControlledFailureBanner';
 import EmptyState from '@/components/EmptyState';
 import ErrorBanner from '@/components/ErrorBanner';
 import LiveRunPanel from '@/components/LiveRunPanel';
@@ -43,7 +42,7 @@ const INITIAL: JourneyState = {
 };
 
 function fmtTs(ts: string | null | undefined): string {
-  if (!ts) return '';
+  if (!ts) return '—';
   try {
     return new Date(ts).toLocaleString(undefined, {
       month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit',
@@ -162,6 +161,27 @@ export default function JourneyPage() {
   const activeBaselineRun = strategyBaselines.find((r) => isActiveStatus(r.status)) ?? null;
   const activeOptimizationRun = strategyOptimizations.find((r) => isActiveStatus(r.status)) ?? null;
 
+  // Action gating
+  const canRunBaseline = useMemo(() => {
+    if (!strategy) return false;
+    if (activeBaselineRun || activeOptimizationRun) return false;
+    return strategy.readiness === 'ready' || strategy.readiness === 'warning';
+  }, [strategy, activeBaselineRun, activeOptimizationRun]);
+
+  const canRunOptimization = useMemo(() => {
+    if (!latestBaseline) return false;
+    if (activeBaselineRun || activeOptimizationRun) return false;
+    const cls = latestBaseline.classification;
+    return isCompleted(latestBaseline.status) && !isRejected(cls);
+  }, [latestBaseline, activeBaselineRun, activeOptimizationRun]);
+
+  const canRunValidation = useMemo(() => {
+    if (activeBaselineRun || activeOptimizationRun) return false;
+    const baselineOk = latestBaseline && isCompleted(latestBaseline.status) && !isRejected(latestBaseline.classification);
+    const optOk = latestOptimization && isCompleted(latestOptimization.status) && latestOptimization.result_status !== 'optimization_rejected';
+    return Boolean(baselineOk || optOk);
+  }, [latestBaseline, latestOptimization, activeBaselineRun, activeOptimizationRun]);
+
   const steps: WorkflowStep[] = useMemo(() => {
     if (!selectedStrategy) return [];
 
@@ -187,7 +207,7 @@ export default function JourneyPage() {
         const cls = latestBaseline.classification;
         if (isRejected(cls)) {
           baselineStatus = 'failed';
-          baselineMsg = `Rejected (${cls ?? 'no classification'}).`;
+          baselineMsg = `Rejected — ${cls ?? 'no classification'}.`;
         } else {
           baselineStatus = 'passed';
           baselineMsg = cls ? `Classification: ${cls}` : 'Baseline completed.';
@@ -215,7 +235,7 @@ export default function JourneyPage() {
         const rs = latestOptimization.result_status;
         if (rs === 'optimization_rejected') {
           optStatus = 'failed';
-          optMsg = 'Optimization rejected. Optimized result did not improve baseline.';
+          optMsg = 'Optimization rejected — result did not improve baseline.';
         } else {
           optStatus = 'passed';
           optMsg = rs ? `Result: ${rs}` : 'Optimization completed.';
@@ -261,7 +281,7 @@ export default function JourneyPage() {
         decisionMsg = `Decision: ${ds}. Strategy is not a validated candidate.`;
       } else if (ds) {
         decisionStatus = 'passed';
-        decisionMsg = `Decision recorded: ${ds}. Evidence only — not an approval or live-trading authorization.`;
+        decisionMsg = `Decision recorded: ${ds}. Evidence only — not a live-trading authorization.`;
       }
     }
 
@@ -277,7 +297,7 @@ export default function JourneyPage() {
         label: 'Readiness checked',
         status: readinessStatus,
         message: strategy
-          ? `Readiness: ${readinessLabel(strategy.readiness)}. ${strategy.issues.length} issue${strategy.issues.length !== 1 ? 's' : ''}, ${strategy.warnings.length} warning${strategy.warnings.length !== 1 ? 's' : ''}.`
+          ? `${readinessLabel(strategy.readiness)}. ${strategy.issues.length} issue${strategy.issues.length !== 1 ? 's' : ''}, ${strategy.warnings.length} warning${strategy.warnings.length !== 1 ? 's' : ''}.`
           : 'Readiness not available.',
         href: selectedStrategy ? `/strategies/${encodeURIComponent(selectedStrategy)}` : undefined,
       },
@@ -322,7 +342,7 @@ export default function JourneyPage() {
       actions.push({
         id: 'fix-strategy',
         label: 'Open Strategy',
-        description: 'Review strategy readiness issues before running.',
+        description: 'Review readiness issues before running.',
         href: `/strategies/${encodeURIComponent(selectedStrategy)}`,
         tone: 'warning',
       });
@@ -363,10 +383,10 @@ export default function JourneyPage() {
 
   const hasActiveRun = Boolean(activeBaselineRun || activeOptimizationRun);
 
-  const baselineMetrics = useMemo(() => {
-    if (!latestBaseline) return null;
-    return latestBaseline;
-  }, [latestBaseline]);
+  // Derive pairs/timeframe from latest run data
+  const displayPairs = latestOptimization?.pairs ?? null;
+  const displayTimeframe = strategy?.params_summary?.timeframe ?? latestOptimization?.timeframe ?? null;
+  const latestDecision = latestValidation?.decision_status ?? latestValidation?.summary?.decision_status ?? null;
 
   return (
     <AppShell
@@ -377,7 +397,7 @@ export default function JourneyPage() {
       <div className="space-y-6">
         <PageHeader
           title="Strategy Journey"
-          description="Select a strategy and see its full discovery lifecycle — from readiness check through baseline, optimization, and validation evidence."
+          description="Select a strategy and follow its full discovery lifecycle — readiness, baseline, optimization, and validation."
           actions={
             state.loadedAt ? (
               <span className="text-xs text-[var(--app-text-subtle)]">Updated {fmtTs(state.loadedAt)}</span>
@@ -393,29 +413,24 @@ export default function JourneyPage() {
           </ErrorBanner>
         )}
 
-        <ControlledFailureBanner title="Evidence only — no live trading">
-          The Strategy Journey is a read-only inspection surface. No run actions are available here. Every metric and chart reflects real backend data only.
-        </ControlledFailureBanner>
-
-        <SectionCard title="Select strategy" description="Choose a strategy to view its discovery lifecycle.">
-          {loading ? (
-            <LoadingSkeleton lines={2} />
-          ) : state.strategies.length === 0 ? (
-            <EmptyState
-              title="No strategies found"
-              description="Import strategies into the backend to see them here."
-            />
-          ) : (
-            <div className="flex flex-wrap items-start gap-4">
-              <div className="min-w-0 flex-1">
-                <label htmlFor="strategy-select" className="mb-1 block text-xs font-semibold text-[var(--app-text-subtle)]">
-                  Strategy
-                </label>
+        {/* Strategy Cockpit Header */}
+        <div className="rounded-[var(--app-radius)] border border-[var(--app-border)] bg-[var(--app-surface-muted)]">
+          {/* Top bar: selector */}
+          <div className="flex flex-wrap items-center gap-3 border-b border-[var(--app-border)] px-5 py-4">
+            <div className="flex min-w-0 flex-1 items-center gap-3">
+              <label htmlFor="strategy-select" className="shrink-0 text-xs font-semibold text-[var(--app-text-subtle)]">
+                Strategy
+              </label>
+              {loading ? (
+                <div className="h-9 w-56 animate-pulse rounded-[var(--app-radius)] bg-[var(--app-surface)]" />
+              ) : state.strategies.length === 0 ? (
+                <span className="text-sm text-[var(--app-text-muted)]">No strategies found — import strategies to begin.</span>
+              ) : (
                 <select
                   id="strategy-select"
                   value={selectedStrategy}
                   onChange={(e) => setSelectedStrategy(e.target.value)}
-                  className="h-10 w-full max-w-md rounded-[var(--app-radius)] border border-[var(--app-border)] bg-[var(--app-surface-muted)] px-3 text-sm text-[var(--app-text)] outline-none focus:border-[var(--app-accent-border)]"
+                  className="h-9 w-full max-w-xs rounded-[var(--app-radius)] border border-[var(--app-border)] bg-[var(--app-surface)] px-3 text-sm font-medium text-[var(--app-text)] outline-none focus:border-[var(--app-accent-border)]"
                 >
                   {state.strategies.map((s) => (
                     <option key={s.strategy_name} value={s.strategy_name}>
@@ -423,166 +438,304 @@ export default function JourneyPage() {
                     </option>
                   ))}
                 </select>
-              </div>
-              {strategy && (
-                <div className="flex items-center gap-3 pt-5">
-                  <StatusBadge
-                    status={strategy.readiness}
-                    tone={readinessTone(strategy.readiness)}
-                    label={readinessLabel(strategy.readiness)}
-                  />
-                  {strategy.params_summary?.timeframe && (
-                    <span className="rounded border border-[var(--app-border)] bg-[var(--app-surface-muted)] px-2 py-0.5 text-xs text-[var(--app-text-muted)]">
-                      {strategy.params_summary.timeframe}
-                    </span>
-                  )}
-                  {strategy.has_sidecar && (
-                    <span className="rounded border border-[rgb(34_197_94_/_0.32)] bg-[rgb(34_197_94_/_0.10)] px-2 py-0.5 text-xs text-[var(--app-success)]">
-                      Sidecar ✓
-                    </span>
-                  )}
-                </div>
+              )}
+            </div>
+            {selectedStrategy && (
+              <a
+                href={`/strategies/${encodeURIComponent(selectedStrategy)}`}
+                className="shrink-0 rounded-[var(--app-radius)] border border-[var(--app-border)] bg-[var(--app-surface)] px-3 py-1.5 text-xs font-medium text-[var(--app-text-muted)] transition-colors hover:text-[var(--app-text)]"
+              >
+                Open workspace →
+              </a>
+            )}
+          </div>
+
+          {/* Status strip */}
+          {selectedStrategy && strategy && (
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 border-b border-[var(--app-border)] px-5 py-3">
+              <StatusBadge
+                status={strategy.readiness}
+                tone={readinessTone(strategy.readiness)}
+                label={`Readiness: ${readinessLabel(strategy.readiness)}`}
+              />
+              {strategy.has_sidecar ? (
+                <span className="rounded border border-[rgb(34_197_94_/_0.32)] bg-[rgb(34_197_94_/_0.10)] px-2 py-0.5 text-xs text-[var(--app-success)]">
+                  Sidecar ✓
+                </span>
+              ) : (
+                <span className="rounded border border-[var(--app-border)] px-2 py-0.5 text-xs text-[var(--app-text-subtle)]">
+                  No sidecar
+                </span>
+              )}
+              {displayTimeframe && (
+                <span className="rounded border border-[var(--app-border)] bg-[var(--app-surface)] px-2 py-0.5 text-xs font-mono text-[var(--app-text-muted)]">
+                  {displayTimeframe}
+                </span>
+              )}
+              {displayPairs && displayPairs.length > 0 && (
+                <span className="text-xs text-[var(--app-text-muted)]">
+                  {displayPairs.length === 1
+                    ? displayPairs[0]
+                    : `${displayPairs[0]} +${displayPairs.length - 1} pair${displayPairs.length > 2 ? 's' : ''}`}
+                </span>
+              )}
+              {strategy.issues.length > 0 && (
+                <span className="text-xs text-[var(--app-danger)]">
+                  {strategy.issues.length} issue{strategy.issues.length !== 1 ? 's' : ''}
+                </span>
+              )}
+              {latestDecision && (
+                <StatusBadge status={String(latestDecision)} label={`Decision: ${String(latestDecision)}`} />
+              )}
+              {/* Latest run status */}
+              {(latestBaseline || latestOptimization || latestValidation) && (
+                <span className="text-xs text-[var(--app-text-subtle)]">
+                  Latest run:{' '}
+                  <span className="font-medium text-[var(--app-text-muted)]">
+                    {latestValidation
+                      ? `Validation — ${latestValidation.status}`
+                      : latestOptimization
+                      ? `Optimization — ${latestOptimization.result_status ?? latestOptimization.status}`
+                      : `Baseline — ${latestBaseline?.classification ?? latestBaseline?.status}`}
+                  </span>
+                </span>
               )}
             </div>
           )}
-        </SectionCard>
 
+          {/* Action buttons */}
+          {selectedStrategy && !loading && (
+            <div className="flex flex-wrap items-center gap-3 px-5 py-4">
+              <p className="mr-2 text-xs font-semibold text-[var(--app-text-subtle)]">Run actions</p>
+              <ActionButton
+                label="Start Baseline"
+                href="/baseline"
+                enabled={canRunBaseline}
+                disabledReason={
+                  !strategy
+                    ? 'Select a strategy first.'
+                    : activeBaselineRun || activeOptimizationRun
+                    ? 'A run is already active.'
+                    : !canRunBaseline
+                    ? `Strategy readiness is ${strategy?.readiness ?? 'unknown'}. Fix issues before running.`
+                    : undefined
+                }
+              />
+              <ActionButton
+                label="Start Optimization"
+                href="/optimization"
+                enabled={canRunOptimization}
+                disabledReason={
+                  activeBaselineRun || activeOptimizationRun
+                    ? 'A run is already active.'
+                    : !latestBaseline
+                    ? 'Run a baseline first.'
+                    : !canRunOptimization
+                    ? 'Latest baseline was rejected or is incomplete.'
+                    : undefined
+                }
+              />
+              <ActionButton
+                label="Start Validation"
+                href="/validation"
+                enabled={canRunValidation}
+                disabledReason={
+                  activeBaselineRun || activeOptimizationRun
+                    ? 'A run is already active.'
+                    : !canRunValidation
+                    ? 'A completed baseline or optimization run is required.'
+                    : undefined
+                }
+              />
+              <span className="ml-auto text-[11px] text-[var(--app-text-subtle)]">
+                Each form requires confirmation before execution.
+              </span>
+            </div>
+          )}
+        </div>
+
+        {/* Live run panel */}
+        {selectedStrategy && !loading && hasActiveRun && (
+          <SectionCard title="Live run" description="A run is currently active. Polling every 2 seconds.">
+            <div className="space-y-3">
+              {activeBaselineRun && (
+                <LiveRunPanel runType="baseline" runId={activeBaselineRun.id} label="Baseline run (active)" />
+              )}
+              {activeOptimizationRun && (
+                <LiveRunPanel runType="optimization" runId={activeOptimizationRun.id} label="Optimization run (active)" />
+              )}
+            </div>
+          </SectionCard>
+        )}
+
+        {/* Main content */}
         {selectedStrategy && !loading && (
-          <>
-            {hasActiveRun && (
-              <SectionCard title="Live run" description="A run is currently active. Polling every 2 seconds.">
-                <div className="space-y-3">
-                  {activeBaselineRun && (
-                    <LiveRunPanel runType="baseline" runId={activeBaselineRun.id} label="Baseline run (active)" />
-                  )}
-                  {activeOptimizationRun && (
-                    <LiveRunPanel runType="optimization" runId={activeOptimizationRun.id} label="Optimization run (active)" />
-                  )}
-                </div>
-              </SectionCard>
-            )}
-
-            <div className="grid gap-6 xl:grid-cols-3">
-              <div className="xl:col-span-2">
-                <SectionCard
-                  title="Journey timeline"
-                  description="Status of each lifecycle stage based on real backend data. Not started means no backend record was found."
-                >
-                  {steps.length === 0 ? (
-                    <EmptyState title="No steps to show" description="Select a strategy to see its journey." />
-                  ) : (
-                    <WorkflowStepper steps={steps} orientation="vertical" />
-                  )}
-                </SectionCard>
-              </div>
-
-              <div className="space-y-4">
-                <SectionCard title="Evidence summary" description="Latest run records for this strategy.">
-                  <div className="space-y-3">
-                    <EvidenceRow
-                      label="Baseline runs"
-                      count={strategyBaselines.length}
-                      latest={latestBaseline ? {
-                        status: latestBaseline.classification ?? latestBaseline.status,
-                        href: `/baseline/${latestBaseline.id}`,
-                        ts: latestBaseline.created_at,
-                      } : null}
-                    />
-                    <EvidenceRow
-                      label="Optimization runs"
-                      count={strategyOptimizations.length}
-                      latest={latestOptimization ? {
-                        status: latestOptimization.result_status ?? latestOptimization.status,
-                        href: `/optimization/${latestOptimization.id}`,
-                        ts: latestOptimization.created_at,
-                      } : null}
-                    />
-                    <EvidenceRow
-                      label="Validation runs"
-                      count={strategyValidations.length}
-                      latest={latestValidation ? {
-                        status: latestValidation.decision_status ?? latestValidation.status,
-                        href: `/validation/${latestValidation.validation_run_id}`,
-                        ts: latestValidation.created_at,
-                      } : null}
-                    />
-                  </div>
-                </SectionCard>
-
-                {nextActions.length > 0 && (
-                  <NextActionPanel
-                    title="Next safe action"
-                    message="Select an action below to navigate to the relevant detail page."
-                    actions={nextActions}
-                  />
+          <div className="grid gap-6 xl:grid-cols-3">
+            {/* Journey timeline — 2/3 */}
+            <div className="xl:col-span-2">
+              <SectionCard
+                title="Journey timeline"
+                description="Status of each lifecycle stage from real backend data. Not started means no record was found."
+              >
+                {steps.length === 0 ? (
+                  <EmptyState title="No steps" description="Select a strategy to see its journey." />
+                ) : (
+                  <WorkflowStepper steps={steps} orientation="vertical" />
                 )}
-              </div>
+              </SectionCard>
             </div>
 
-            {baselineMetrics && (
-              <SectionCard
-                title="Latest baseline snapshot"
-                description={`Quick-view of the most recent baseline run (${latestBaseline?.id ?? ''}). Open the baseline detail for full evidence.`}
-              >
-                <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                  <MetricCard
-                    label="Status"
-                    value={latestBaseline?.classification ?? latestBaseline?.status ?? 'Unknown'}
+            {/* Sidebar — 1/3 */}
+            <div className="space-y-4">
+              <SectionCard title="Evidence summary" description="Run counts for this strategy.">
+                <div className="space-y-3">
+                  <EvidenceRow
+                    label="Baseline runs"
+                    count={strategyBaselines.length}
+                    latest={latestBaseline ? {
+                      status: latestBaseline.classification ?? latestBaseline.status,
+                      href: `/baseline/${latestBaseline.id}`,
+                      ts: latestBaseline.created_at,
+                    } : null}
                   />
-                  <MetricCard
-                    label="Mode"
-                    value={latestBaseline?.mode ?? 'Not recorded'}
+                  <EvidenceRow
+                    label="Optimization runs"
+                    count={strategyOptimizations.length}
+                    latest={latestOptimization ? {
+                      status: latestOptimization.result_status ?? latestOptimization.status,
+                      href: `/optimization/${latestOptimization.id}`,
+                      ts: latestOptimization.created_at,
+                    } : null}
                   />
-                  <MetricCard
-                    label="Created"
-                    value={fmtTs(latestBaseline?.created_at)}
+                  <EvidenceRow
+                    label="Validation runs"
+                    count={strategyValidations.length}
+                    latest={latestValidation ? {
+                      status: latestValidation.decision_status ?? latestValidation.status,
+                      href: `/validation/${latestValidation.validation_run_id}`,
+                      ts: latestValidation.created_at,
+                    } : null}
                   />
-                  <MetricCard
-                    label="Updated"
-                    value={fmtTs(latestBaseline?.updated_at)}
-                  />
-                </div>
-                <div className="mt-4">
-                  <a
-                    href={`/baseline/${latestBaseline?.id}`}
-                    className="inline-flex h-9 items-center rounded-[var(--app-radius)] border border-[var(--app-border)] bg-[var(--app-surface-muted)] px-3.5 text-sm text-[var(--app-text-muted)] hover:text-[var(--app-text)] transition-colors"
-                  >
-                    Open full baseline detail →
-                  </a>
                 </div>
               </SectionCard>
-            )}
 
-            {strategy && strategy.issues.length > 0 && (
-              <SectionCard
-                title="Strategy issues"
-                description="Readiness issues detected by the backend. Resolve critical and error issues before running."
+              {nextActions.length > 0 && (
+                <NextActionPanel
+                  title="Next safe action"
+                  message="Navigate to a detail page to review evidence."
+                  actions={nextActions}
+                />
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Latest baseline snapshot */}
+        {selectedStrategy && !loading && latestBaseline && (
+          <SectionCard
+            title="Latest baseline snapshot"
+            description={`Most recent baseline run — ${latestBaseline.id}. Open the detail page for full evidence.`}
+          >
+            <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+              <MetricCard
+                label="Classification"
+                value={latestBaseline.classification ?? latestBaseline.status ?? '—'}
+              />
+              <MetricCard
+                label="Mode"
+                value={latestBaseline.mode ?? '—'}
+              />
+              <MetricCard
+                label="Started"
+                value={fmtTs(latestBaseline.started_at ?? latestBaseline.created_at)}
+              />
+              <MetricCard
+                label="Completed"
+                value={fmtTs(latestBaseline.completed_at ?? latestBaseline.updated_at)}
+              />
+            </div>
+            <div className="mt-4">
+              <a
+                href={`/baseline/${latestBaseline.id}`}
+                className="inline-flex h-9 items-center rounded-[var(--app-radius)] border border-[var(--app-border)] bg-[var(--app-surface-muted)] px-3.5 text-sm text-[var(--app-text-muted)] transition-colors hover:text-[var(--app-text)]"
               >
-                <div className="space-y-2">
-                  {strategy.issues.map((issue, idx) => {
-                    const tone =
-                      issue.severity === 'critical' || issue.severity === 'error'
-                        ? 'danger'
-                        : issue.severity === 'warning'
-                        ? 'warning'
-                        : 'neutral';
-                    return (
-                      <div key={idx} className="rounded-[var(--app-radius)] border border-[var(--app-border)] bg-[var(--app-surface-muted)] p-3">
-                        <div className="flex flex-wrap items-center gap-2">
-                          <StatusBadge status={issue.severity} tone={tone as 'danger' | 'warning' | 'neutral'} />
-                          <span className="font-mono text-xs text-[var(--app-text-muted)]">{issue.code}</span>
-                        </div>
-                        <p className="mt-2 text-sm leading-6 text-[var(--app-text)]">{issue.message}</p>
-                      </div>
-                    );
-                  })}
-                </div>
-              </SectionCard>
-            )}
-          </>
+                Open full baseline detail →
+              </a>
+            </div>
+          </SectionCard>
+        )}
+
+        {/* Strategy issues */}
+        {selectedStrategy && !loading && strategy && strategy.issues.length > 0 && (
+          <SectionCard
+            title="Strategy issues"
+            description="Readiness issues detected by the backend. Resolve critical and error issues before running."
+          >
+            <div className="space-y-2">
+              {strategy.issues.map((issue, idx) => {
+                const tone =
+                  issue.severity === 'critical' || issue.severity === 'error'
+                    ? 'danger'
+                    : issue.severity === 'warning'
+                    ? 'warning'
+                    : 'neutral';
+                return (
+                  <div key={idx} className="rounded-[var(--app-radius)] border border-[var(--app-border)] bg-[var(--app-surface-muted)] p-3">
+                    <div className="flex flex-wrap items-center gap-2">
+                      <StatusBadge status={issue.severity} tone={tone as 'danger' | 'warning' | 'neutral'} />
+                      <span className="font-mono text-xs text-[var(--app-text-muted)]">{issue.code}</span>
+                    </div>
+                    <p className="mt-2 text-sm leading-6 text-[var(--app-text)]">{issue.message}</p>
+                  </div>
+                );
+              })}
+            </div>
+          </SectionCard>
+        )}
+
+        {/* Empty state when no strategy selected */}
+        {!loading && !selectedStrategy && state.strategies.length === 0 && (
+          <EmptyState
+            title="No strategies found"
+            description="Import strategies into the backend to see them here."
+          />
         )}
       </div>
     </AppShell>
+  );
+}
+
+// ─── Sub-components ───────────────────────────────────────────────────────────
+
+function ActionButton({
+  label,
+  href,
+  enabled,
+  disabledReason,
+}: {
+  label: string;
+  href: string;
+  enabled: boolean;
+  disabledReason?: string;
+}) {
+  if (enabled) {
+    return (
+      <a
+        href={href}
+        className="inline-flex h-9 items-center rounded-[var(--app-radius)] border border-[var(--app-accent-border)] bg-[var(--app-accent-soft)] px-4 text-sm font-medium text-[var(--app-accent)] transition-colors hover:bg-[var(--app-accent)] hover:text-white"
+      >
+        {label}
+      </a>
+    );
+  }
+
+  return (
+    <span
+      title={disabledReason}
+      className="inline-flex h-9 cursor-not-allowed items-center rounded-[var(--app-radius)] border border-[var(--app-border)] bg-[var(--app-surface)] px-4 text-sm font-medium text-[var(--app-text-subtle)] opacity-50"
+    >
+      {label}
+    </span>
   );
 }
 
@@ -615,7 +768,7 @@ function EvidenceRow({
         {latest && (
           <a
             href={latest.href}
-            className="rounded border border-[var(--app-border)] bg-[var(--app-surface)] px-2 py-0.5 text-[11px] text-[var(--app-text-muted)] hover:text-[var(--app-accent)] transition-colors"
+            className="rounded border border-[var(--app-border)] bg-[var(--app-surface)] px-2 py-0.5 text-[11px] text-[var(--app-text-muted)] transition-colors hover:text-[var(--app-accent)]"
           >
             View
           </a>
